@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.TagMapper">
+	
+	<!-- 列出所有类型 -->
+	<select id="list" resultType="tag">
+		select * from tag
+	</select>
+	
+	<!-- 通过名字找标签 -->
+	<select id="findByName" parameterType="string" resultType="tag">
+		select * from tag where name = #{name}
+	</select>
+	
+    <!-- 保存标签 -->
+	<insert id="save" parameterType="tag">
+		insert into tag (name,create_time,update_time) values (#{name},#{createTime},#{updateTime})
+	</insert>
+	
+    <!-- 向blog_tag中间表插入数据 -->
+	<insert id="saveBlogAndTag" parameterType="long">
+		insert into blog_tag (blog_id,tag_id) values (#{blogId},#{tagId})
+	</insert>
+	
+	<!-- 通过blog_id删除blog_tag中间表的数据 -->
+	<delete id="deleteByBlogId" parameterType="long">
+		delete from blog_tag where blog_id = #{blogId}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.UserMapper">
+	
+	<!-- 通过token查找用户 -->
+	<select id="findByToken" parameterType="string" resultType="user">
+		select * from user where token = #{token}
+	</select>
+	
+	<!-- 通过用户名和密码查找用户 -->
+	<select id="findByUsernameAndPassword" parameterType="string" resultType="user">
+		select * from user where username = #{username} and password = #{password}
+	</select>
+	
+	<!-- 通过id更新token -->
+	<update id="updateTokenById">
+		update user set token = #{token} where id = #{id}
+	</update>
+
+</mapper>

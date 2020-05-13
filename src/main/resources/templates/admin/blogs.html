@@ -65,16 +65,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="blog,iterStat : ${pageInfo.getList()}">
+                        <tr th:each="dto,iterStat : ${pageInfo.getList()}">
                             <td th:text="${iterStat.count}">1</td>
-                            <td th:text="${blog.title}">被压倒的年轻人</td>
-                            <td th:text="${blog.type.name}">认真升级</td>
-                            <td th:text="${blog.recommend} ? '是':'否' ">是</td>
-                            <td th:text="${blog.published} ? '发布':'草稿' ">草稿</td>
-                            <td th:text="${blog.updateTime}">2020-02-05</td>
+                            <td th:text="${dto.title}">被压倒的年轻人</td>
+                            <td th:text="${dto.typeName}">认真升级</td>
+                            <td th:text="${dto.isRecommend} ? '是':'否' ">是</td>
+                            <td th:text="${dto.isPublished} ? '发布':'草稿' ">草稿</td>
+                            <td th:text="${#dates.format(dto.updateTime,'yyyy-MM-dd')}">2020-02-05</td>
                             <td>
-                                <a th:href="@{/admin/blogs/edit/{id}(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
-                                <a th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('删除你是认真的吗？');" class="ui mini red basic button">删除</a>
+                                <a th:href="@{/admin/blogs/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
+                                <a th:href="@{/admin/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('删除你是认真的吗？');" class="ui mini red basic button">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -132,7 +132,7 @@
         	$("#table-container").load("/admin/blogs/search",{
         		title : $("[name='title']").val(),
         		typeId : $("[name='typeId']").val(),
-        		recommend : $("[name='recommend']").val(),
+        		isRecommend : $("[name='isRecommend']").val(),
         		page : $("[name='page']").val()
         	});
         }
