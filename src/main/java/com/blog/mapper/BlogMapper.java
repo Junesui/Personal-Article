@@ -17,14 +17,20 @@ import com.blog.entity.Blog;
 @Mapper
 public interface BlogMapper {
 
-	List<BlogTypeTagDTO> listBlogAndTypeName();
+	List<BlogTypeTagDTO> listBlogAndType();
 
-	int save(BlogTypeTagDTO dto);
+	Long save(BlogTypeTagDTO dto);
 
-	BlogTypeTagDTO findById(Long id);
+	Blog findById(Long id);
 
-	int update(Blog blog);
+	void update(Blog blog);
 
 	List<BlogTypeTagDTO> listBySearch(BlogQueryDTO blogQueryDTO);
+
+	BlogTypeTagDTO findBlogAndTypeById(Long id);
+
+	void deleteById(Long id);
+
+	void deleteByTypeId(Long typeId);
 
 }

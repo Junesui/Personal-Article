@@ -5,7 +5,7 @@
 	
 	<!-- 列出所有类型 -->
 	<select id="list" resultType="type">
-		select * from type
+		select * from type order by update_time desc
 	</select>
 	
 	<!-- 通过名字查找分类 -->
@@ -13,9 +13,25 @@
 		select * from type where name = #{name}
 	</select>
 	
+	<!-- 通过id查找分类 -->
+	<select id="findById" parameterType="long" resultType="type">
+		select * from type where id = #{id}
+	</select>
+	
 	<!-- 保存分类 -->
 	<insert id="save" parameterType="type">
 		insert into type (name,create_time,update_time) values (#{name},#{createTime},#{updateTime})
 	</insert>
+	
+	<!-- 更新分类 -->
+	<update id="update" parameterType="type">
+		update type set name = #{name},update_time = #{updateTime} where id = #{id}
+	</update>
+	
+	<!--  -->
+	<delete id="deleteById" parameterType="long">
+		delete from type where id = #{id}
+	</delete>
+	
 
 </mapper>

@@ -5,12 +5,25 @@
 	
 	<!-- 列出所有类型 -->
 	<select id="list" resultType="tag">
-		select * from tag
+		select * from tag order by update_time desc
 	</select>
 	
 	<!-- 通过名字找标签 -->
 	<select id="findByName" parameterType="string" resultType="tag">
 		select * from tag where name = #{name}
+	</select>
+	
+	<!-- 通过id获取标签 -->
+	<select id="findById" parameterType="long" resultType="tag">
+		select * from tag where id = #{id}
+	</select>
+	
+	<!-- 通过博客id查找对应的标签id -->
+	<select id="listByBlogId" parameterType="long" resultType="long">
+		select t.id from tag t 
+		inner join blog_tag bt on t.id=bt.tag_id
+		inner join blog b on bt.blog_id=b.id
+		where b.id=#{blogId}
 	</select>
 	
     <!-- 保存标签 -->
@@ -27,6 +40,21 @@
 	<delete id="deleteByBlogId" parameterType="long">
 		delete from blog_tag where blog_id = #{blogId}
 	</delete>
+	
+	<!-- 通过id删除标签 -->
+	<delete id="deleteById" parameterType="long">
+		delete from tag where id = #{id}
+	</delete>
+	
+	<!-- 通过标签id删除blog_tag中间表 -->
+	<delete id="deleteByTagId" parameterType="long">
+		delete from blog_tag where tag_id = #{id}
+	</delete>
+	
+	<!-- 更新标签 -->
+	<update id="update" parameterType="tag">
+		update tag set name = #{name},update_time = #{updateTime} where id = #{id}
+	</update>
 	
 
 </mapper>

@@ -6,7 +6,7 @@
 <body>
 
     <!--头部-->
-    <nav th:replace="admin/_fragments :: menu(2)"></nav>
+    <nav th:replace="admin/_fragments :: menu(3)"></nav>
    
     <!--导航-->
     <div class="ui attached pointing menu">
@@ -29,7 +29,7 @@
                 <div class="ui error message"></div>
                 <!-- 提示信息 -->
                 <!--/*/
-                 <div class="ui negative message" th:if="${nameError} != null">
+                <div class="ui negative message" th:if="${nameError} != null">
                     <i class="close icon"></i>
                     <div class="header">验证失败</div>
                     <p th:text="${nameError}"></p>

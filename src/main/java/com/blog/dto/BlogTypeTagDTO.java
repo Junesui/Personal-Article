@@ -24,7 +24,7 @@ public class BlogTypeTagDTO extends Blog {
 	//标签名称
 	private String tagName;
 	
-	//发布博客时页面传过来的标签id
+	//发布博客页面的多个标签id
 	private String tagIds;
 	
 	//用户id

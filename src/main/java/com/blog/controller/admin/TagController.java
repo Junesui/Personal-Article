@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ public class TagController {
 
 	@Autowired
 	private TagService tagService;
-	
+
 	/**
 	 * 跳转到标签管理页面
 	 * @param pageNum
@@ -37,19 +38,17 @@ public class TagController {
 	 * @return 标签管理页面
 	 */
 	@GetMapping("/tags")
-	public String toTags(@RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-					     @RequestParam(name = "size", defaultValue = "3") Integer pageSize, 
-					     Model model) {
+	public String toTags(@RequestParam(name = "page", defaultValue = "1") Integer page,
+			@RequestParam(name = "size", defaultValue = "3") Integer size, Model model) {
 		//分页
-		PageHelper.startPage(pageNum, pageSize);
+		PageHelper.startPage(page, size);
 		List<Tag> tags = tagService.list();
-		
+
 		PageInfo<Tag> pageInfo = new PageInfo<>(tags);
 		model.addAttribute("pageInfo", pageInfo);
 		return "admin/tags";
 	}
-	
-	
+
 	/**
 	 * 跳转到标签添加页面
 	 * @param model
@@ -60,8 +59,19 @@ public class TagController {
 		model.addAttribute("tag", new Tag());
 		return "admin/tag-release";
 	}
-	
-	
+
+	/**
+	 * 跳转到标签编辑页面
+	 * @param id
+	 * @param model
+	 * @return 标签编辑页面
+	 */
+	@GetMapping("/tags/edit/{id}")
+	public String toEdit(@PathVariable Long id, Model model) {
+		model.addAttribute("tag", tagService.findById(id));
+		return "admin/tag-release";
+	}
+
 	/**
 	 * 添加标签
 	 * @param tag
@@ -69,26 +79,53 @@ public class TagController {
 	 * @return
 	 */
 	@PostMapping("/tags")
-	public String post(Tag tag,RedirectAttributes attributes) {
+	public String post(Tag tag, RedirectAttributes attributes, Model model) {
 
 		//名称是否重复验证
 		if (tagService.findByName(tag.getName()) != null) {
-			attributes.addFlashAttribute("nameError", "标签名称已经存在");
-			return "redirect:/admin/tags/addPage";
+			model.addAttribute("nameError", "标签名称已经存在");
+			return "/admin/tag-release";
 		}
-		
+
 		//保存标签
-		int tagSaveRst = tagService.save(tag);
-		if (tagSaveRst == 1) {
-			//添加成功
-			attributes.addFlashAttribute("message", "新增成功");
-		} else {
-			//添加失败
-			attributes.addFlashAttribute("message", "新增失败");
-		}
+		tagService.save(tag);
+		attributes.addFlashAttribute("message", "新增成功");
 		return "redirect:/admin/tags";
 	}
-	
-	
-	
+
+	/**
+	 * 编辑标签
+	 * @param tag
+	 * @param id
+	 * @param attributes
+	 * @param model
+	 * @return 标签管理页面
+	 */
+	@PostMapping("/tags/{id}")
+	public String editpost(Tag tag, @PathVariable Long id, RedirectAttributes attributes, Model model) {
+
+		//名称是否重复验证
+		if (tagService.findByName(tag.getName()) != null) {
+			model.addAttribute("nameError", "分类名称已经存在");
+			return "/admin/tag-release";
+		}
+
+		tagService.update(tag);
+		attributes.addFlashAttribute("message", "更新成功");
+		return "redirect:/admin/tags";
+	}
+
+	/**
+	 * 删除标签
+	 * @param id
+	 * @param attributes
+	 * @return 标签管理页面
+	 */
+	@GetMapping("/tags/delete/{id}")
+	public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+		tagService.deleteById(id);
+		attributes.addFlashAttribute("message", "删除成功");
+		return "redirect:/admin/tags";
+	}
+
 }

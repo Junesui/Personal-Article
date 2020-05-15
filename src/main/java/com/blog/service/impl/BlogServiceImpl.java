@@ -14,7 +14,8 @@ import com.blog.entity.Blog;
 import com.blog.mapper.BlogMapper;
 import com.blog.mapper.TagMapper;
 import com.blog.service.BlogService;
-import com.blog.util.StringToListUtils;
+import com.blog.service.CommentService;
+import com.blog.util.StringAndListConvertUtils;
 
 /**
  * 博客service实现类
@@ -29,19 +30,20 @@ public class BlogServiceImpl implements BlogService {
 	private BlogMapper blogMapper;
 	@Autowired
 	private TagMapper tagMapper;
+	@Autowired
+	private CommentService commentService;
 
-	
 	@Override
-	public List<BlogTypeTagDTO> listBlogAndTypeName() {
-		return blogMapper.listBlogAndTypeName();
+	public List<BlogTypeTagDTO> listBlogAndType() {
+		return blogMapper.listBlogAndType();
 	}
 
 	@Transactional
 	@Override
-	public int saveOrUpdate(BlogTypeTagDTO dto) {
-		
+	public void saveOrUpdate(BlogTypeTagDTO dto) {
+
 		//字符串标签ids转换为列表
-		List<Long> tagIdList = StringToListUtils.convert(dto.getTagIds());
+		List<Long> tagIdList = StringAndListConvertUtils.toList(dto.getTagIds());
 
 		Long blogId = dto.getId();
 		if (blogId == null) {
@@ -49,14 +51,10 @@ public class BlogServiceImpl implements BlogService {
 			dto.setCreateTime(new Date(System.currentTimeMillis()));
 			dto.setUpdateTime(new Date(System.currentTimeMillis()));
 			//插入博客
-			int blogSaveRst = blogMapper.save(dto);
+			blogMapper.save(dto);
 			//插入blog_tag中间表
 			for (Long tagId : tagIdList) {
-				tagMapper.saveBlogAndTag(dto.getId(),tagId);
-			}
-			//插入成功
-			if ((blogSaveRst==1)) {
-				return 1;
+				tagMapper.saveBlogAndTag(dto.getId(), tagId);
 			}
 		} else {
 			//更新操作
@@ -64,24 +62,37 @@ public class BlogServiceImpl implements BlogService {
 			BeanUtils.copyProperties(dto, b);
 			b.setUpdateTime(new Date(System.currentTimeMillis()));
 			//更新博客
-			int blogUpdateRst = blogMapper.update(b);
+			blogMapper.update(b);
 			//删除该博客的blog_tag中间表数据，重新插入blog_tag中间表
 			tagMapper.deleteByBlogId(blogId);
 			for (Long tagId : tagIdList) {
 				tagMapper.saveBlogAndTag(blogId, tagId);
 			}
-			//更新成功
-			if ((blogUpdateRst == 1)) {
-				return 1;
-			}
 		}
-		return 0;
 	}
 
 	@Override
 	public List<BlogTypeTagDTO> listBySearch(BlogQueryDTO blogQueryDTO) {
-		
+
 		return blogMapper.listBySearch(blogQueryDTO);
+	}
+
+	@Override
+	public BlogTypeTagDTO findBlogAndTypeById(Long id) {
+		return blogMapper.findBlogAndTypeById(id);
+	}
+
+	@Transactional
+	@Override
+	public void deleteById(Long id) {
+
+		//删除中间表
+		tagMapper.deleteByBlogId(id);
+		//删除评论
+		commentService.deleteByBlogId(id);
+		//删除博客
+		blogMapper.deleteById(id);
+
 	}
 
 }

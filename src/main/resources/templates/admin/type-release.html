@@ -29,10 +29,10 @@
                 <div class="ui error message"></div>
                 <!-- 提示信息 -->
                 <!--/*/
-                 <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                 <div class="ui negative message" th:if="${nameError} != null">
                     <i class="close icon"></i>
                     <div class="header">验证失败</div>
-                    <p th:errors="*{name}"></p>
+                    <p th:text="${nameError}"></p>
                 </div> 
                 /*/-->
                 <div class="ui right aligned container">

@@ -41,8 +41,8 @@
                     </div>
                     <div class="field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="recommend" name="recommend" value="false" onclick="setVal()">
-                            <label for="recommend">推荐</label>
+                            <input type="checkbox" id="isRecommend" name="isRecommend" value="false" onclick="setVal()">
+                            <label for="isRecommend">推荐</label>
                         </div>
                     </div>
                     <div class="field">
@@ -70,11 +70,11 @@
                             <td th:text="${dto.title}">被压倒的年轻人</td>
                             <td th:text="${dto.typeName}">认真升级</td>
                             <td th:text="${dto.isRecommend} ? '是':'否' ">是</td>
-                            <td th:text="${dto.isPublished} ? '发布':'草稿' ">草稿</td>
+                            <td th:text="${dto.isPublished} ? '发布':'草稿' " th:class="${dto.isPublished}==false ? 'm-orange'">草稿</td>
                             <td th:text="${#dates.format(dto.updateTime,'yyyy-MM-dd')}">2020-02-05</td>
                             <td>
                                 <a th:href="@{/admin/blogs/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
-                                <a th:href="@{/admin/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('删除你是认真的吗？');" class="ui mini red basic button">删除</a>
+                                <a th:href="@{/admin/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('确定删除该博客吗？');" class="ui mini red basic button">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -91,7 +91,7 @@
                     </tfoot>
                 </table>
                 <!-- 提示信息 -->
-                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <div class="ui success message" th:if="${message} != null">
                     <i class="close icon"></i>
                     <div class="header">提示:</div>
                     <p th:text="${message}"></p>
@@ -143,20 +143,21 @@
                    .transition('fade');
         });
         
-        //给recommend设置value
-        function setVal(){
-        	if($('#recommend').is(':checked') == true){
-        		$('#recommend').val(true);
-        	}
-        	if($('#recommend').is(':checked') == false){
-        		$('#recommend').val(false);
-        	}
-        }
-        
         //清除按钮
 		$('.clear-btn').on('click', function() {
 			$('.selection.dropdown').dropdown('clear');
 		});
+        
+        //设置推荐checkbox的值
+        function setVal(){
+        	if($('#isRecommend').is(':checked') == true){
+        		$('#isRecommend').val(true);
+        	}
+        	if($('#isRecommend').is(':checked') == false){
+        		$('#isRecommend').val(false);
+        	}
+        }
+        
 	</script>    
 </body>
 </html>

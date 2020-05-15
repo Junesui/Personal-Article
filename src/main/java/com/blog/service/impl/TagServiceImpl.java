@@ -33,10 +33,34 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public int save(Tag tag) {
+	public void save(Tag tag) {
 		tag.setCreateTime(new Date(System.currentTimeMillis()));
 		tag.setUpdateTime(new Date(System.currentTimeMillis()));
-		return tagMapper.save(tag);
+		tagMapper.save(tag);
+	}
+
+	@Override
+	public List<Long> listByBlogId(Long BlogId) {
+		return tagMapper.listByBlogId(BlogId);
+	}
+
+	@Override
+	public Tag findById(Long id) {
+		return tagMapper.findById(id);
+	}
+
+	@Override
+	public void update(Tag tag) {
+		tag.setUpdateTime(new Date(System.currentTimeMillis()));
+		tagMapper.update(tag);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		//删除中间表
+		tagMapper.deleteByTagId(id);
+		//删除标签
+		tagMapper.deleteById(id);
 	}
 
 }

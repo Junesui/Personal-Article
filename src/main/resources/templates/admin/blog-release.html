@@ -60,11 +60,11 @@
                         <div class="ui left labeled action input">
                             <label class="ui compact teal basic label">标签</label>
                             <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="tagIds" th:value="*{tagIds}">
+                                <input type="hidden" name="tagIds" th:value="${tagIds}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">标签</div>
                                 <div class="menu">
-                                    <div class="item" th:each="tag : ${tags}" th:attr="data-value=${tag.id}" th:text="${tag.name}">java</div>
+                                    <div class="item" th:each="tag : ${tags}" th:data-value=${tag.id} th:text="${tag.name}">java</div>
                                 </div>
                             </div>
                         </div>
@@ -174,6 +174,13 @@
 				rules : [ {
 					type : 'empty',
 					prompt : '分类不能为空'
+				} ]
+			},
+			tagIds : {
+				identifier : 'tagIds',
+				rules : [ {
+					type : 'empty',
+					prompt : '标签不能为空'
 				} ]
 			},
 			firstPicture : {

@@ -13,5 +13,5 @@ public class BlogQueryDTO {
 
 	private String title;
 	private Long typeId;
-	private boolean isRecommend;
+	private Boolean isRecommend;
 }

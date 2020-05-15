@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,11 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.dto.BlogQueryDTO;
 import com.blog.dto.BlogTypeTagDTO;
-import com.blog.entity.Blog;
 import com.blog.entity.User;
 import com.blog.service.BlogService;
 import com.blog.service.TagService;
 import com.blog.service.TypeService;
+import com.blog.util.StringAndListConvertUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -39,8 +40,7 @@ public class BlogController {
 	private TypeService typeService;
 	@Autowired
 	private TagService tagService;
-	
-	
+
 	/**
 	 * 跳转到后台首页
 	 * @return
@@ -49,7 +49,7 @@ public class BlogController {
 	public String index() {
 		return "/admin/index";
 	}
-	
+
 	/**
 	 * 跳转到博客管理页面
 	 * @param pageNum 页码
@@ -58,19 +58,18 @@ public class BlogController {
 	 * @return 博客管理页面
 	 */
 	@GetMapping("/blogs")
-	public String toBlogs(@RequestParam(name = "page",defaultValue = "1") Integer pageNum,
-						@RequestParam(name = "size",defaultValue = "3") Integer pageSize,
-						Model model) {
+	public String toBlogs(@RequestParam(name = "page", defaultValue = "1") Integer page,
+			@RequestParam(name = "size", defaultValue = "3") Integer size, Model model) {
 		//分页
-		PageHelper.startPage(pageNum, pageSize);
-		List<BlogTypeTagDTO> blogTypeDTOs = blogService.listBlogAndTypeName();
-		
+		PageHelper.startPage(page, size);
+		List<BlogTypeTagDTO> blogTypeDTOs = blogService.listBlogAndType();
+
 		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(blogTypeDTOs);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("types", typeService.list());
 		return "admin/blogs";
 	}
-	
+
 	/**
 	 * 跳转到博客发布页面
 	 * @return
@@ -82,7 +81,7 @@ public class BlogController {
 		model.addAttribute("tags", tagService.list());
 		return "admin/blog-release";
 	}
-	
+
 	/**
 	 * 发布博客
 	 * @param blog
@@ -91,33 +90,70 @@ public class BlogController {
 	 * @return 博客管理页面
 	 */
 	@PostMapping("/blogs")
-	public String post(BlogTypeTagDTO blogTypeTagDTO,HttpSession session,RedirectAttributes attributes) {
+	public String post(BlogTypeTagDTO blogTypeTagDTO, HttpSession session, RedirectAttributes attributes) {
 
-		User user = (User)session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		blogTypeTagDTO.setUserId(user.getId());
-		
-		int i = blogService.saveOrUpdate(blogTypeTagDTO);
-		
-		if (i == 1) {
-			attributes.addFlashAttribute("message", "操作成功");
-		}else {
-			attributes.addFlashAttribute("message", "操作失败");
-		}
+
+		blogService.saveOrUpdate(blogTypeTagDTO);
+
+		attributes.addFlashAttribute("message", "操作成功");
 		return "redirect:/admin/blogs";
 	}
-	
-	
+
+	/**
+	 * 后台查找博客
+	 * @param pageNum
+	 * @param pageSize
+	 * @param blogQueryDTO
+	 * @param model
+	 * @return 博客管理页面的博客列表片段
+	 */
 	@PostMapping("/blogs/search")
-	public String search(@RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-			             @RequestParam(name = "size", defaultValue = "3") Integer pageSize, 
-			             BlogQueryDTO blogQueryDTO, Model model) {
+	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
+			@RequestParam(name = "size", defaultValue = "3") Integer size, BlogQueryDTO blogQueryDTO, Model model) {
 		//分页
-		PageHelper.startPage(pageNum, pageSize);
+		PageHelper.startPage(page, size);
 		List<BlogTypeTagDTO> dto = blogService.listBySearch(blogQueryDTO);
 		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(dto);
 		model.addAttribute("pageInfo", pageInfo);
 		return "admin/blogs :: blogList";
 	}
-	
-	
+
+	/**
+	 * 跳转到博客发布页面
+	 * @param id
+	 * @param model
+	 * @return 博客发布页面
+	 */
+	@GetMapping("/blogs/edit/{id}")
+	public String blogEdit(@PathVariable Long id, Model model) {
+		//通过博客id查找博客和分类
+		BlogTypeTagDTO blogTypeTagDTO = blogService.findBlogAndTypeById(id);
+
+		//通过博客id查找对应的标签id
+		List<Long> tagIdList = tagService.listByBlogId(id);
+		//列表tagids转换为字符串
+		String tagIds = StringAndListConvertUtils.toString(tagIdList);
+
+		model.addAttribute("blogTypeTagDTO", blogTypeTagDTO);
+		model.addAttribute("tagIds", tagIds);
+		model.addAttribute("types", typeService.list());
+		model.addAttribute("tags", tagService.list());
+		return "admin/blog-release";
+	}
+
+	/**
+	 * 根据id删除博客
+	 * @param id
+	 * @param model
+	 * @return 博客管理页面
+	 */
+	@GetMapping("/blogs/delete/{id}")
+	public String blogDelete(@PathVariable Long id, RedirectAttributes attributes) {
+		blogService.deleteById(id);
+		attributes.addFlashAttribute("message", "删除成功");
+		return "redirect:/admin/blogs";
+	}
+
 }

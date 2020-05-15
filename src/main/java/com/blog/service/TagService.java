@@ -18,6 +18,19 @@ public interface TagService {
 	//通过名字找到标签
 	Tag findByName(String name);
 
-	int save(Tag tag);
+	//保存标签
+	void save(Tag tag);
+
+	//通过博客id查找对应的标签id
+	List<Long> listByBlogId(Long BlogId);
+
+	//通过id查找标签
+	Tag findById(Long id);
+
+	//更新标签
+	void update(Tag tag);
+
+	//删除标签和中间表
+	void deleteById(Long id);
 
 }

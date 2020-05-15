@@ -4,7 +4,7 @@
 <mapper namespace="com.blog.mapper.BlogMapper">
 
 	<!-- 列出所有博客和对应的类型名称 -->
-	<select id="listBlogAndTypeName"
+	<select id="listBlogAndType"
 		resultType="com.blog.dto.BlogTypeTagDTO">
 		select b.*,t.name typeName from blog b inner join type t on b.type_id = t.id order by update_time desc
 	</select>
@@ -16,7 +16,7 @@
 
 	<!-- 搜索博客 -->
 	<select id="listBySearch" parameterType="com.blog.dto.BlogQueryDTO" resultType="com.blog.dto.BlogTypeTagDTO">
-		select b.title,b.is_recommend,b.is_published,b.update_time,t.name typeName from blog b inner join type t on b.type_id = t.id
+		select b.*,t.name typeName from blog b inner join type t on b.type_id = t.id
 		<where>
 			<if test="title != '' and title != null">
 				and b.title like concat('%',#{title},'%')
@@ -24,10 +24,19 @@
 			<if test="typeId != '' and typeId != null">
 				and b.type_id = #{typeId}
 			</if>
-			<if test="recommend == true">
-				and b.is_recommend = #{isRecommend}
+			<if test="isRecommend == true">
+				and b.is_recommend = true
 			</if>
 		</where>
+		order by update_time desc
+	</select>
+	
+	<!-- 通过id查找博客和对应的类型，标签 -->
+	<select id="findBlogAndTypeById" parameterType="long" resultType="com.blog.dto.BlogTypeTagDTO">
+		select b.*,type.id typeId
+		from blog b
+		inner join type on b.type_id=type.id
+		where b.id=#{id}
 	</select>
 
 	<!-- 插入博客数据 -->
@@ -45,5 +54,14 @@
 		title=#{title},content=#{content},first_picture=#{firstPicture},flag=#{flag},is_appreciated=#{isAppreciated},is_shared=#{isShared},is_commented=#{isCommented},is_recommend=#{isRecommend},is_published=#{isPublished},update_time=#{updateTime},type_id=#{typeId}
 		where id =#{id}
 	</update>
-
+	
+	<!-- 通过id删除博客 -->
+	<delete id="deleteById" parameterType="long">
+		delete from blog where id = #{id}
+	</delete>
+	
+	<!-- 通过类型id删除博客 -->
+	<delete id="deleteByTypeId" parameterType="long">
+		delete from blog where type_id = #{typeId}
+	</delete>
 </mapper>

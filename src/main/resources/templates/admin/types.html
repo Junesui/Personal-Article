@@ -38,7 +38,7 @@
                         <td th:text="${type.name}">被压倒的年轻人</td>
                         <td>
                             <a th:href="@{/admin/types/edit/{id}(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                            <a th:href="@{/admin/types/delete/{id}(id=${type.id})}" class="ui mini red basic button">删除</a>
+                            <a th:href="@{/admin/types/delete/{id}(id=${type.id})}" onclick="return confirm('确定删除该分类和该分类的博客的吗？');" class="ui mini red basic button">删除</a>
                         </td>
                     </tr>
                 </tbody>

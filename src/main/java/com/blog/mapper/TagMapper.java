@@ -17,12 +17,22 @@ public interface TagMapper {
 
 	List<Tag> list();
 
-	int saveBlogAndTag(Long blogId, Long tagId);
+	void saveBlogAndTag(Long blogId, Long tagId);
 
 	void deleteByBlogId(Long blogId);
 
 	Tag findByName(String name);
 
-	int save(Tag tag);
+	void save(Tag tag);
+
+	List<Long> listByBlogId(Long blogId);
+
+	Tag findById(Long id);
+
+	void update(Tag tag);
+
+	void deleteByTagId(Long id);
+
+	void deleteById(Long id);
 
 }

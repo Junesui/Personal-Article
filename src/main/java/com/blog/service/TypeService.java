@@ -19,6 +19,15 @@ public interface TypeService {
 	Type findByName(String name);
 
 	//保存分类
-	int save(Type type);
+	void save(Type type);
+
+	//通过id查找分类
+	Type findById(Long id);
+
+	//更新分类
+	void update(Type type);
+
+	//通过id删除分类
+	void deleteById(Long id);
 
 }

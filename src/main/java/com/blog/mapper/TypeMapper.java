@@ -19,6 +19,12 @@ public interface TypeMapper {
 
 	Type findByName(String name);
 
-	int save(Type type);
+	void save(Type type);
+
+	Type findById(Long id);
+
+	void update(Type type);
+
+	void deleteById(Long id);
 
 }
