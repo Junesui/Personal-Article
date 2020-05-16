@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.dto.TagBlogNumDTO;
 import com.blog.entity.Tag;
 import com.blog.mapper.TagMapper;
 import com.blog.service.TagService;
@@ -40,7 +41,7 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public List<Long> listByBlogId(Long BlogId) {
+	public List<Tag> listByBlogId(Long BlogId) {
 		return tagMapper.listByBlogId(BlogId);
 	}
 
@@ -61,6 +62,11 @@ public class TagServiceImpl implements TagService {
 		tagMapper.deleteByTagId(id);
 		//删除标签
 		tagMapper.deleteById(id);
+	}
+
+	@Override
+	public List<TagBlogNumDTO> listTopTag(Integer topTagNum) {
+		return tagMapper.listTopTag(topTagNum);
 	}
 
 }

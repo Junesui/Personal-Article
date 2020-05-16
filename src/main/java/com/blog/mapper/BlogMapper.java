@@ -33,4 +33,10 @@ public interface BlogMapper {
 
 	void deleteByTypeId(Long typeId);
 
+	List<BlogTypeTagDTO> listTopBlog();
+
+	List<Blog> listTopRecommendBlog(Integer topRecommendNum);
+
+	BlogTypeTagDTO findBlogDetailById(Long id);
+
 }

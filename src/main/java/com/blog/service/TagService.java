@@ -2,6 +2,7 @@ package com.blog.service;
 
 import java.util.List;
 
+import com.blog.dto.TagBlogNumDTO;
 import com.blog.entity.Tag;
 
 /**
@@ -22,7 +23,7 @@ public interface TagService {
 	void save(Tag tag);
 
 	//通过博客id查找对应的标签id
-	List<Long> listByBlogId(Long BlogId);
+	List<Tag> listByBlogId(Long BlogId);
 
 	//通过id查找标签
 	Tag findById(Long id);
@@ -32,5 +33,8 @@ public interface TagService {
 
 	//删除标签和中间表
 	void deleteById(Long id);
+
+	//列出博客首页的标签
+	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
 
 }

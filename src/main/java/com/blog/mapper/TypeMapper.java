@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.blog.dto.TypeBlogNumDTO;
 import com.blog.entity.Type;
 
 /**
@@ -26,5 +27,8 @@ public interface TypeMapper {
 	void update(Type type);
 
 	void deleteById(Long id);
+
+	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
+
 
 }

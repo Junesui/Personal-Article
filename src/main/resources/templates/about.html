@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+<title>关于我</title>
+</head>
+<body>
+    <!--导航 -->
+    <nav th:replace="_fragments :: menu(5)"></nav>
+    
+    <!--中间内容-->
+    <div class="m-container m-paddding-tb-big">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--left-->
+                <div class="ui eleven wide column">
+                    <div class="ui segment">
+                        <img alt="" src="/images/cat.png" class="ui rounded fluid image">
+                    </div>
+                </div>
+                <!--right-->
+                <div class="ui five wide column">
+                    <div class="ui top attached segment">
+                        <div class="ui header">关于我</div>
+                    </div>
+                    <!--个人介绍  -->
+                    <div class="ui attached segment">
+                        <p class="m-text">これは新しいロボットです。どんなロボットですか。人がした通りに、何でもするんです。</p>
+                    </div>
+                    <!--爱好标签  -->
+                    <div class="ui attached segment">
+                        <div class="ui orange basic label m-margin-tb-tiny">学习</div>
+                        <div class="ui orange basic label m-margin-tb-tiny">旅行</div>
+                        <div class="ui orange basic label m-margin-tb-tiny">学习旅行</div>
+                    </div>
+                    <!--技术标签-->
+                    <div class="ui attached segment">
+                        <div class="ui teal basic label m-margin-tb-tiny">学习</div>
+                        <div class="ui teal basic label m-margin-tb-tiny">学习</div>
+                        <div class="ui teal basic label m-margin-tb-tiny">学习</div>
+                        <div class="ui teal basic label m-margin-tb-tiny">吃</div>
+                        <div class="ui teal basic label m-margin-tb-tiny">吃</div>
+                        <div class="ui teal basic label m-margin-tb-tiny">吃</div>
+                    </div>
+                    <!--联系方式-->
+                    <div class="ui bottom attached segment">
+                        <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="#" class="ui circular icon button wechat"><i class="weixin icon"></i></a>
+                        <a href="#" class="ui circular icon button"><i class="qq icon"></i></a>
+                    </div>
+                    <div class="ui flowing popup top left transition hidden wechat-qr">
+                        <img alt="" src="/images/cat.png" class="ui rounded image small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!--底部-->
+    <footer th:replace="_fragments :: footer"></footer>
+    
+    <!-- script -->
+    <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    <script>
+    	$('.m-menuToggle').click(function(){
+    		$('.m-item').toggleClass('m-mobile-hide');
+    	});
+    	
+    	$('.qq').popup({
+    	    position : 'bottom center',
+    	    target   : '.qq',
+    	    content  : '123456'
+    	  });
+    	
+    	$('.wechat').popup({
+    		 popup : $('.wechat-qr'),
+    		 position : 'bottom center'
+    	});
+    </script>    
+</body>
+</html>

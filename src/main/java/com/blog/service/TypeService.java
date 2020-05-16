@@ -2,6 +2,7 @@ package com.blog.service;
 
 import java.util.List;
 
+import com.blog.dto.TypeBlogNumDTO;
 import com.blog.entity.Type;
 
 /**
@@ -29,5 +30,8 @@ public interface TypeService {
 
 	//通过id删除分类
 	void deleteById(Long id);
+
+	//列出博客首页的分类
+	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
 
 }

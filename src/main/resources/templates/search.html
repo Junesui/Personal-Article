@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+<title>搜索结果</title>
+</head>
+<body>
+    <!--导航 -->
+    <nav th:replace="_fragments :: menu(0)"></nav>
+
+    <!--中间内容-->
+    <div class="m-container-small m-paddding-tb-big">
+        <div class="ui container">
+            <!--top-->
+            <div class="ui top attached segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">搜索结果</h3>
+                    </div>
+                    <div class="column right aligned">
+                                                        共  <h2 class="ui orange header m-inline-block m-text-thin" th:text="${pageInfo.total}">33</h2> 个
+                    </div>
+                </div>
+            </div>
+            <!--博客列表-->
+            <div class="ui teal top attached segment">
+                <div class="ui padded vertical segment m-padding-content" th:each="blog : ${pageInfo.getList()}">
+                            <div class="ui mobile reversed stackable grid  middle aligned">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}" class="m-black">被压倒的年轻人</a></h3>
+                                    <p th:text="${#strings.abbreviate(blog.content,100)}"></p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="${blog.user.avatar}">
+                                                    <div class="content">
+                                                        <a href="#" class="header" th:text="${blog.user.nickname}">June</a>
+                                                    </div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>
+                                                    <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}"></span>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>
+                                                    <span th:text="${blog.views}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${blog.type.name}">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column">
+                                    <a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img alt="" th:src="@{${blog.firstPicture}}" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <!-- 分頁-->
+            <div class="ui bottom attached segment">
+                <div class="ui middle aligned two column grid" th:if="${pageInfo.pages} > 1">
+                    <div class="column">
+                        <a th:href="@{/(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
+                    </div>
+                    <div class="column right aligned">
+                        <a th:href="@{/(page=${pageInfo.pageNum}+1)}" th:if="${pageInfo.hasNextPage}" class="ui teal basic mini button">下一页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="_fragments :: footer"></footer>
+    
+    <!-- script -->
+    <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    
+<script>
+	$('.m-menuToggle').click(function(){
+		$('.m-item').toggleClass('m-mobile-hide');
+	});
+</script>    
+</body>
+</html>

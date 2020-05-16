@@ -38,20 +38,39 @@
 		inner join type on b.type_id=type.id
 		where b.id=#{id}
 	</select>
+	
+	<!-- 列出首页展示的博客相关信息  -->
+	<select id="listTopBlog" resultType="com.blog.dto.BlogTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from blog b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false order by update_time desc
+	</select>
+	
+	<!-- 列出首页展示的推荐博客 -->
+	<select id="listTopRecommendBlog" parameterType="int" resultType="blog">
+		select id,title from blog where is_commented = true order by update_time desc limit #{topRecommendNum}
+	</select>
+	
+	<!-- 获取博客详情页的信息 -->
+	<select id="findBlogDetailById" parameterType="long" resultType="com.blog.dto.BlogTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from blog b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id where b.id = #{id}
+	</select>
 
 	<!-- 插入博客数据 -->
 	<insert id="save" parameterType="com.blog.dto.BlogTypeTagDTO"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into blog
-		(title,content,first_picture,flag,original_link,view_count,comment_count,like_count,down_count,is_appreciated,is_shared,is_commented,is_deleted,is_recommend,is_top,is_privated,is_published,create_time,update_time,type_id,user_id)
+		(title,content,description,first_picture,flag,original_link,view_count,comment_count,like_count,down_count,is_appreciated,is_shared,is_commented,is_deleted,is_recommend,is_top,is_privated,is_published,create_time,update_time,type_id,user_id)
 		values
-		(#{title},#{content},#{firstPicture},#{flag},#{originalLink},#{viewCount},#{commentCount},#{likeCount},#{downCount},#{isAppreciated},#{isShared},#{isCommented},#{isDeleted},#{isRecommend},#{isTop},#{isPrivated},#{isPublished},#{createTime},#{updateTime},#{typeId},#{userId})
+		(#{title},#{content},#{description},#{firstPicture},#{flag},#{originalLink},#{viewCount},#{commentCount},#{likeCount},#{downCount},#{isAppreciated},#{isShared},#{isCommented},#{isDeleted},#{isRecommend},#{isTop},#{isPrivated},#{isPublished},#{createTime},#{updateTime},#{typeId},#{userId})
 	</insert>
 
 	<!-- 通过id更新博客 -->
 	<update id="update" parameterType="blog">
 		update blog set
-		title=#{title},content=#{content},first_picture=#{firstPicture},flag=#{flag},is_appreciated=#{isAppreciated},is_shared=#{isShared},is_commented=#{isCommented},is_recommend=#{isRecommend},is_published=#{isPublished},update_time=#{updateTime},type_id=#{typeId}
+		title=#{title},content=#{content},description=#{description},first_picture=#{firstPicture},flag=#{flag},is_appreciated=#{isAppreciated},is_shared=#{isShared},is_commented=#{isCommented},is_recommend=#{isRecommend},is_published=#{isPublished},update_time=#{updateTime},type_id=#{typeId}
 		where id =#{id}
 	</update>
 	

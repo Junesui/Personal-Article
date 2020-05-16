@@ -1,5 +1,6 @@
 package com.blog.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blog.dto.BlogQueryDTO;
 import com.blog.dto.BlogTypeTagDTO;
+import com.blog.entity.Tag;
 import com.blog.entity.User;
 import com.blog.service.BlogService;
 import com.blog.service.TagService;
@@ -43,10 +45,10 @@ public class BlogController {
 
 	/**
 	 * 跳转到后台首页
-	 * @return
+	 * @return 后台首页
 	 */
 	@GetMapping("/index")
-	public String index() {
+	public String toIndex() {
 		return "/admin/index";
 	}
 
@@ -132,9 +134,13 @@ public class BlogController {
 		BlogTypeTagDTO blogTypeTagDTO = blogService.findBlogAndTypeById(id);
 
 		//通过博客id查找对应的标签id
-		List<Long> tagIdList = tagService.listByBlogId(id);
+		List<Tag> tags = tagService.listByBlogId(id);
+		List<Long> tagList = new ArrayList<Long>();
+		for (Tag tag : tags) {
+			tagList.add(tag.getId());
+		}
 		//列表tagids转换为字符串
-		String tagIds = StringAndListConvertUtils.toString(tagIdList);
+		String tagIds = StringAndListConvertUtils.toString(tagList);
 
 		model.addAttribute("blogTypeTagDTO", blogTypeTagDTO);
 		model.addAttribute("tagIds", tagIds);

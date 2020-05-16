@@ -29,4 +29,13 @@ public interface BlogService {
 	//通过id删除博客，中间表，评论
 	public void deleteById(Long id);
 
+	//列出首页展示的博客相关信息
+	public List<BlogTypeTagDTO> listTopBlog();
+
+	//列出首页展示的推荐博客
+	public List<Blog> listTopRecommendBlog(Integer topRecommendNum);
+
+	//获取博客并转换博客内容的格式
+	public BlogTypeTagDTO findAndConvertById(Long id);
+
 }

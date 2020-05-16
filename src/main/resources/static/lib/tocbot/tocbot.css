@@ -1,11 +1,12 @@
-/*自定义的。根据页面元素，显示列表样式  */
+/*娣诲姞鐨勮嚜瀹氫箟鏍峰紡*/
 .typo ul, ol{
-	list-style: square
+	list-style: disc;
 }
 .toc-list li a{
 	display: block;
 	padding: 4px 0;
 	font-weight: 300;
+	margin: 2px 0;
 }
 .toc-list li a:hover{
 	color: #00B5AD;

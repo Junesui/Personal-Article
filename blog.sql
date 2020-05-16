@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/5/11 15:57:04                           */
+/* Created on:     2020/5/16 21:37:15                           */
 /*==============================================================*/
 
 
@@ -47,6 +47,7 @@ create table blog
    reserve2             varchar(255) comment 'Ô¤Áô×Ö¶Î2',
    reserve3             int comment 'Ô¤Áô×Ö¶Î3',
    reserve4             int comment 'Ô¤Áô×Ö¶Î4',
+   description          varchar(255) comment '²©¿ÍÃèÊö',
    primary key (id)
 );
 

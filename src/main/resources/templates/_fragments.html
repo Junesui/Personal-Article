@@ -3,7 +3,7 @@
 <head th:fragment="head(title)">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title th:replace="${title}">共通标题</title>
+<title th:replace="${title}">共通</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 <link rel="stylesheet" href="/css/typo.css" />
 <link rel="stylesheet" href="/css/animate.css" />
@@ -17,30 +17,27 @@
     <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h2 class="ui header teal item"><a th:href="@{/admin/index}">Blog</a></h2>
-                <a th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>博客</a>
-                <a th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
-                <a th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
-                <div class="m-item right menu m-mobile-hide">
-                    <div class="ui inline dropdown item">
-                        <div class="text">
-                            <img class="ui avatar image" th:src="@{${session.user.avatar}}">
-                            <span th:text="${session.user.nickname}"></span>
+                <h2 class="ui header teal item"><a th:href="@{/}">Blog</a></h2> 
+                <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+                <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
+                <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
+                <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a> 
+                <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
+                <div class="right m-item item m-mobile-hide">
+                    <form name="search" th:action="@{/search}" method="post" target="_blank">
+                        <div class="ui icon input transparent inverted">
+                            <input name="query" class="prompt" type="text" placeholder="Search..." th:value="${query}">
+                            <i onclick="document.forms[name='search'].submit()" class="search icon link basic"></i>
                         </div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <a th:href="@{/admin/logout}" class="item">注销</a>
-                            <a href="#" class="item">修改密码</a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <a href="#" class="ui black icon button m-right-top m-mobile-show m-menuToggle"><i class="sidebar icon"></i></a>
     </nav>
-    
+
     <!--底部-->
-    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-large">
+    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-massive">
         <div class="ui container center aligned">
             <div class="ui stackable grid divided inverted">
                 <div class="three wide column">
@@ -50,26 +47,27 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="three wide column">
                     <h4 class="m-text-thin m-text-spaced">最新博客</h4>
-                    <div class="ui link list inverted">
-                        <a href="#" class="item">Home</a>
-                        <a href="#" class="item">About</a>
-                        <a href="#" class="item">Jobs</a>
-                        <a href="#" class="item">Team</a>
+                    <div id="newblogs-container">
+                        <div class="ui link list inverted" th:fragment="newblogList">
+                            <a th:href="@{/blog/{id}(id=${blog.id})}" target="_bland" class="item" th:each="blog : ${newblogs}"
+                                th:text="${blog.title}">Home</a>
+                        </div>
                     </div>
+
                 </div>
+
                 <div class="three wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
+                    <h4 class="m-text-thin m-text-spaced">联系我</h4>
                     <div class="ui link list inverted">
-                        <a href="#" class="item">Home</a>
-                        <a href="#" class="item">About</a>
-                        <a href="#" class="item">Jobs</a>
-                        <a href="#" class="item">Team</a>
+                        <a href="#" class="item" th:text="#{index.QQ}"></a> 
+                        <a href="#" class="item" th:text="#{index.email}">About</a> 
                     </div>
                 </div>
                 <div class="seven wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
+                    <h4 class="m-text-thin m-text-spaced">博客介绍</h4>
                     <p class="m-text-thin m-text-spaced m-opacity-mini">我提着超市的塑料袋走进小区时，雨滴还不过星星点点，塑料袋里装着泡面火腿肠与几包薯片，是我计划两天的食物。可在我穿过两栋楼以后，大雨倾盆而下。</p>
                 </div>
             </div>
@@ -88,6 +86,14 @@
         <script src="/lib/qrcode/qrcode.min.js"></script>
         <script src="/lib/waypoints/jquery.waypoints.min.js"></script>
         <script src="/lib/editormd/editormd.min.js"></script>
+        <script type="text/javascript" src="/lib/editormd/lib/marked.min.js"></script>
+        <script type="text/javascript" src="/lib/editormd/lib/prettify.min.js"></script>
+        <script>
+            $(function(){
+                $('#newblogs-container').load("/footer/newblogs");
+            });
+    	</script>
     </th:block>
+    
 </body>
 </html>

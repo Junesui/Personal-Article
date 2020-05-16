@@ -19,11 +19,20 @@
 	</select>
 	
 	<!-- 通过博客id查找对应的标签id -->
-	<select id="listByBlogId" parameterType="long" resultType="long">
-		select t.id from tag t 
+	<select id="listByBlogId" parameterType="long" resultType="tag">
+		select * from tag t 
 		inner join blog_tag bt on t.id=bt.tag_id
 		inner join blog b on bt.blog_id=b.id
 		where b.id=#{blogId}
+	</select>
+	
+	<!-- 获取博客首页的标签  -->
+	<select id="listTopTag" parameterType="int" resultType="com.blog.dto.TagBlogNumDTO">
+		select t.id,t.name,count(t.id) blogNum from tag t
+		inner join blog_tag bt on t.id = bt.tag_id
+		inner join blog b on bt.blog_id=b.id
+		group by t.id
+		order by blogNum desc limit #{topTagNum}
 	</select>
 	
     <!-- 保存标签 -->

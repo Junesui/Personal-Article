@@ -76,6 +76,10 @@
                         <input type="text" name="firstPicture" placeholder="首图引用地址" th:value="*{firstPicture}">
                     </div>
                 </div>
+                <div class="field">
+                    <textarea name="description" th:text="*{description}" placeholder="博客描述..." maxlength="100"></textarea>
+                </div>
+                
                  <div class="inline fields">
                     <div class="field">
                         <div class="ui checkbox">
@@ -167,6 +171,13 @@
 				rules : [ {
 					type : 'empty',
 					prompt : '内容不能为空'
+				} ]
+			},
+			description : {
+				identifier : 'description',
+				rules : [ {
+					type : 'empty',
+					prompt : '描述不能为空'
 				} ]
 			},
 			typeId : {

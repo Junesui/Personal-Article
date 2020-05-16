@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.dto.TypeBlogNumDTO;
 import com.blog.entity.Type;
 import com.blog.mapper.BlogMapper;
 import com.blog.mapper.TypeMapper;
@@ -60,6 +61,11 @@ public class TypeServiceImpl implements TypeService {
 		//删除分类
 		typeMapper.deleteById(id);
 
+	}
+
+	@Override
+	public List<TypeBlogNumDTO> listTopType(Integer topTypeNum) {
+		return typeMapper.listTopType(topTypeNum);
 	}
 
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+<title>归档</title>
+</head>
+<body>
+    <!--导航 -->
+    <nav th:replace="_fragments :: menu(4)"></nav>
+    
+    <!--中间内容-->
+    <div class="m-container-small m-paddding-tb-big">
+        <div class="ui container">
+            <!--top-->
+            <div class="ui top attached padded segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">归档</h3>
+                    </div>
+                    <div class="column right aligned">
+                                                        共  <h3 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}">33</h3> 篇博客
+                    </div>
+                </div>
+            </div>
+            <!--中间内容-->
+            <th:block th:each="map : ${archiveMap}">
+                <h2 class="ui center aligned header teal" th:text="${map.key}">2020</h2>
+                <div class="ui fluid vertical menu">
+                    <a th:href="@{/blog/{id}(id=${blog.id})}" target="blank" class="item" th:each="blog : ${map.value}">
+                        <span><i class="grey small circle icon"></i>
+                            <span th:text="${blog.title}">被压倒的年轻人</span>
+                            <div class="ui teal basic mini left pointing label" th:text="${#dates.format(blog.updateTime,'MMMdd')}">三月九号</div>
+                        </span>
+                        <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
+                     </a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="_fragments :: footer"></footer>
+    
+    <!-- script -->
+    <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    <script>
+    	$('.m-menuToggle').click(function(){
+    		$('.m-item').toggleClass('m-mobile-hide');
+    	});
+    </script>    
+</body>
+</html>

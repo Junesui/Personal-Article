@@ -1,7 +1,6 @@
 package com.blog.dto;
 
 import com.blog.entity.Blog;
-import com.blog.entity.User;
 
 import lombok.Data;
 
@@ -29,6 +28,9 @@ public class BlogTypeTagDTO extends Blog {
 	
 	//用户id
 	private Long userId;
-	
+	//用户头像
+	private String userAvatar;
+	//用户昵称
+	private String userNickname;
 	
 }

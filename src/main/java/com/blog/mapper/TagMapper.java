@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.blog.dto.TagBlogNumDTO;
 import com.blog.entity.Tag;
 
 /**
@@ -25,7 +26,7 @@ public interface TagMapper {
 
 	void save(Tag tag);
 
-	List<Long> listByBlogId(Long blogId);
+	List<Tag> listByBlogId(Long blogId);
 
 	Tag findById(Long id);
 
@@ -34,5 +35,7 @@ public interface TagMapper {
 	void deleteByTagId(Long id);
 
 	void deleteById(Long id);
+
+	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
 
 }

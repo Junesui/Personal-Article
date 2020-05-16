@@ -15,6 +15,7 @@ import com.blog.mapper.BlogMapper;
 import com.blog.mapper.TagMapper;
 import com.blog.service.BlogService;
 import com.blog.service.CommentService;
+import com.blog.util.MarkdownUtils;
 import com.blog.util.StringAndListConvertUtils;
 
 /**
@@ -93,6 +94,24 @@ public class BlogServiceImpl implements BlogService {
 		//删除博客
 		blogMapper.deleteById(id);
 
+	}
+
+	@Override
+	public List<BlogTypeTagDTO> listTopBlog() {
+		return blogMapper.listTopBlog();
+	}
+
+	@Override
+	public List<Blog> listTopRecommendBlog(Integer topRecommendNum) {
+		return blogMapper.listTopRecommendBlog(topRecommendNum);
+	}
+
+	@Override
+	public BlogTypeTagDTO findAndConvertById(Long id) {
+		BlogTypeTagDTO blogTypeTagDTO = blogMapper.findBlogDetailById(id);
+		String content = blogTypeTagDTO.getContent();
+		blogTypeTagDTO.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+		return blogTypeTagDTO;
 	}
 
 }
