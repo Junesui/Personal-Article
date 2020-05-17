@@ -34,4 +34,10 @@ public interface TypeService {
 	//列出博客首页的分类
 	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
 
+	//统计有博客的分类总数
+	Long count();
+
+	//列出分类及对应的博客数量
+	List<TypeBlogNumDTO> listTypeShow();
+
 }

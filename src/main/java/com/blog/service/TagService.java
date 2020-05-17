@@ -37,4 +37,10 @@ public interface TagService {
 	//列出博客首页的标签
 	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
 
+	//统计有博客的标签总数
+	Long count();
+
+	//列出标签及对应的博客数量
+	List<TagBlogNumDTO> listTagShow();
+
 }

@@ -69,4 +69,14 @@ public class TagServiceImpl implements TagService {
 		return tagMapper.listTopTag(topTagNum);
 	}
 
+	@Override
+	public Long count() {
+		return tagMapper.count();
+	}
+
+	@Override
+	public List<TagBlogNumDTO> listTagShow() {
+		return tagMapper.listTagShow();
+	}
+
 }

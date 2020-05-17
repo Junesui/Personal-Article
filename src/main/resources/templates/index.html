@@ -82,12 +82,12 @@
                         <div class="ui secondary segment">
                             <div class="ui two column grid">
                                 <div class="column"><i class="idea icon"></i>分类</div>
-                                <div class="column right aligned"><a href="" target="_blank">more<i class="angle double right icon"></i></a></div>
+                                <div class="column right aligned"><a th:href="@{/types/{id}(id=-1)}" target="_blank">more<i class="angle double right icon"></i></a></div>
                             </div>                        
                         </div>
                         <div class="ui teal segment">
                             <div class="ui fluid vertical menu">
-                                <a href="#" class="item" th:each="type : ${typeBlogNumDTOs}">
+                                <a th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${typeBlogNumDTOs}">
                                     <span th:text="${type.name}">分类名称</span>
                                     <span class="ui teal basic label" th:text="${type.blogNum}">12</span>
                                 </a>
@@ -99,11 +99,11 @@
                         <div class="ui secondary segment">
                             <div class="ui two column grid">
                                 <div class="column"><i class="tag  icon"></i>标签</div>
-                                <div class="column right aligned"><a href="" target="_blank">more<i class="angle double right icon"></i></a></div>
+                                <div class="column right aligned"><a th:href="@{/tags/{id}(id=-1)}" target="_blank">more<i class="angle double right icon"></i></a></div>
                             </div>                        
                         </div>
                         <div class="ui teal segment">
-                                <a href="#" target="_blank" class="ui teal basic label m-paddding-tb-small m-margin-tb-tiny" th:each="tag : ${tagBlogNumDTOs}">
+                                <a th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic label m-paddding-tb-small m-margin-tb-tiny" th:each="tag : ${tagBlogNumDTOs}">
                                     <span th:text="${tag.name}">标签名称</span>
                                     <span class="detail" th:text="${tag.blogNum}">12</span>
                                 </a>
@@ -115,7 +115,7 @@
                                 <div class="column"><i class="bookmark icon"></i>最新推荐</div>
                         </div>
                         <div th:each="blog : ${recommendBlogs}">
-                            <div class="ui segment"><a href="#" class="item m-black m-text-thin" th:text="${blog.title}">最后的日子 - 夏阳</a></div>
+                            <div class="ui segment"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-black m-text-thin" th:text="${blog.title}">最后的日子 - 夏阳</a></div>
                         </div>
                     </div>
                     <!--图片-->

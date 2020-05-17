@@ -30,5 +30,9 @@ public interface TypeMapper {
 
 	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
 
+	Long count();
+
+	List<TypeBlogNumDTO> listTypeShow();
+
 
 }

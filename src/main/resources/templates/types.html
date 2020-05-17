@@ -17,7 +17,7 @@
                         <h3 class="ui teal header">分类</h3>
                     </div>
                     <div class="column right aligned">
-                                                        共  <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(types)}">22</h2> 个
+                                                        共  <h2 class="ui orange header m-inline-block m-text-thin" th:text="${typeCnt}">22</h2> 个
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="ui attached segment m-paddding-tb-large">
                 <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${types}">
                     <a th:href="@{/types/{id}(id=${type.id})}" class="ui basic button" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.name}">生活</a>
-                    <div class="ui basic left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${#arrays.length(type.blogs)}">24</div>
+                    <div class="ui basic left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.blogNum}">24</div>
                 </div>
             </div>
             <!--博客列表-->
@@ -34,14 +34,14 @@
                     <div class="ui mobile reversed stackable grid  middle aligned">
                         <div class="eleven wide column">
                             <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}" class="m-black">被压倒的年轻人</a></h3>
-                            <p th:text="${#strings.abbreviate(blog.content,100)}"></p>
+                            <p th:text="${#strings.abbreviate(blog.description,100)}"></p>
                             <div class="ui grid">
                                 <div class="eleven wide column">
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
-                                            <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="@{${blog.user.avatar}}">
+                                            <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="@{${blog.userAvatar}}">
                                             <div class="content">
-                                                <a href="#" class="header" th:text="${blog.user.nickname}">June</a>
+                                                <a href="#" class="header" th:text="${blog.userNickname}">June</a>
                                             </div>
                                         </div>
                                         <div class="item">
@@ -50,12 +50,12 @@
                                         </div>
                                         <div class="item">
                                             <i class="eye icon"></i>
-                                            <span th:text="${blog.views}"></span>
+                                            <span th:text="${blog.viewCount}"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="right aligned five wide column">
-                                    <a href="#" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${blog.type.name}">认知升级</a>
+                                    <a href="#" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${blog.typeName}">认知升级</a>
                                 </div>
                             </div>
                         </div>

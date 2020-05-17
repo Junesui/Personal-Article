@@ -28,9 +28,9 @@
                     <a th:href="@{/blog/{id}(id=${blog.id})}" target="blank" class="item" th:each="blog : ${map.value}">
                         <span><i class="grey small circle icon"></i>
                             <span th:text="${blog.title}">被压倒的年轻人</span>
-                            <div class="ui teal basic mini left pointing label" th:text="${#dates.format(blog.updateTime,'MMMdd')}">三月九号</div>
+                            <span class="ui teal basic mini left pointing label" th:text="${#dates.format(blog.updateTime,'MMMdd')}">三月九号</span>
                         </span>
-                        <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
+                        <span class="ui orange basic label" th:text="${blog.flag}">原创</span>
                      </a>
                 </div>
             </th:block>

@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.TagMapper">
 	
+	<!-- 统计有博客的标签总数 -->
+	<select id="count" resultType="long">
+	SELECT count(*) FROM tag t WHERE t.id IN (SELECT DISTINCT bt.tag_id FROM blog_tag bt inner join blog b on b.is_deleted is not true and b.is_published is not false)
+	</select>
+	
 	<!-- 列出所有类型 -->
 	<select id="list" resultType="tag">
 		select * from tag order by update_time desc
@@ -30,9 +35,18 @@
 	<select id="listTopTag" parameterType="int" resultType="com.blog.dto.TagBlogNumDTO">
 		select t.id,t.name,count(t.id) blogNum from tag t
 		inner join blog_tag bt on t.id = bt.tag_id
-		inner join blog b on bt.blog_id=b.id
+		inner join blog b on bt.blog_id=b.id where b.is_deleted is not true and b.is_published is not false
 		group by t.id
 		order by blogNum desc limit #{topTagNum}
+	</select>
+	
+	<!-- 列出标签及对应的博客数量 -->
+	<select id="listTagShow" resultType="com.blog.dto.TagBlogNumDTO">
+		select t.id,t.name,count(t.id) blogNum from tag t
+		inner join blog_tag bt on t.id = bt.tag_id
+		inner join blog b on bt.blog_id=b.id where b.is_deleted is not true and b.is_published is not false
+		group by t.id
+		order by blogNum desc
 	</select>
 	
     <!-- 保存标签 -->

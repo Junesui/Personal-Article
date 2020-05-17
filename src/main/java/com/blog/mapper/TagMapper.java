@@ -38,4 +38,8 @@ public interface TagMapper {
 
 	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
 
+	Long count();
+
+	List<TagBlogNumDTO> listTagShow();
+
 }

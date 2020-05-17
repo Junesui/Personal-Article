@@ -39,4 +39,18 @@ public interface BlogMapper {
 
 	BlogTypeTagDTO findBlogDetailById(Long id);
 
+	void incViewCntById(Long viewCntWrite,Long id);
+
+	List<BlogTypeTagDTO> listTypeBlogByTypeId(Long id);
+
+	List<BlogTypeTagDTO> listTagBlogByTagId(Long id);
+
+	Long count();
+
+	List<String> listGroupYear();
+
+	List<Blog> listByYear(String year);
+
+	List<BlogTypeTagDTO> listByQuery(String query);
+
 }

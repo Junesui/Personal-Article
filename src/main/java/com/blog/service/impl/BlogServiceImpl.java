@@ -1,10 +1,13 @@
 package com.blog.service.impl;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +37,12 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired
 	private CommentService commentService;
 
+	//博客访问数量
+	private Integer viewCnt = 0;
+	//博客访问数量达到viewCntWrite次，再一次性写入数据库
+	@Value("${blog.viewCntWrite}")
+	private Long viewCntWrite;
+
 	@Override
 	public List<BlogTypeTagDTO> listBlogAndType() {
 		return blogMapper.listBlogAndType();
@@ -51,6 +60,7 @@ public class BlogServiceImpl implements BlogService {
 			//插入操作
 			dto.setCreateTime(new Date(System.currentTimeMillis()));
 			dto.setUpdateTime(new Date(System.currentTimeMillis()));
+			dto.setViewCount(0);
 			//插入博客
 			blogMapper.save(dto);
 			//插入blog_tag中间表
@@ -112,6 +122,47 @@ public class BlogServiceImpl implements BlogService {
 		String content = blogTypeTagDTO.getContent();
 		blogTypeTagDTO.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 		return blogTypeTagDTO;
+	}
+
+	@Override
+	public void incViewCntById(Long id) {
+		viewCnt = viewCnt + 1;
+		//访问数量增加7次后，再一次性写入数据库
+		if (viewCnt == 7 || viewCnt > 7) {
+			viewCnt = 0;
+			blogMapper.incViewCntById(viewCntWrite, id);
+		}
+	}
+
+	@Override
+	public List<BlogTypeTagDTO> listTypeBlogByTypeId(Long id) {
+		return blogMapper.listTypeBlogByTypeId(id);
+	}
+
+	@Override
+	public List<BlogTypeTagDTO> listTagBlogByTagId(Long id) {
+		return blogMapper.listTagBlogByTagId(id);
+	}
+
+	@Override
+	public Long count() {
+		return blogMapper.count();
+	}
+
+	@Override
+	public Map<String, List<Blog>> archiveBlog() {
+		Map<String, List<Blog>> map = new LinkedHashMap<String, List<Blog>>();
+		List<String> years = blogMapper.listGroupYear();
+		for (String year : years) {
+			List<Blog> blogs = blogMapper.listByYear(year);
+			map.put(year, blogs);
+		}
+		return map;
+	}
+
+	@Override
+	public List<BlogTypeTagDTO> listByQuery(String query) {
+		return blogMapper.listByQuery(query);
 	}
 
 }

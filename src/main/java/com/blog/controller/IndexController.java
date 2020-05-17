@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.dto.BlogTypeTagDTO;
@@ -41,7 +42,14 @@ public class IndexController {
 	//首页展示推荐博客的数量
 	@Value("${index.topRecommendNum}")
 	private Integer topRecommendNum;
+	//首页底部展示的推荐博客数量
+	@Value("${index.footerRecommendNum}")
+	private Integer footerRecommendNum;
 
+	@Value("${index.pageBlogSize}")
+	private Integer pageBlogSize;
+	
+	
 	/**
 	 * 跳转到博客首页
 	 * @param page 页码
@@ -51,9 +59,11 @@ public class IndexController {
 	 */
 	@GetMapping("/")
 	public String toIndex(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			@RequestParam(name = "size", defaultValue = "3") Integer size, Model model) {
+			              @RequestParam(name = "size", defaultValue = "8") Integer size, 
+			              Model model) {
+		//size = pageBlogSize;
 		//分页
-		PageHelper.startPage(page, size);
+		PageHelper.startPage(page, pageBlogSize);
 		List<BlogTypeTagDTO> blogTypeTagDTOs = blogService.listTopBlog();
 
 		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(blogTypeTagDTOs);
@@ -79,10 +89,47 @@ public class IndexController {
 	public String toBlog(@PathVariable Long id, Model model) {
 		BlogTypeTagDTO blogTypeTagDTO = blogService.findAndConvertById(id);
 		List<Tag> tags = tagService.listByBlogId(id);
-		
-		model.addAttribute("blogTypeTagDTO",blogTypeTagDTO );
-		model.addAttribute("tags",tags);
+
+		//增加博客访问次数
+		blogService.incViewCntById(id);
+
+		model.addAttribute("blogTypeTagDTO", blogTypeTagDTO);
+		model.addAttribute("tags", tags);
 		return "blog";
+	}
+
+	/**
+	 * 搜索博客
+	 * @param page
+	 * @param size
+	 * @param query
+	 * @param model
+	 * @return 搜索结果页面
+	 */
+	@PostMapping("/search")
+	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
+			             @RequestParam(name = "size", defaultValue = "3") Integer size, 
+			             @RequestParam String query, Model model) {
+		//分页
+		PageHelper.startPage(page, size);
+		List<BlogTypeTagDTO> blogTypeTagDTOs = blogService.listByQuery(query);
+		
+		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(blogTypeTagDTOs);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("query", query);
+		return "search";
+	}
+	
+	/**
+	 * 列出底部的最新推荐博客
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/footer/newblogs")
+	public String footerNewblogs(Model model) {
+		List<Blog> blogs = blogService.listTopRecommendBlog(footerRecommendNum);
+		model.addAttribute("newblogs", blogs);
+		return "_fragments :: newblogList";
 	}
 
 }
