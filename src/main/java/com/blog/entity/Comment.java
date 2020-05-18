@@ -27,6 +27,7 @@ public class Comment implements Serializable{
 	private Integer downCount;
 	private Long blogId;
 	private Long parentId;
+	private Boolean isManager;
 	private String reserve1;
 	private String reserve2;
 	private Integer reserve3;

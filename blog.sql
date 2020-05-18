@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/5/16 21:37:15                           */
+/* Created on:     2020/5/18 19:57:42                           */
 /*==============================================================*/
 
 
@@ -78,7 +78,8 @@ create table comment
    content              text comment '评论内容',
    create_time          datetime not null comment '创建时间',
    blog_id              bigint not null comment '博客id',
-   parent_id            bigint not null comment '父评论id',
+   parent_id            bigint comment '父评论id',
+   is_manager           boolean comment '是否是作者',
    reply_count          int default 0 comment '回复数量',
    like_count           int default 0 comment '点赞数量',
    down_count           int default 0 comment '反对数量',

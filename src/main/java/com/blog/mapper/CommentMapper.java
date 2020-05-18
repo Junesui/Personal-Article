@@ -1,6 +1,11 @@
 package com.blog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.blog.dto.CommentExtDTO;
+import com.blog.entity.Comment;
 
 /**
  * 博客评论接口
@@ -12,6 +17,12 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommentMapper {
 
 	public void deleteByBlogId(Long blogId);
+
+	public void save(Comment comment);
+
+	public List<CommentExtDTO> listParentCommentByBlogId(Long blogId);
+
+	public List<CommentExtDTO> listChildCommentByParentId(Long parentId);
 
 	
 }

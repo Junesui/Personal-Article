@@ -87,6 +87,9 @@ body{
 	letter-spacing: 1px !important;
 	line-height: 1.8 !important;
 }
+.m-author-fontSize{
+	font-size: 10px !important;
+}
 .m-text-thin{
 	font-weight: 300 !important;
 }

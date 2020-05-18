@@ -94,7 +94,7 @@
                                 <div class="content">
                                     <a class="author">
                                         <span th:text="${comment.nickname}">Matt</span>
-                                        <div class="ui basic teal left pointing label m-padding-mini" th:if="${comment.adminComment}">博主</div>
+                                        <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${comment.isManager}">博主</span>
                                     </a>
                                     <div class="metadata">
                                         <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
@@ -111,7 +111,7 @@
                                         <div class="content">
                                             <a class="author">
                                                 <span th:text="${reply.nickname}"></span>
-                                                <div class="ui basic teal left pointing label m-padding-mini" th:if="${reply.adminComment}">博主</div>
+                                                <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${reply.isManager}">博主</span>
                                                 <span th:text="| @ ${reply.parentNickname}|" class="m-teal"></span>
                                             </a>
                                             <div class="metadata">
