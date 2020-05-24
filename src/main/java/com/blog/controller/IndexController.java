@@ -61,9 +61,9 @@ public class IndexController {
 	public String toIndex(@RequestParam(name = "page", defaultValue = "1") Integer page,
 			              @RequestParam(name = "size", defaultValue = "8") Integer size, 
 			              Model model) {
-		//size = pageBlogSize;
+		size = pageBlogSize;
 		//分页
-		PageHelper.startPage(page, pageBlogSize);
+		PageHelper.startPage(page, size);
 		List<BlogTypeTagDTO> blogTypeTagDTOs = blogService.listTopBlog();
 
 		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(blogTypeTagDTOs);
@@ -130,6 +130,15 @@ public class IndexController {
 		List<Blog> blogs = blogService.listTopRecommendBlog(footerRecommendNum);
 		model.addAttribute("newblogs", blogs);
 		return "_fragments :: newblogList";
+	}
+	
+	/**
+	 * 跳转到听音乐页面
+	 * @return 听音乐页面
+	 */
+	@GetMapping("/music")
+	public String toMusic() {
+		return "music";
 	}
 
 }

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/lib/tocbot/tocbot.css" />
 <link rel="stylesheet" href="/lib/editormd/css/editormd.min.css" />
 <link rel="stylesheet" href="/css/my.css">
+<link rel="icon" href="/images/logo.png" type="image/x-icon">
 </head>
 <body>
     <!--导航 -->
@@ -23,6 +24,7 @@
                 <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
                 <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a> 
                 <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
+                <a th:href="@{/music}" target="_blank" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
                 <div class="right m-item item m-mobile-hide">
                     <form name="search" th:action="@{/search}" method="post" target="_blank">
                         <div class="ui icon input transparent inverted">
@@ -43,7 +45,7 @@
                 <div class="three wide column">
                     <div class="ui link list inverted">
                         <div class="item">
-                            <img class="ui rounded image" src="/images/cat.png" style="width: 110px;">
+                            <img class="ui rounded image" src="/images/avatar.png" style="width: 110px;">
                         </div>
                     </div>
                 </div>

@@ -9,8 +9,7 @@
 	</select>
 
 	<!-- 列出所有博客和对应的类型名称 -->
-	<select id="listBlogAndType"
-		resultType="com.blog.dto.BlogTypeTagDTO">
+	<select id="listBlogAndType" resultType="com.blog.dto.BlogTypeTagDTO">
 		select b.*,t.name typeName from blog b inner join type t on b.type_id = t.id order by update_time desc
 	</select>
 

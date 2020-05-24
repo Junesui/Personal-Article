@@ -66,8 +66,8 @@ public class BlogController {
 	 */
 	@GetMapping("/blogs")
 	public String toBlogs(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			@RequestParam(name = "size", defaultValue = "3") Integer size, Model model) {
-		
+			   		      @RequestParam(name = "size", defaultValue = "10") Integer size, 
+			   		      Model model) {
 		size = pageBlogSize;
 		//分页
 		PageHelper.startPage(page, size);
@@ -120,7 +120,9 @@ public class BlogController {
 	 */
 	@PostMapping("/blogs/search")
 	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			@RequestParam(name = "size", defaultValue = "3") Integer size, BlogQueryDTO blogQueryDTO, Model model) {
+			             @RequestParam(name = "size", defaultValue = "10") Integer size, 
+			             BlogQueryDTO blogQueryDTO, Model model) {
+		size = pageBlogSize;
 		//分页
 		PageHelper.startPage(page, size);
 		List<BlogTypeTagDTO> dto = blogService.listBySearch(blogQueryDTO);
