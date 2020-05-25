@@ -1,186 +1,221 @@
 @charset "UTF-8";
 
-body{
+body {
 	background: url("/images/background.png");
 }
 
 /*---padding--- */
-.m-padding-content{
+.m-padding-content {
 	padding: 25px 15px 15px 15px !important;
 }
-.m-padding-mini{
+
+.m-padding-mini {
 	padding: 0.2em !important;
 }
-.m-padding-tiny{
+
+.m-padding-tiny {
 	padding: 0.3em !important;
 }
-.m-padding{
+
+.m-padding {
 	padding: 0.8em !important;
 }
-.m-paddding-tb-mini{
+
+.m-paddding-tb-mini {
 	padding-top: 0.2em !important;
 	padding-bottom: 0.2em !important;
 }
-.m-paddding-tb-tiny{
+
+.m-paddding-tb-tiny {
 	padding-top: 0.3em !important;
 	padding-bottom: 0.3em !important;
 }
-.m-paddding-tb-small{
+
+.m-paddding-tb-small {
 	padding-top: 0.5em !important;
 	padding-bottom: 0.5em !important;
 }
-.m-paddding-tb{
+
+.m-paddding-tb {
 	padding-top: 1em !important;
 	padding-bottom: 1em !important;
 }
-.m-paddding-tb-large{
+
+.m-paddding-tb-large {
 	padding-top: 2em !important;
 	padding-bottom: 2em !important;
 }
-.m-paddding-tb-big{
+
+.m-paddding-tb-big {
 	padding-top: 3em !important;
 	padding-bottom: 3em !important;
 }
-.m-paddding-tb-huge{
+
+.m-paddding-tb-huge {
 	padding-top: 4em !important;
 	padding-bottom: 4em !important;
 }
-.m-paddding-tb-massive{
+
+.m-paddding-tb-massive {
 	padding-top: 5em !important;
 	padding-bottom: 5em !important;
 }
-.m-paddding-lr-responsive{
+
+.m-paddding-lr-responsive {
 	padding-left: 4em !important;
 	padding-right: 4em !important;
 }
 
 /*---margin--- */
-.m-margin-tb-tiny{
+.m-margin-tb-tiny {
 	margin-top: 0.3em !important;
 	margin-bottom: 0.3em !important;
 }
-.m-margin-top{
+
+.m-margin-top {
 	margin-top: 30px !important;
 }
 
 /*---margin--- */
-.m-container{
+.m-container {
 	max-width: 72em !important;
 	margin: auto !important;
 }
-.m-container-small{
+
+.m-container-small {
 	max-width: 60em !important;
 	margin: auto !important;
 }
-.m-container-mini{
+
+.m-container-mini {
 	max-width: 30em !important;
 	margin: auto !important;
 }
 
-.m-margin-bottom-small{
+.m-margin-bottom-small {
 	margin-bottom: 0.5em !important;
 }
 
 /*---text--- */
-.m-text{
+.m-text {
 	font-weight: 300 !important;
 	letter-spacing: 1px !important;
 	line-height: 1.8 !important;
 }
-.m-author-fontSize{
+
+.m-author-fontSize {
 	font-size: 10px !important;
 }
-.m-text-thin{
+
+.m-text-thin {
 	font-weight: 300 !important;
 }
-.m-text-spaced{
+
+.m-text-spaced {
 	letter-spacing: 1px !important;
 }
-.m-text-lined{
+
+.m-text-lined {
 	line-height: 1.8 !important;
 }
-.m-opacity-mini{
+
+.m-opacity-mini {
 	opacity: 0.8 !important;
 }
-.m-opacity-tiny{
+
+.m-opacity-tiny {
 	opacity: 0.6 !important;
 }
 
 /*---display--- */
-.m-inline-block{
-	display: inline-block !important; 
+.m-inline-block {
+	display: inline-block !important;
 }
 
 /*---color--- */
-.m-black{
+.m-black {
 	color: #333 !important;
 }
-.m-teal{
+
+.m-teal {
 	color: #00B5AD !important;
 }
-.m-orange{
+
+.m-orange {
 	color: orange !important;
 }
 
 /*---shadow--- */
-.m-shadow-small{
-	-webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-	box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+.m-shadow-small {
+	-webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 /*---position--- */
-.m-right-top{
+.m-right-top {
 	position: absolute;
 	top: 0;
 	right: 0;
 }
-.m-fixed{
+
+.m-fixed {
 	position: fixed !important;
 	z-index: 1 !important;
 }
-.m-right-bottom{
+
+.m-right-bottom {
 	right: 0 !important;
 	bottom: 0 !important;
 }
 
-.m-mobile-show{
+.m-mobile-show {
 	display: none !important;
 }
 
 /*---media--- */
 @media screen and (max-width: 768px) {
-	.m-mobile-hide{
+	.m-mobile-hide {
 		display: none !important;
 	}
-	
-	.m-mobile-show{
+	.m-mobile-show {
 		display: block !important;
 	}
-	
-	.m-paddding-lr-responsive{
+	.m-paddding-lr-responsive {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
-	
-	.m-mobile-lr-clear{
+	.m-mobile-lr-clear {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
-	
-	.m-mobile-wide{
+	.m-mobile-wide {
 		width: 100% !important;
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* 轮播图样式  */
+.swiper-container {
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: -30px;
+}
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
