@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.blog.dto.BlogQueryDTO;
 import com.blog.dto.BlogTypeTagDTO;
 import com.blog.entity.Blog;
+import com.blog.exception.CustomizeErrorCode;
+import com.blog.exception.CustomizeException;
 import com.blog.mapper.BlogMapper;
 import com.blog.mapper.TagMapper;
 import com.blog.service.BlogService;
@@ -119,6 +121,9 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public BlogTypeTagDTO findAndConvertById(Long id) {
 		BlogTypeTagDTO blogTypeTagDTO = blogMapper.findBlogDetailById(id);
+		if (blogTypeTagDTO == null) {
+			throw new CustomizeException(CustomizeErrorCode.ARTICLE_NOT_FOUND);
+		}
 		String content = blogTypeTagDTO.getContent();
 		blogTypeTagDTO.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 		return blogTypeTagDTO;

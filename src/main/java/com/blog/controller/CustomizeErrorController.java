@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomizeErrorController implements ErrorController {
 
 	/**
-	 * 去error页面
+	 * 跳转到error页面
 	 */
 	@Override
 	public String getErrorPath() {
@@ -40,13 +40,13 @@ public class CustomizeErrorController implements ErrorController {
 
 		//前端页面异常
 		if (status.is4xxClientError()) {
-			model.addAttribute("message", "这个请求错了吧，要不然换个姿势？");
+			model.addAttribute("message", "访问的路径出错了，要不然换一个再试试？");
 		}
-		
+		/*
 		//服务器内部异常
 		if (status.is5xxServerError()) {
-			model.addAttribute("message", "服务冒烟了，请稍后再来试试！！！");
-		}
+			model.addAttribute("message", "服务器冒烟了，请稍后再来试试！！！");
+		}*/
 
 		return new ModelAndView("error");
 	}
