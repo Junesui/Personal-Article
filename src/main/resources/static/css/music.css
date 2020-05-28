@@ -8,21 +8,21 @@ dd {
 }
 
 .wrap {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  top: 50;
+  /* width: 100%;
+  height: 100%; */
   background: url("/images/music/bg.jpg") no-repeat;
   background-size: 100% 100%;
 }
 
 .play_wrap {
-  width: 800px;
-  height: 544px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
+  width: 900px;
+  height: 600px;
+  position: absolute;
+  left: 45%;
+  top: 60%;
   margin-left: -400px;
   margin-top: -272px;
   /* background-color: #f9f9f9; */
@@ -189,7 +189,7 @@ dd {
   z-index: 8;
 }
 .comment_wrapper {
-  width: 180px;
+ /*  width: 180px; */
   height: 435px;
   list-style: none;
   position: absolute;
@@ -201,6 +201,7 @@ dd {
   position: absolute;
   top: 0;
   margin-top: 10px;
+  white-space: nowrap;
 }
 .comment_wrapper .comment_list {
   overflow: auto;
@@ -236,12 +237,15 @@ dd {
   font-weight: bold;
   color: #333;
   padding-top: 5px;
+  font-size: 13px;
 }
 
 .comment_wrapper .detail {
   color: #666;
   margin-top: 5px;
   line-height: 18px;
+  font-size: 13px;
+  color: black;
 }
 .audio_con {
   height: 50px;

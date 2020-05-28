@@ -1,7 +1,7 @@
 package com.blog.exception;
 
 /**
- * 
+ * 自定义错误码
  * @author June
  * @date 2020/05/27
  * @version V1.0

@@ -31,10 +31,8 @@ public class ArchiveShowController {
 	 */
 	@GetMapping("/archives")
 	public String toArchives(Model model) {
-		Map<String, List<Blog>> archiveMap = blogService.archiveBlog();
-		Long blogCount = blogService.count();
-		model.addAttribute("archiveMap", archiveMap);
-		model.addAttribute("blogCount", blogCount);
+		List<Blog> blogs = blogService.archiveBlog();
+		model.addAttribute("blogs", blogs);
 		return "archives";
 	}
 }

@@ -47,10 +47,9 @@ public interface BlogMapper {
 
 	Long count();
 
-	List<String> listGroupYear();
-
-	List<Blog> listByYear(String year);
+	List<Blog> archiveBlog();
 
 	List<BlogTypeTagDTO> listByQuery(String query);
+
 
 }

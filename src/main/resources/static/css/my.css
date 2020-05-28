@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body {
-	background: url("/images/background.png");
+	background: url("/images/bg.jpg") fixed;
+	opacity: 0.85;
 }
 
 /*---padding--- */
@@ -47,8 +48,8 @@ body {
 }
 
 .m-paddding-tb-big {
-	padding-top: 3em !important;
-	padding-bottom: 3em !important;
+	padding-top: 2em !important;
+	padding-bottom: 0.5em !important;
 }
 
 .m-paddding-tb-huge {

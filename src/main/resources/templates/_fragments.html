@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="/lib/editormd/css/editormd.min.css" />
 <link rel="stylesheet" href="/css/my.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> 
+<link rel="stylesheet" href="/css/music.css">
+<link rel="stylesheet" type="text/css" href="/css/timeline.css">
 <link rel="icon" href="/images/logo.png" type="image/x-icon">
 </head>
 <body>
@@ -19,17 +21,17 @@
     <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h2 class="ui header teal item"><a th:href="@{/}">Blog</a></h2> 
+                <h2 class="ui header teal item"><a th:href="@{/}">Time</a></h2> 
                 <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
                 <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
                 <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
-                <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>归档</a> 
+                <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>时间轴</a> 
                 <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
-                <a th:href="@{/music}" target="_blank" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
+                <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
                 <div class="right m-item item m-mobile-hide">
                     <form name="search" th:action="@{/search}" method="post" target="_blank">
                         <div class="ui icon input transparent inverted">
-                            <input name="query" class="prompt" type="text" placeholder="Search..." th:value="${query}">
+                            <input name="query" class="prompt" type="text" placeholder="搜索文章..." th:value="${query}">
                             <i onclick="document.forms[name='search'].submit()" class="search icon link basic"></i>
                         </div>
                     </form>
@@ -52,7 +54,7 @@
                 </div>
 
                 <div class="four wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
+                    <h4 class="m-text-thin m-text-spaced">最新文章</h4>
                     <div id="newblogs-container">
                         <div class="ui link list inverted" th:fragment="newblogList">
                             <a th:href="@{/blog/{id}(id=${blog.id})}" target="_bland" class="item" th:each="blog : ${newblogs}"
@@ -70,12 +72,16 @@
                     </div>
                 </div>
                 <div class="six wide column">
-                    <h4 class="m-text-thin m-text-spaced">博客介绍</h4>
+                    <h4 class="m-text-thin m-text-spaced">网站介绍</h4>
                     <p class="m-text-thin m-text-spaced m-opacity-mini">我提着超市的塑料袋走进小区时，雨滴还不过星星点点，塑料袋里装着泡面火腿肠与几包薯片，是我计划两天的食物。可在我穿过两栋楼以后，大雨倾盆而下。</p>
                 </div>
             </div>
-            <div class="ui section divider inverted"></div>
-            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2013-2020 菜鸟教程 runoob.com All Rights Reserved. 备案号：闽ICP备15012807号-1</p>
+            <div class="ui section divider inverted" style="margin-top: 5px;"></div>
+            <!-- 营业时间 -->
+            <div style="margin-top: -18px;">
+                <span id="htmer_time" style="color: #F08047"></span>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">备案号：闽ICP备15012807号-1</p>
+            </div>
         </div>
     </footer>
 
@@ -92,9 +98,12 @@
         <script type="text/javascript" src="/lib/editormd/lib/marked.min.js"></script>
         <script type="text/javascript" src="/lib/editormd/lib/prettify.min.js"></script>
         <script src="https://unpkg.com/swiper/js/swiper.min.js"> </script>
+        <script type="text/javascript" src="/js/timeline.js"> </script>
+        <script type="text/javascript" src="/js/my.js"> </script>
         <script>
             $(function(){
                 $('#newblogs-container').load("/footer/newblogs");
+                setInterval(setTime, 1000);
             });
     	</script>
     </th:block>

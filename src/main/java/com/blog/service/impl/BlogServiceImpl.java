@@ -155,14 +155,8 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public Map<String, List<Blog>> archiveBlog() {
-		Map<String, List<Blog>> map = new LinkedHashMap<String, List<Blog>>();
-		List<String> years = blogMapper.listGroupYear();
-		for (String year : years) {
-			List<Blog> blogs = blogMapper.listByYear(year);
-			map.put(year, blogs);
-		}
-		return map;
+	public List<Blog> archiveBlog() {
+		return blogMapper.archiveBlog();
 	}
 
 	@Override

@@ -87,9 +87,10 @@
 	</select>
 	
 	<!-- 根据年份获取博客 -->
-	<select id="listByYear" parameterType="string" resultType="blog">
+	<select id="archiveBlog" resultType="blog">
 		select b.id,b.title,b.update_time,b.flag from blog b 
-		where DATE_FORMAT(b.update_time,'%Y') = #{year} and b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE
+		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE 
+		order by update_time desc
 	</select>
 	
 	<!-- 通过关键字搜索博客 -->
@@ -122,13 +123,13 @@
 		update blog set view_count = view_count + #{viewCntWrite} where id = #{id}
 	</update>
 	
-	<!-- 通过id删除博客 -->
-	<delete id="deleteById" parameterType="long">
-		delete from blog where id = #{id}
-	</delete>
+	<!-- 通过id给博客设置删除标志 -->
+	<update id="deleteById" parameterType="long">
+		update blog set is_deleted = true where id = #{id}
+	</update>
 	
-	<!-- 通过类型id删除博客 -->
-	<delete id="deleteByTypeId" parameterType="long">
-		delete from blog where type_id = #{typeId}
-	</delete>
+	<!-- 通过类型id给博客设置删除标志 -->
+	<update id="deleteByTypeId" parameterType="long">
+		update blog set is_deleted = true where type_id = #{typeId}
+	</update>
 </mapper>

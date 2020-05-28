@@ -52,7 +52,7 @@ public interface BlogService {
 	public Long count();
 
 	//博客归档
-	public Map<String, List<Blog>> archiveBlog();
+	public List<Blog> archiveBlog();
 
 	//通过关键字搜索博客
 	public List<BlogTypeTagDTO> listByQuery(String query);
