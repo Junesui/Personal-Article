@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+<title>时间轴</title>
+</head>
+<body>
+    <!--导航 -->
+    <nav th:replace="_fragments :: menu(4)"></nav>
+
+    <!-- 中间内容 -->
+    <div id="waypoint" class="m-container-small m-paddding-tb-big animated fadeIn">
+        <div class="m-container-small m-paddding-tb-big">    
+            <section class="timeline">
+              <ul>
+                <li th:each="blog : ${blogs}">
+                  <div>
+                    <time th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-05-28</time>
+                    <div class="scientist" >
+                        <h3 class="state" style="text-align:center;font-size: 16px;color: #000;">
+                            <a class="m-black" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}">标题 </a>
+                         </h3>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </section>   
+        </div>
+    </div>
+    
+    <!-- 回到顶部按钮 -->
+    <div id="toolbar" class="m-padding m-fixed m-right-bottom" style="display: none;">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-btn" class="ui icon teal button"><i class="chevron up icon"></i></div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="_fragments :: footer"></footer>
+
+    <!-- script -->
+    <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    <script>
+        /* 滚到顶部  */
+        $('#toTop-btn').click(function(){
+            $(window).scrollTo(0,500);          
+        });
+        /* 滚动监测 */
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction) {
+                if(direction == 'down'){
+                    $('#toolbar').show(300);
+                }else{
+                    $('#toolbar').hide(300);
+                }
+          }
+        })
+        
+        /* 切换手机端菜单 */
+        $('.m-menuToggle').click(function(){
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+    </script>
+</body>
+</html>
