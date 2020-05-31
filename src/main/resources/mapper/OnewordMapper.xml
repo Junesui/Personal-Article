@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.OnewordMapper">
+	
+	<!-- 通过token查找用户 -->
+	<select id="list" parameterType="int" resultType="oneword">
+		select * from oneword where is_deleted is not true and is_published is not false order by update_time desc limit #{size}
+	</select>
+	
+</mapper>

@@ -1,4 +1,4 @@
-/* 网站计时 */
+/* 网站计时营业 */
 function setTime() {
     var create_time = Math.round(new Date(Date.UTC(2019, 09, 12, 13, 14, 21)).getTime() / 1000);
     var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
@@ -8,7 +8,6 @@ function setTime() {
             + '秒';
     document.getElementById("htmer_time").innerHTML = currentTimeHtml;
 } 
-
 function secondToDate(second) {
     if (!second) {
         return 0;

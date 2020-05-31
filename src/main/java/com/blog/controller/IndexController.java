@@ -15,8 +15,10 @@ import com.blog.dto.BlogTypeTagDTO;
 import com.blog.dto.TagBlogNumDTO;
 import com.blog.dto.TypeBlogNumDTO;
 import com.blog.entity.Blog;
+import com.blog.entity.Oneword;
 import com.blog.entity.Tag;
 import com.blog.service.BlogService;
+import com.blog.service.OnewordService;
 import com.blog.service.TagService;
 import com.blog.service.TypeService;
 import com.github.pagehelper.PageHelper;
@@ -32,6 +34,8 @@ public class IndexController {
 	private TypeService typeService;
 	@Autowired
 	private TagService tagService;
+	@Autowired
+	private OnewordService onewordService;
 
 	//从配置文件中获取首页展示分类的数量
 	@Value("${index.topTypeNum}")
@@ -45,9 +49,12 @@ public class IndexController {
 	//首页底部展示的推荐博客数量
 	@Value("${index.footerRecommendNum}")
 	private Integer footerRecommendNum;
-
+	//博客首页展示的博客数量
 	@Value("${index.pageBlogSize}")
 	private Integer pageBlogSize;
+	//每日一句展示的数量
+	@Value("${index.onewordSize}")
+	private Integer onewordSize;
 	
 	
 	/**
@@ -70,11 +77,13 @@ public class IndexController {
 		List<TypeBlogNumDTO> typeBlogNumDTOs = typeService.listTopType(topTypeNum);
 		List<TagBlogNumDTO> tagBlogNumDTOs = tagService.listTopTag(topTagNum);
 		List<Blog> recommendBlogs = blogService.listTopRecommendBlog(topRecommendNum);
+		List<Oneword> onewords = onewordService.list(onewordSize);
 
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("typeBlogNumDTOs", typeBlogNumDTOs);
 		model.addAttribute("tagBlogNumDTOs", tagBlogNumDTOs);
 		model.addAttribute("recommendBlogs", recommendBlogs);
-		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("onewords", onewords);
 
 		return "index";
 	}

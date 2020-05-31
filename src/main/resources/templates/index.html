@@ -6,18 +6,15 @@
 <body>
     <!--导航 -->
     <nav th:replace="_fragments :: menu(1)"></nav>
-
+    
     <!-- 轮播图 -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img alt="" src="https://picsum.photos/id/182/900/450" class="ui rounded bordered fluid image">
-            </div>
-            <div class="swiper-slide">
-                <img alt="" src="https://picsum.photos/id/180/900/450" class="ui rounded bordered fluid image">
-            </div>
-            <div class="swiper-slide">
-                <img alt="" src="https://picsum.photos/id/129/900/450" class="ui rounded bordered fluid image">
+            <div class="swiper-slide" th:each="oneword : ${onewords}">
+                <a href="#" style="display: inline-table;width: 100%;height: 100%;">
+                    <img alt="picture is lose" th:src="${oneword.picture}" class="ui bordered fluid image" style="border: none;">
+                    <span th:text="${oneword.content}" class="m-lbPicture"></span>
+                </a>
             </div>
         </div>
         <!-- 添加分页 -->
@@ -160,6 +157,12 @@
         var swiper = new Swiper('.swiper-container', {
             slidesPerView: 1,
             spaceBetween: 30,
+            speed:3000,
+            autoplay:{
+                delay: 10000,
+                disableOnInteraction: false,
+                waitForTransition: false,
+              },
             keyboard: {
               enabled: true,
             },
@@ -177,6 +180,7 @@
     	$('.m-menuToggle').click(function(){
     		$('.m-item').toggleClass('m-mobile-hide');
     	});
+  
     </script>    
 </body>
 </html>
