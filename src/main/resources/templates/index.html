@@ -11,21 +11,21 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide" th:each="oneword : ${onewords}">
-                <a href="#" style="display: inline-table;width: 100%;height: 100%;">
-                    <img alt="picture is lose" th:src="${oneword.picture}" class="ui bordered fluid image" style="border: none;">
-                    <span th:text="${oneword.content}" class="m-lbPicture"></span>
-                </a>
+                <div style="width: 100%;height: 100%;">
+                    <img alt="picture is lose" th:src="${oneword.picture}" class="ui bordered fluid image m-lbPicture">
+                    <div th:text="${oneword.content}" class="m-lbfont"></div>
+                </div>
             </div>
         </div>
-        <!-- 添加分页 -->
+        <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
-        <!-- 添加前后箭头 -->
+        <!-- Add Arrows -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
 
     <!--中间内容-->
-    <div class="m-container m-paddding-tb-big">
+    <div id="waypoint" class="m-container m-paddding-tb-big">
         <div class="ui container">
             <div class="ui stackable grid">
                  <!--left blog list-->
@@ -145,6 +145,12 @@
         </div>
     </div>
     
+    <div id="toolbar" class="m-padding m-fixed m-right-bottom" style="display: none;">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-btn" class="ui teal icon button"><i class="chevron up icon"></i></div>
+        </div>
+    </div>
+    
     <!--底部-->
     <footer th:replace="_fragments :: footer"></footer>
     
@@ -152,35 +158,54 @@
     <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
     <!--/*/ </th:block> /*/-->
 
-    <script>
-    	/* 初始化轮播图 */
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            speed:3000,
-            autoplay:{
-                delay: 10000,
-                disableOnInteraction: false,
-                waitForTransition: false,
-              },
-            keyboard: {
-              enabled: true,
-            },
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-          });
-    	
-    	/* pc-手机端菜单切换 */
-    	$('.m-menuToggle').click(function(){
-    		$('.m-item').toggleClass('m-mobile-hide');
-    	});
-  
-    </script>    
+<script>
+	/* 初始化轮播图 */
+	var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 20,
+        speed:2500,
+		autoplay:{
+            delay: 10000,
+            disableOnInteraction: false,
+            waitForTransition: false,
+          },
+        keyboard: {
+            enabled: true,
+          },
+        hashNavigation: {
+        watchState: true,
+        },
+        pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        },
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+        },
+    });
+	
+	/* pc-手机端菜单切换 */
+	$('.m-menuToggle').click(function(){
+		$('.m-item').toggleClass('m-mobile-hide');
+	});
+
+	/* 滚到顶部  */
+    $('#toTop-btn').click(function(){
+        $(window).scrollTo(0,500);          
+    });
+    
+    /* 滚动监测 */
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function(direction) {
+            if(direction == 'down'){
+                $('#toolbar').show(300);
+            }else{
+                $('#toolbar').hide(300);
+            }
+      }
+    })
+    
+</script>    
 </body>
 </html>

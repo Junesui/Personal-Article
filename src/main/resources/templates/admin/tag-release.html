@@ -17,7 +17,7 @@
     </div>
 
     <!--中间-->
-    <div class="m-container-small m-paddding-tb-big">
+    <div class="m-container-small m-paddding-tb-big m-minHight">
         <div class="ui container">
             <form class="ui form" th:object="${tag}" th:action="*{id}==null ? @{/admin/tags}:@{/admin/tags/{id}(id=*{id})}" method="post">
                 <div class="field">

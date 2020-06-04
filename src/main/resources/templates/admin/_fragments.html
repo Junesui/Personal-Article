@@ -15,9 +15,9 @@
 </head>
 <body>
     <!--导航 -->
-    <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small">
+    <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small m-nav">
         <div class="ui container">
-            <div class="ui inverted secondary stackable menu">
+            <div class="ui inverted secondary stackable menu m-menu-fontSize">
                 <h2 class="ui header teal item"><a th:href="@{/admin/index}">Blog</a></h2>
                 <a th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>博客</a>
                 <a th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>分类</a>
@@ -41,41 +41,12 @@
     </nav>
     
     <!--底部-->
-    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-large">
+    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-huge">
         <div class="ui container center aligned">
-            <div class="ui stackable grid divided inverted">
-                <div class="three wide column">
-                    <div class="ui link list inverted">
-                        <div class="item">
-                            <img class="ui rounded image" src="/images/avatar.png" style="width: 110px;">
-                        </div>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
-                    <div class="ui link list inverted">
-                        <a href="#" class="item">Home</a>
-                        <a href="#" class="item">About</a>
-                        <a href="#" class="item">Jobs</a>
-                        <a href="#" class="item">Team</a>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
-                    <div class="ui link list inverted">
-                        <a href="#" class="item">Home</a>
-                        <a href="#" class="item">About</a>
-                        <a href="#" class="item">Jobs</a>
-                        <a href="#" class="item">Team</a>
-                    </div>
-                </div>
-                <div class="seven wide column">
-                    <h4 class="m-text-thin m-text-spaced">最新博客</h4>
-                    <p class="m-text-thin m-text-spaced m-opacity-mini">我提着超市的塑料袋走进小区时，雨滴还不过星星点点，塑料袋里装着泡面火腿肠与几包薯片，是我计划两天的食物。可在我穿过两栋楼以后，大雨倾盆而下。</p>
-                </div>
+                <!-- 营业时间 -->
+                <div>
+                    <span id="htmer_time" style="color: #F08047"></span>
             </div>
-            <div class="ui section divider inverted"></div>
-            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2013-2020 菜鸟教程 runoob.com All Rights Reserved. 备案号：闽ICP备15012807号-1</p>
         </div>
     </footer>
 
@@ -89,6 +60,13 @@
         <script src="/lib/qrcode/qrcode.min.js"></script>
         <script src="/lib/waypoints/jquery.waypoints.min.js"></script>
         <script src="/lib/editormd/editormd.min.js"></script>
+        <script type="text/javascript" src="/js/my.js"></script>
     </th:block>
+    
+    <script>
+        $(function(){
+            setInterval(setTime, 1000);
+        });
+    </script>
 </body>
 </html>

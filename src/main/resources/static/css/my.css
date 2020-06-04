@@ -5,6 +5,11 @@ body {
 	opacity: 0.85;
 }
 
+/* 导航菜单 */
+.m-nav{
+	
+}
+
 /*---padding--- */
 .m-padding-content {
 	padding: 25px 15px 15px 15px !important;
@@ -79,7 +84,7 @@ body {
 
 /*---margin--- */
 .m-container {
-	max-width: 72em !important;
+	max-width: 92em !important;
 	margin: auto !important;
 }
 
@@ -97,6 +102,11 @@ body {
 	margin-bottom: 0.5em !important;
 }
 
+/* 最小高度  */
+.m-minHight{
+	min-height: 1000px !important;
+}
+
 /*---text--- */
 .m-text {
 	font-weight: 300 !important;
@@ -106,6 +116,10 @@ body {
 
 .m-author-fontSize {
 	font-size: 10px !important;
+}
+
+.m-menu-fontSize{
+	font-size: 13px !important;
 }
 
 .m-text-thin {
@@ -178,34 +192,13 @@ body {
 	display: none !important;
 }
 
-/*---media--- */
-@media screen and (max-width: 768px) {
-	.m-mobile-hide {
-		display: none !important;
-	}
-	.m-mobile-show {
-		display: block !important;
-	}
-	.m-paddding-lr-responsive {
-		padding-left: 0 !important;
-		padding-right: 0 !important;
-	}
-	.m-mobile-lr-clear {
-		padding-left: 0 !important;
-		padding-right: 0 !important;
-	}
-	.m-mobile-wide {
-		width: 100% !important;
-	}
-}
 
 /* 轮播图样式  */
 .swiper-container {
-	width: 95%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 50px;
+	width: 100%;
+	height: 88%;
 }
+
 .swiper-slide {
 	text-align: center;
 	font-size: 18px;
@@ -225,21 +218,62 @@ body {
 	align-items: center;
 }
 
+/* 轮播图图片  */
 .m-lbPicture{
-	display: block ;
-	background-color: d6d6d6 ;
-	color: black ;
-	height: 80px ;
-	font-size: 16px ;
-	padding: 8px 5px 5px 5px ;
+	display: block !important;
+	width: 100% !important;
+	height: 90% !important;
+	border: none !important;
+}
+/* 轮播图文字  */
+.m-lbfont{
+	background-color: d6d6d6 !important;
+	color: black !important;
+	font-size: 15px !important;
+	padding: 5px !important;
 }
 
-.m-nav{
-	width: 100% !important;
-    height: 65px !important;
-    margin-top: -9px !important;
-    opacity: 0.7 !important;
-    position: fixed !important;
-    background-color: rgba(0,0,0,1) !important;
-    z-index: 10 !important;
+/*---media--- */
+@media screen and (max-width: 768px) {
+	.m-mobile-hide {
+		display: none !important;
+	}
+	.m-mobile-show {
+		display: block !important;
+	}
+	.m-paddding-lr-responsive {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.m-mobile-lr-clear {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.m-mobile-wide {
+		width: 100% !important;
+	}
+	
+	/* 轮播 */
+	.swiper-container {
+		height: 50%;
+	}
+	/* 轮播图图片 */
+	.m-lbPicture{
+		height: 80% !important;
+	}
+	/* 轮播图文字 */
+	.m-lbfont{
+		font-size: 10px !important;
+		padding: 0px !important;
+		line-height: 15px !important;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	/* 轮播图文字 */
+	.m-lbfont{
+		font-size: 13px !important;
+		padding: 3px !important;
+		line-height: 15px !important;
+	}
 }

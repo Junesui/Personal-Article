@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/5/18 19:57:42                           */
+/* Created on:     2020/5/30 21:31:31                           */
 /*==============================================================*/
 
 
@@ -9,6 +9,8 @@ drop table if exists blog;
 drop table if exists blog_tag;
 
 drop table if exists comment;
+
+drop table if exists oneword;
 
 drop table if exists tag;
 
@@ -77,6 +79,7 @@ create table comment
    avatar               varchar(255) comment '头像',
    content              text comment '评论内容',
    create_time          datetime not null comment '创建时间',
+   is_deleted           boolean comment '是否删除',
    blog_id              bigint not null comment '博客id',
    parent_id            bigint comment '父评论id',
    is_manager           boolean comment '是否是作者',
@@ -91,6 +94,27 @@ create table comment
 );
 
 alter table comment comment '评论';
+
+/*==============================================================*/
+/* Table: oneword                                               */
+/*==============================================================*/
+create table oneword
+(
+   id                   bigint not null auto_increment,
+   picture              varchar(255) comment '图片',
+   content              varchar(255) comment '内容',
+   is_deleted           boolean comment '是否删除',
+   is_published         boolean comment '是否发布',
+   create_time          datetime not null comment '创建时间',
+   update_time          datetime not null comment '更新时间',
+   reserve1             varchar(255) comment '预留字段1',
+   reserve2             varchar(255) comment '预留字段2',
+   reserve3             int comment '预留字段3',
+   reserve4             int comment '预留字段4',
+   primary key (id)
+);
+
+alter table oneword comment '每日一句话';
 
 /*==============================================================*/
 /* Table: tag                                                   */

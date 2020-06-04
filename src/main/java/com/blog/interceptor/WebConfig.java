@@ -17,6 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private LoginInterceptor loginInterceptor;
 	
+	/**
+	 * 配置拦截路径
+	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 	
@@ -24,4 +27,5 @@ public class WebConfig implements WebMvcConfigurer {
 				.addPathPatterns("/admin/**")
 				.excludePathPatterns("/admin","/admin/login");
 	}
+
 }

@@ -20,7 +20,7 @@
     <!--导航 -->
     <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small m-nav" >
         <div class="ui container">
-            <div class="ui inverted secondary stackable menu">
+            <div class="ui inverted secondary stackable menu m-menu-fontSize">
                 <h2 class="ui header teal item"><a th:href="@{/}">Time</a></h2> 
                 <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
                 <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
@@ -58,7 +58,7 @@
                     <div id="newblogs-container">
                         <div class="ui link list inverted" th:fragment="newblogList">
                             <a th:href="@{/blog/{id}(id=${blog.id})}" target="_bland" class="item" th:each="blog : ${newblogs}"
-                                th:text="${blog.title}">Home</a>
+                                th:text="${blog.title}">标题</a>
                         </div>
                     </div>
 

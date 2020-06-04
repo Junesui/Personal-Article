@@ -5,7 +5,10 @@
 	
 	<!-- 通过token查找用户 -->
 	<select id="list" parameterType="int" resultType="oneword">
-		select * from oneword where is_deleted is not true and is_published is not false order by update_time desc limit #{size}
+		select * from oneword 
+		where is_deleted is not true and is_published is not false 
+		order by update_time desc 
+		limit #{size}
 	</select>
 	
 </mapper>

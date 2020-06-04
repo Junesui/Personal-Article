@@ -17,7 +17,7 @@
     </div>
 
     <!--中间内容-->
-    <div class="m-container m-paddding-tb-big">
+    <div class="m-container m-paddding-tb-big m-minHight">
         <div class="ui container">
             <form id="blog-form" th:object="${blogTypeTagDTO}" th:action="@{/admin/blogs}" method="post" class="ui form">
                 <input type="hidden" name="isPublished">
