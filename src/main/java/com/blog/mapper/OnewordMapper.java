@@ -15,7 +15,18 @@ import com.blog.entity.Oneword;
 @Mapper
 public interface OnewordMapper {
 
-	List<Oneword> list(Integer size);
+	List<Oneword> listBysize(Integer size);
+
+	List<Oneword> list();
+
+	void save(Oneword oneword);
+
+	void update(Oneword oneword);
+
+	Oneword findById(Long id);
+
+	void deleteById(Long id);
+
 
 	
 }

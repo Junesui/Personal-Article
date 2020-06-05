@@ -44,7 +44,7 @@ public class BlogController {
 	@Autowired
 	private TagService tagService;
 
-	@Value("${blogs.pageBlogSize}")
+	@Value("${admin.pageBlogSize}")
 	private Integer pageBlogSize;
 	
 	
@@ -132,10 +132,10 @@ public class BlogController {
 	}
 
 	/**
-	 * 跳转到博客发布页面
+	 * 跳转到博客编辑页面
 	 * @param id
 	 * @param model
-	 * @return 博客发布页面
+	 * @return 博客编辑页面
 	 */
 	@GetMapping("/blogs/edit/{id}")
 	public String blogEdit(@PathVariable Long id, Model model) {

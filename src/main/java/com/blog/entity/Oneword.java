@@ -21,8 +21,8 @@ public class Oneword implements Serializable{
 	private Long id;
 	private String picture;
 	private String content;
-	private Boolean is_deleted;
-	private Boolean is_published;
-	private Date create_time;
-	private Date update_time ;
+	private Boolean isDeleted;
+	private Boolean isPublished;
+	private Date createTime;
+	private Date updateTime ;
 }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+<title>每日一句</title>
+</head>
+<body>
+
+    <!--导航 -->
+    <nav th:replace="admin/_fragments :: menu(4)"></nav>
+
+    <!--二级导航 -->
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+                <a th:href="@{/admin/onewords/addPage}" class="item">新增</a>
+                <a th:href="@{/admin/onewords}" class="teal active item">列表</a>
+        </div>
+    </div>
+
+    <!--中间内容-->
+    <div class="m-container m-paddding-tb-big m-margin-tb-tiny m-minHight">
+        <div class="ui container">
+            <!-- 提示信息 -->
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示:</div><p th:text="${message}"></p>
+            </div>
+            <table class="ui celled  table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>图片地址</th>
+                        <th>内容</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="oneword,iterStat : ${pageInfo.getList()}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${oneword.picture}">图片网址</td>
+                        <td th:text="${oneword.content}">内容</td>
+                        <td style="width: 15%;">
+                            <a th:href="@{/admin/onewords/edit/{id}(id=${oneword.id})}" class="ui mini teal basic button">编辑</a>
+                            <a th:href="@{/admin/onewords/delete/{id}(id=${oneword.id})}" onclick="return confirm('确定删除吗？');" class="ui mini red basic button">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                     <tr>
+                        <th colspan="4">
+                            <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
+                                <a class="item" th:href="@{/admin/onewords(page=${pageInfo.hasPreviousPage} ? ${pageInfo.prePage}:1)}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
+                                <a class="item" th:href="@{/admin/onewords(page=${pageInfo.hasNextPage} ? ${pageInfo.nextPage}:${pageInfo.pages})}" th:if="${pageInfo.hasNextPage}">下一页</a>
+                            </div>
+                            <a th:href="@{/admin/onewords/addPage}" class="ui right floated teal basic mini button">新增</a>
+                        </th>
+                     </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="admin/_fragments :: footer"></footer>
+       
+    <!-- script -->
+    <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    
+    <script>
+        $('.m-menuToggle').click(function(){
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+        
+        $('.dropdown').dropdown({
+            on: 'hover'
+        });
+        
+        //消息提示关闭初始化
+        $('.message .close').on('click',function(){
+        	$(this).closest('.message')
+                   .transition('fade');
+        });
+        
+    </script>    
+</body>
+</html>

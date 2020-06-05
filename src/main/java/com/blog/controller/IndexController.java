@@ -77,7 +77,7 @@ public class IndexController {
 		List<TypeBlogNumDTO> typeBlogNumDTOs = typeService.listTopType(topTypeNum);
 		List<TagBlogNumDTO> tagBlogNumDTOs = tagService.listTopTag(topTagNum);
 		List<Blog> recommendBlogs = blogService.listTopRecommendBlog(topRecommendNum);
-		List<Oneword> onewords = onewordService.list(onewordSize);
+		List<Oneword> onewords = onewordService.listBysize(onewordSize);
 
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("typeBlogNumDTOs", typeBlogNumDTOs);
