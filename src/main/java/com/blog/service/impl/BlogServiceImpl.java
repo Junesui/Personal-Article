@@ -1,9 +1,7 @@
 package com.blog.service.impl;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +61,7 @@ public class BlogServiceImpl implements BlogService {
 			dto.setCreateTime(new Date(System.currentTimeMillis()));
 			dto.setUpdateTime(new Date(System.currentTimeMillis()));
 			dto.setViewCount(0);
+			dto.setCommentCount(0);
 			//插入博客
 			blogMapper.save(dto);
 			//插入blog_tag中间表

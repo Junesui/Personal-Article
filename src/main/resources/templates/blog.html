@@ -25,7 +25,11 @@
                     </div>
                     <div class="item">
                         <i class="eye icon"></i>
-                        <span th:text="${blogTypeTagDTO.viewCount}"></span>
+                        <span th:text="${blogTypeTagDTO.viewCount}">浏览数</span>
+                    </div>
+                    <div class="item">
+                        <i class="comment outline icon"></i>
+                        <span th:text="${blogTypeTagDTO.commentCount}">评论数</span>
                     </div>
                 </div>
             </div>

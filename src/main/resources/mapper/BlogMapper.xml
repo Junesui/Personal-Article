@@ -78,7 +78,7 @@
 	<select id="findBlogDetailById" parameterType="long" resultType="com.blog.dto.BlogTypeTagDTO">
 		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
 		from blog b INNER JOIN user u on b.user_id = u.id
-		INNER JOIN type t on b.type_id = t.id where b.id = #{id}
+		INNER JOIN type t on b.type_id = t.id where b.id = #{id} and b.is_deleted is not true and b.is_published is not false
 	</select>
 	
 	<!-- 列出所有的年份 -->
@@ -132,4 +132,10 @@
 	<update id="deleteByTypeId" parameterType="long">
 		update blog set is_deleted = true where type_id = #{typeId}
 	</update>
+	
+	<!-- 通过博客id增加评论数 -->
+	<update id="incCommentCntById" parameterType="long">
+		update blog set comment_count = comment_count + 1 where id = #{blogId}
+	</update>
+	
 </mapper>

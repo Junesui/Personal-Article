@@ -51,5 +51,7 @@ public interface BlogMapper {
 
 	List<BlogTypeTagDTO> listByQuery(String query);
 
+	void incCommentCntById(Long blogId);
+
 
 }

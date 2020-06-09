@@ -2,19 +2,17 @@
 
 body {
 	background: url("/images/bg.jpg") fixed;
-	opacity: 0.85;
+	opacity: 0.9;
 }
 
-/* 导航菜单 */
-.m-nav{
-	
+/* 首页标题 */
+.m-title-font {
+	font-family: STSong;
+	font-weight: 900;
+	font-size: x-large;
 }
 
 /*---padding--- */
-.m-padding-content {
-	padding: 25px 15px 15px 15px !important;
-}
-
 .m-padding-mini {
 	padding: 0.2em !important;
 }
@@ -54,7 +52,7 @@ body {
 
 .m-paddding-tb-big {
 	padding-top: 2em !important;
-	padding-bottom: 0.5em !important;
+	padding-bottom: 2em !important;
 }
 
 .m-paddding-tb-huge {
@@ -80,6 +78,10 @@ body {
 
 .m-margin-top {
 	margin-top: 30px !important;
+}
+
+.m-margin-top-large {
+	margin-top: 40px !important;
 }
 
 /*---margin--- */
@@ -150,6 +152,9 @@ body {
 /*---color--- */
 .m-black {
 	color: #333 !important;
+}
+.m-floralwhite{
+	color: floralwhite !important;
 }
 
 .m-teal {
