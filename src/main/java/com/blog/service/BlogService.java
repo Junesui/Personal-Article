@@ -32,9 +32,6 @@ public interface BlogService {
 	//列出首页展示的博客相关信息
 	public List<BlogTypeTagDTO> listTopBlog();
 
-	//列出首页展示的推荐博客
-	public List<Blog> listTopRecommendBlog(Integer topRecommendNum);
-
 	//获取博客并转换博客内容的格式
 	public BlogTypeTagDTO findAndConvertById(Long id);
 

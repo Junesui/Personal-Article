@@ -26,14 +26,6 @@
 		select * from type where id = #{id}
 	</select>
 	
-	<!-- 获取博客首页的分类  -->
-	<select id="listTopType" parameterType="int" resultType="com.blog.dto.TypeBlogNumDTO">
-		select t.id,t.name,count(t.id) blogNum from type t 
-		inner join blog b on t.id = b.type_id where b.is_deleted is not true and b.is_published is not false
-		group by t.id
-		order by count(t.id) desc limit #{topTypeNum}
-	</select>
-	
 	<!-- 列出分类及对应的博客数量  -->
 	<select id="listTypeShow" resultType="com.blog.dto.TypeBlogNumDTO">
 		select t.id,t.name,count(t.id) blogNum from type t 

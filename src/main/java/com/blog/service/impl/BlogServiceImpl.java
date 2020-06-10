@@ -113,11 +113,6 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public List<Blog> listTopRecommendBlog(Integer topRecommendNum) {
-		return blogMapper.listTopRecommendBlog(topRecommendNum);
-	}
-
-	@Override
 	public BlogTypeTagDTO findAndConvertById(Long id) {
 		BlogTypeTagDTO blogTypeTagDTO = blogMapper.findBlogDetailById(id);
 		if (blogTypeTagDTO == null) {

@@ -28,8 +28,6 @@ public interface TypeMapper {
 
 	void deleteById(Long id);
 
-	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
-
 	Long count();
 
 	List<TypeBlogNumDTO> listTypeShow();

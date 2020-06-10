@@ -65,11 +65,6 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public List<TagBlogNumDTO> listTopTag(Integer topTagNum) {
-		return tagMapper.listTopTag(topTagNum);
-	}
-
-	@Override
 	public Long count() {
 		return tagMapper.count();
 	}

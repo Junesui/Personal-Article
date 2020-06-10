@@ -34,9 +34,6 @@ public interface TagService {
 	//删除标签和中间表
 	void deleteById(Long id);
 
-	//列出博客首页的标签
-	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
-
 	//统计有博客的标签总数
 	Long count();
 

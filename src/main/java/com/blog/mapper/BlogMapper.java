@@ -35,8 +35,6 @@ public interface BlogMapper {
 
 	List<BlogTypeTagDTO> listTopBlog();
 
-	List<Blog> listTopRecommendBlog(Integer topRecommendNum);
-
 	BlogTypeTagDTO findBlogDetailById(Long id);
 
 	void incViewCntById(Long viewCntWrite,Long id);

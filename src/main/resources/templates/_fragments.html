@@ -18,29 +18,30 @@
 </head>
 <body>
     <!--导航 -->
-    <nav th:fragment="menu(n)" class="ui inverted segment attached m-paddding-tb-mini m-shadow-small m-nav" >
-        <div class="ui container">
-            <div class="ui inverted secondary stackable menu m-menu-fontSize">
-                <h2 class="ui header teal item"><a th:href="@{/}">Time</a></h2> 
-                <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
-                <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
-                <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
-                <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>时间轴</a> 
-                <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
-                <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
-                <div class="right m-item item m-mobile-hide">
-                    <form name="search" th:action="@{/search}" method="post" target="_blank">
-                        <div class="ui icon input transparent inverted">
-                            <input name="query" class="prompt" type="text" placeholder="搜索文章..." th:value="${query}">
-                            <i onclick="document.forms[name='search'].submit()" class="search icon link basic"></i>
-                        </div>
-                    </form>
+    <div class="ui sticky" th:fragment="menu(n)">
+        <nav  class="ui inverted segment attached m-paddding-tb-mini m-shadow-small m-nav" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu m-menu-fontSize">
+                    <h2 class="ui header teal item"><a th:href="@{/}">Time</a></h2> 
+                    <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
+                    <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
+                    <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
+                    <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>时间轴</a> 
+                    <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
+                    <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
+                    <div class="right m-item item m-mobile-hide">
+                        <form name="search" th:action="@{/search}" method="post" target="_blank">
+                            <div class="ui icon input transparent inverted">
+                                <input name="query" class="prompt" type="text" placeholder="搜索文章..." th:value="${query}">
+                                <i onclick="document.forms[name='search'].submit()" class="search icon link basic"></i>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <a href="#" class="ui black icon button m-right-top m-mobile-show m-menuToggle"><i class="sidebar icon"></i></a>
-    </nav>
-
+            <a href="#" class="ui black icon button m-right-top m-mobile-show m-menuToggle"><i class="sidebar icon"></i></a>
+        </nav>
+    </div>
     <!--底部-->
     <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-big">
         <div class="ui container center aligned">
@@ -56,10 +57,7 @@
                 <div class="four wide column">
                     <h4 class="m-text-thin m-text-spaced">最新文章</h4>
                     <div id="newblogs-container">
-                        <div class="ui link list inverted" th:fragment="newblogList">
-                            <a th:href="@{/blog/{id}(id=${blog.id})}" target="_bland" class="item" th:each="blog : ${newblogs}"
-                                th:text="${blog.title}">标题</a>
-                        </div>
+                        <div>......</div>
                     </div>
 
                 </div>
@@ -102,8 +100,13 @@
         <script type="text/javascript" src="/js/my.js"></script>
         <script>
             $(function(){
-                $('#newblogs-container').load("/footer/newblogs");
+            	/* 网站营业时间 */
                 setInterval(setTime, 1000);
+                
+            	/* 固定导航栏 */
+                $('.ui.sticky').sticky({
+                  context: '#waypoint'
+                });
             });
     	</script>
     </th:block>

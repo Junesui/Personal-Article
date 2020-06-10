@@ -31,9 +31,6 @@ public interface TypeService {
 	//通过id删除分类
 	void deleteById(Long id);
 
-	//列出博客首页的分类
-	List<TypeBlogNumDTO> listTopType(Integer topTypeNum);
-
 	//统计有博客的分类总数
 	Long count();
 

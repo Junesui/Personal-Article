@@ -36,8 +36,6 @@ public interface TagMapper {
 
 	void deleteById(Long id);
 
-	List<TagBlogNumDTO> listTopTag(Integer topTagNum);
-
 	Long count();
 
 	List<TagBlogNumDTO> listTagShow();

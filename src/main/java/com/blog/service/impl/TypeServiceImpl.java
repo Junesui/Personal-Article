@@ -64,11 +64,6 @@ public class TypeServiceImpl implements TypeService {
 	}
 
 	@Override
-	public List<TypeBlogNumDTO> listTopType(Integer topTypeNum) {
-		return typeMapper.listTopType(topTypeNum);
-	}
-
-	@Override
 	public Long count() {
 		return typeMapper.count();
 	}
