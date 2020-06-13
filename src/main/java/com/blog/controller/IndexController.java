@@ -31,7 +31,6 @@ public class IndexController {
 	@Autowired
 	private OnewordService onewordService;
 
-
 	//博客首页展示的博客数量
 	@Value("${index.pageBlogSize}")
 	private Integer pageBlogSize;
@@ -49,7 +48,7 @@ public class IndexController {
 	 */
 	@GetMapping("/")
 	public String toIndex(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			              @RequestParam(name = "size", defaultValue = "8") Integer size, 
+			              @RequestParam(name = "size", defaultValue = "10") Integer size, 
 			              Model model) {
 		size = pageBlogSize;
 		//分页

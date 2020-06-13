@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 自定义异常控制器  【备注：如果不写此控制器，直接在templates目录下创建error文件夹，在error文件夹中创建「400.html,500.html,error.html」，发生相匹配的异常时会自动跳转到相应的页面】
+ * 自定义异常控制器  【备注：如果不写此控制器，直接在templates目录下创建error文件夹，在error文件夹中创建「4xx.html,5xx.html,error.html」，发生相匹配的异常时会自动跳转到相应的页面】
  * @author June
  * @date 2020/05/24
  * @version V1.0

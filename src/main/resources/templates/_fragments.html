@@ -22,7 +22,7 @@
         <nav  class="ui inverted segment attached m-paddding-tb-mini m-shadow-small m-nav" >
             <div class="ui container">
                 <div class="ui inverted secondary stackable menu m-menu-fontSize">
-                    <h2 class="ui header teal item"><a th:href="@{/}">Time</a></h2> 
+                    <h2 class="ui header teal item m-margin-navLogo"><a th:href="@{/}">Time</a></h2> 
                     <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
                     <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
                     <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
@@ -107,6 +107,23 @@
                 $('.ui.sticky').sticky({
                   context: '#waypoint'
                 });
+            	
+                /* 滚到顶部  */
+                $('#toTop-btn').click(function(){
+                    $(window).scrollTo(0,500);          
+                });
+                
+                /* 滚动监测 */
+                var waypoint = new Waypoint({
+                    element: document.getElementById('waypoint'),
+                    handler: function(direction) {
+                        if(direction == 'down'){
+                            $('#toolbar').show(300);
+                        }else{
+                            $('#toolbar').hide(300);
+                        }
+                  }
+                })
             });
     	</script>
     </th:block>

@@ -25,7 +25,7 @@
     </div>
 
     <!--中间内容-->
-    <div id="waypoint" class="m-container m-paddding-tb-big">
+    <div id="waypoint" class="m-container m-paddding-tb-large m-minHight">
         <div class="ui container">
             <div class="ui stackable grid">
                 <div class="ui vertical segment">
@@ -144,23 +144,6 @@
 		$('.m-item').toggleClass('m-mobile-hide');
 	});
 
-	/* 滚到顶部  */
-    $('#toTop-btn').click(function(){
-        $(window).scrollTo(0,500);          
-    });
-    
-    /* 滚动监测 */
-    var waypoint = new Waypoint({
-        element: document.getElementById('waypoint'),
-        handler: function(direction) {
-            if(direction == 'down'){
-                $('#toolbar').show(300);
-            }else{
-                $('#toolbar').hide(300);
-            }
-      }
-    })
-    
 </script>    
 </body>
 </html>

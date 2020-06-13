@@ -3,6 +3,7 @@ package com.blog.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,9 @@ public class TypeShowController {
 	@Autowired
 	private BlogService blogService;
 	
+	//分类页展示的博客数量
+	@Value("${types.pageBlogSize}")
+	private Integer pageBlogSize;
 	
 	/**
 	 * 跳转到分类页面
@@ -41,8 +45,9 @@ public class TypeShowController {
 	 */
 	@GetMapping("/types/{id}")
 	public String toTypes(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			            @RequestParam(name = "size", defaultValue = "3") Integer size, 
+			            @RequestParam(name = "size", defaultValue = "8") Integer size, 
 			            @PathVariable Long id, Model model) {
+		size = pageBlogSize;
 		//统计有博客的分类总数
 		Long typeCnt = typeService.count();
 		

@@ -8,7 +8,7 @@
     <nav th:replace="_fragments :: menu(4)"></nav>
 
     <!-- 中间内容 -->
-    <div id="waypoint" class="m-container-small m-paddding-tb-big animated fadeIn">
+    <div id="waypoint" class="m-container-small m-paddding-tb-big animated fadeIn m-minHight">
         <div class="m-container-small m-paddding-tb-big">    
             <section class="timeline">
               <ul>
@@ -33,7 +33,14 @@
             <div id="toTop-btn" class="ui icon teal button"><i class="chevron up icon"></i></div>
         </div>
     </div>
-    
+
+    <!-- 回到顶部按钮 -->
+    <div id="toolbar" class="m-padding m-fixed m-right-bottom" style="display: none;">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-btn" class="ui teal icon button"><i class="chevron up icon"></i></div>
+        </div>
+    </div>
+
     <!--底部-->
     <footer th:replace="_fragments :: footer"></footer>
 

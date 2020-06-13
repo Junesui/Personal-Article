@@ -30,7 +30,8 @@
     </div>
 
     <!-- 前端页面隐藏的具体的异常信息 -->
-    <div>
+    <!-- 这时候自定义实现ErrorController的控制器中存放了message，则下面的 ${exception.message}会报错-->
+    <!-- <div>
         <div th:utext="'&lt;!--'" th:remove="tag"></div>
         <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
         <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
@@ -38,7 +39,7 @@
             <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}" th:remove="tag"></span></li>
         </ul>
         <div th:utext="'--&gt;'" th:remove="tag"></div>
-    </div>
+    </div> -->
 
 </body>
 </html>

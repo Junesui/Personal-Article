@@ -1,15 +1,21 @@
 @charset "UTF-8";
 
 body {
-	background: url("/images/bg.jpg") fixed;
-	opacity: 0.9;
+	background: url("/images/bg.jpg") fixed !important;
+	opacity: 0.9 !important;
+}
+
+/* 导航 */
+.m-nav {
+	background-color: #1b1c1d !important;
+    opacity: 0.7 !important;
 }
 
 /* 首页标题 */
 .m-title-font {
-	font-family: STSong;
-	font-weight: 900;
-	font-size: x-large;
+	font-family: STSong !important;
+	font-weight: 900 !important;
+	font-size: x-large !important;
 }
 
 /*---padding--- */
@@ -51,8 +57,8 @@ body {
 }
 
 .m-paddding-tb-big {
-	padding-top: 2em !important;
-	padding-bottom: 2em !important;
+	padding-top: 3em !important;
+	padding-bottom: 3em !important;
 }
 
 .m-paddding-tb-huge {
@@ -84,14 +90,18 @@ body {
 	margin-top: 40px !important;
 }
 
+.m-margin-navLogo {
+	margin: -5px 0 !important;
+}
+
 /*---margin--- */
 .m-container {
-	max-width: 92em !important;
+	max-width: 75em !important;
 	margin: auto !important;
 }
 
 .m-container-small {
-	max-width: 60em !important;
+	max-width: 65em !important;
 	margin: auto !important;
 }
 
@@ -121,7 +131,8 @@ body {
 }
 
 .m-menu-fontSize{
-	font-size: 13px !important;
+	font-size: 14px !important;
+	color: white !important;
 }
 
 .m-text-thin {

@@ -8,9 +8,9 @@
     <nav th:replace="_fragments :: menu(2)"></nav>
 
     <!--中间内容-->
-    <div class="m-container-small m-paddding-tb-big">
+    <div id="waypoint" class="m-container m-paddding-tb-large m-minHight">
         <div class="ui container">
-            <!--top-->
+            <!--头部-->
             <div class="ui top attached segment">
                 <div class="ui middle aligned two column grid">
                     <div class="column">
@@ -21,21 +21,23 @@
                     </div>
                 </div>
             </div>
-            <!--标签-->
+            <!--分类名称-->
             <div class="ui attached segment m-paddding-tb-large">
                 <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${types}">
-                    <a th:href="@{/types/{id}(id=${type.id})}" class="ui basic button" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.name}">生活</a>
-                    <div class="ui basic left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.blogNum}">24</div>
+                    <a th:href="@{/types/{id}(id=${type.id})}" class="ui basic large label m-paddding-tb-small m-margin-tb-tiny" th:classappend="${type.id==activeTypeId} ? 'teal'">
+                        <span th:text="${type.name}">分类名称</span><span class="detail" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.blogNum}">24</span>
+                    </a>
                 </div>
             </div>
-            <!--博客列表-->
+            <!--文章列表-->
             <div class="ui teal top attached segment">
                 <div class="ui padded vertical segment m-padding-content" th:each="blog : ${pageInfo.getList()}">
                     <div class="ui mobile reversed stackable grid  middle aligned">
                         <div class="eleven wide column">
-                            <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}" class="m-black">被压倒的年轻人</a></h3>
-                            <p th:text="${#strings.abbreviate(blog.description,100)}"></p>
-                            <div class="ui grid">
+                            <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}" class="m-black m-title-font">被压倒的年轻人</a></h3>
+                            <p th:text="${#strings.abbreviate(blog.description,100)}" class="m-text m-margin-top-large"></p>
+                            <div class="ui m-margin-top grid">
+                                <!-- 文章作者信息，更新时间，查看数和评论数 -->
                                 <div class="eleven wide column">
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
@@ -46,11 +48,15 @@
                                         </div>
                                         <div class="item">
                                             <i class="calendar icon"></i>
-                                            <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}"></span>
+                                            <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">2020-02-02</span>
                                         </div>
                                         <div class="item">
                                             <i class="eye icon"></i>
-                                            <span th:text="${blog.viewCount}"></span>
+                                            <span th:text="${blog.viewCount}">浏览数</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="comment outline icon"></i>
+                                            <span th:text="${blog.commentCount}">评论数</span>
                                         </div>
                                     </div>
                                 </div>
@@ -77,6 +83,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+   
+    <!-- 回到顶部按钮 -->
+    <div id="toolbar" class="m-padding m-fixed m-right-bottom" style="display: none;">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-btn" class="ui teal icon button"><i class="chevron up icon"></i></div>
         </div>
     </div>
    
