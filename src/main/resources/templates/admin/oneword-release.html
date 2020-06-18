@@ -32,18 +32,10 @@
                  <div class="field">
                     <div class="ui labeled input">
                         <label class="ui teal basic label">一句内容</label>
-                        <input type="text" name="content" placeholder="每日一句内容(60字之内)" th:value="*{content}">
+                        <input type="text" name="content" placeholder="每日一句内容(60字之内)" maxlength="60" th:value="*{content}">
                     </div>
                 </div>
                 <div class="ui error message"></div>
-                <!-- 提示信息 -->
-                <!--/*/
-                 <div class="ui negative message" th:if="${nameError} != null">
-                    <i class="close icon"></i>
-                    <div class="header">验证失败</div>
-                    <p th:text="${nameError}"></p>
-                </div> 
-                /*/-->
                 <div class="ui right aligned container">
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
                     <button class="ui teal submit button">提交</button>

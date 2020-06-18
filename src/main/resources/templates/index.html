@@ -85,8 +85,8 @@
                     </div>
                 </div>
                 <!--文章分页-->
-                <div class="ui bottom attached segment">
-                    <div class="ui middle aligned two column grid" th:if="${pageInfo.pages} > 1">
+                <div class="ui bottom attached segment" th:if="${pageInfo.pages} > 1">
+                    <div class="ui middle aligned two column grid">
                         <div class="column">
                             <a th:href="@{/(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
                         </div>

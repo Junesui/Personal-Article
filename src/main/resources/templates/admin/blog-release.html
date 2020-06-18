@@ -76,8 +76,9 @@
                         <input type="text" name="firstPicture" placeholder="首图引用地址(650*400)" th:value="*{firstPicture}">
                     </div>
                 </div>
-                <div class="field">
-                    <textarea name="description" th:text="*{description}" placeholder="博客描述...(100字以内)" maxlength="100"></textarea>
+                <div class="field" id="wordCount">
+                    <textarea name="description" th:text="*{description}" placeholder="请输入博客描述信息(用于博客首页展示)..." maxlength="100"></textarea>
+                    <div class="wordwrap m-textareaSum" style="color: white;"><var class="m-word">150</var>/150</div>
                 </div>
                 
                  <div class="inline fields">
@@ -120,7 +121,7 @@
     <!--/*/ </th:block> /*/-->
     
 <script>
-    //初始化markdown
+    /* 初始化markdown */
     var contentEditor;
 	$(function() {
 		contentEditor = editormd("md-content", {
@@ -140,7 +141,7 @@
 		on : 'hover'
 	});
 	
-	//允许自定义标签  ★后台还未实现
+	/* 允许自定义标签  ★后台还未实现 */
 	$('.ui.dropdown')
 	  .dropdown({
 	    allowAdditions: true
@@ -155,7 +156,7 @@
 		$('#blog-form').submit();
 	});
 	
-	//表单验证
+	/* 表单验证 */
 	$('.ui.form').form({
 		on : 'blur',
 		fields : {
@@ -204,6 +205,16 @@
 			
 		}
 	});
+	
+	/* textarea 文字数量监视 */
+	$(function(){
+        //先选出 textarea 和 统计字数 dom 节点
+        var wordCount = $("#wordCount"),
+            textArea = wordCount.find("textarea"),
+            word = wordCount.find(".m-word");
+        //调用
+        statInputNum(textArea,word);
+    });
 </script>    
 </body>
 </html>

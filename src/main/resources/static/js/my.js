@@ -34,5 +34,17 @@ function secondToDate(second) {
     }
     return time;
 }
-   
+
+/* textarea 文字数量监视 */
+function statInputNum(textArea,numItem) {
+    var max = numItem.text(),
+    curLength;
+    textArea[0].setAttribute("maxlength", max);
+    curLength = textArea.val().length;
+    numItem.text(max - curLength);
+    textArea.on('input propertychange', function () {
+        numItem.text(max - $(this).val().length);
+    });
+}
+
     
