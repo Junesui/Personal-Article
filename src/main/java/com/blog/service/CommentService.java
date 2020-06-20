@@ -21,4 +21,7 @@ public interface CommentService {
 
 	//列出一级评论
 	public List<CommentExtDTO> listParentCommentByBlogId(Long blogId);
+
+	//通过评论id增加赞的数量
+	public void incLikeCntByCommentId(Long commentId);
 }

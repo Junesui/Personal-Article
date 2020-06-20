@@ -97,18 +97,35 @@
                                 </a>
                                 <div class="content">
                                     <a class="author">
-                                        <span th:text="${comment.nickname}">Matt</span>
+                                        <span th:text="${comment.nickname}">评论人昵称</span>
                                         <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${comment.isManager}">博主</span>
                                     </a>
                                     <div class="metadata">
-                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">评论时间</span>
                                     </div>
-                                    <div class="text" th:text="${comment.content}">How artistic!</div>
+                                    <div class="text" th:text="${comment.content}">评论内容</div>
                                     <div class="actions">
+                                        <!-- 赞 -->
+                                        <a onclick="incLikeCnt(this)" th:attr="data-commentid=${comment.id}">
+                                            <i class="m-commentIcon large thumbs up outline icon"></i>
+                                            <span id="likeCnt-container" th:if="${comment.likeCount}!=0" th:text="${comment.likeCount}">一级评论赞数量</span>
+                                        </a>
+                                        <!-- 踩 -->
+                                        <a onclick="incDownCnt(this)" th:attr="data-commentid=${comment.id}">
+                                            <i class="m-commentIcon thumbs down outline icon"></i>
+                                            <span th:if="${comment.downCount}!=0" th:text="${comment.downCount}">一级评论踩数量</span>
+                                        </a>
+                                        <!-- 评论 -->
+                                        <a onclick="show2comment(this)" th:attr="data-commentid=${comment.id}">
+                                            <i class="m-commentIcon comment outline icon commentBtn" th:id="${'commentBtn-'+comment.id}"></i>
+                                            <span th:if="${comment.replyCount}!=0" th:text="${comment.replyCount}">一级评论的回复数量</span>
+                                        </a>
+                                        <!-- 回复 -->
                                         <a class="reply" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>
                                     </div>
                                 </div>
-                                <div class="comments" th:if="${#arrays.length(comment.replyComments)} > 0">
+                                <!-- 二级评论列表 -->
+                                <div class="comments" th:id="${'comment-'+comment.id}" th:if="${#arrays.length(comment.replyComments)} > 0" style="display: none;">
                                     <div class="comment" th:each="reply : ${comment.replyComments}">
                                         <a class="avatar"> <img th:src="@{${reply.avatar}}">
                                         </a>
@@ -119,9 +136,9 @@
                                                 <span th:text="| @ ${reply.parentNickname}|" class="m-teal"></span>
                                             </a>
                                             <div class="metadata">
-                                                <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                                <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">评论时间</span>
                                             </div>
-                                            <div class="text" th:text="${reply.content}">How artistic!</div>
+                                            <div class="text" th:text="${reply.content}">评论内容</div>
                                             <div class="actions">
                                                 <a class="reply" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}" onclick="reply(this)">回复</a>
                                             </div>
@@ -167,7 +184,6 @@
         <div class="ui vertical icon buttons">
             <button type="button" class="ui teal button topic-btn">目录</button>
             <a href="#comment-container" class="ui teal button">留言</a>
-            <button class="ui icon button wechat"><i class="wechat icon"></i></button>
             <div id="toTop-btn" class="ui icon button"><i class="chevron up icon"></i></div>
         </div>
     </div>
@@ -322,6 +338,37 @@
         	$("[name='content']").attr("placeholder","@"+commentNickname).focus();
         	$("[name='parentId']").val(commentId);
         	$(window).scrollTo($('#comment-form'),500); 
+        }
+        
+        /* 展开和隐藏二级评论 */
+        function show2comment(obj){
+        	var commentId = $(obj).data('commentid');
+        	var comment = $("#comment-" + commentId);
+        	var commentBtn = $("#commentBtn-" + commentId);
+        	/* 切换评论图标样式 */
+        	commentBtn.toggleClass('outline');
+        	/* 切换二级评论是否显示 */
+        	comment.toggle();
+        }
+        
+        /* 增加赞的数量 */
+        function incLikeCnt(obj){
+        	$.get({
+        		url : '/incLikeCnt',
+        		data : {
+        			"commentId" : $(obj).data('commentid')
+        		},
+        		success : function(data){
+        			/* 获取点赞之前的赞数，然后加1 */
+        			var add =parseInt($('#likeCnt-container').html()) + 1;
+        			/* 点赞数加1后，重新赋值 */
+        			$('#likeCnt-container').html(add);
+        			
+        			/* 改变图标颜色 */
+        			//$('.m-commentIcon').css("color","red");
+        			
+        		}
+        	})
         }
         
 </script>    

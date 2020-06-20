@@ -44,8 +44,11 @@ public class CommentServiceImpl implements CommentService {
 		if (comment.getParentId() == -1) {
 			comment.setParentId(null);
 			blogMapper.incCommentCntById(comment.getBlogId());
+		}else {
+			commentMapper.incReplyCntById(comment.getParentId());
 		}
 		comment.setCreateTime(new Date(System.currentTimeMillis()));
+		
 		commentMapper.save(comment);
 	}
 
@@ -94,6 +97,11 @@ public class CommentServiceImpl implements CommentService {
 			}
 		}
 
+	}
+
+	@Override
+	public void incLikeCntByCommentId(Long commentId) {
+		commentMapper.incLikeCntByCommentId(commentId);
 	}
 
 }

@@ -68,5 +68,16 @@ public class CommentController {
 		return "redirect:/comments/" + comment.getBlogId();
 	}
 	
+	/**
+	 * 根据评论id增加评论赞的数量
+	 * @param commentId 评论id
+	 * @return 博客的评论列表片段
+	 */
+	@GetMapping("/incLikeCnt")
+	public String incLikeCntByCommentId(Long commentId) {
+		commentService.incLikeCntByCommentId(commentId);
+		return "forward:/comments/" + commentId;
+	}
+	
 	
 }

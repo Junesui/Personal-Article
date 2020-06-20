@@ -24,4 +24,15 @@
 		delete from comment where blog_id = #{blogId}
 	</delete>
 	
+	<!-- 增加一级评论的回复数量 -->
+	<update id="incReplyCntById" parameterType="long">
+		update comment set reply_count = reply_count + 1 where id = #{id}
+	</update>
+	
+	<!-- 通过评论id增加赞的数量 -->
+	<update id="incLikeCntByCommentId" parameterType="long">
+		update comment set like_count = like_count + 1 where id = #{id}
+	</update>
+	
+	
 </mapper>

@@ -18,13 +18,27 @@ body {
 	font-size: x-large !important;
 }
 
-/* textarea 数量统计 */
+/* 首页回到顶部按钮 */
+.m-indexUpBtn {
+	transform: rotate(-90deg) !important;
+	font-size: 50px !important;
+	color: #e9ecf1 !important;
+	font-weight: 1000 !important;
+}
+
+/* textarea 文字数量统计 */
 .m-textareaSum {
 	color: black !important;
     text-align: right !important;
     position: relative !important;
     top: -22px !important;
     right: 12px !important;
+}
+
+/* 评论列表中的图标 */
+.m-commentIcon {
+	font-size: 15px !important;
+	margin: 0 !important;
 }
 
 /*---padding--- */
@@ -85,6 +99,11 @@ body {
 	padding-right: 4em !important;
 }
 
+.m-paddding-tb-footer {
+	padding-top: 2em !important;
+	padding-bottom: 0em !important;
+}
+
 /*---margin--- */
 .m-margin-tb-tiny {
 	margin-top: 0.3em !important;
@@ -103,7 +122,7 @@ body {
 	margin: -5px 0 !important;
 }
 
-/*---margin--- */
+/*---container--- */
 .m-container {
 	max-width: 75em !important;
 	margin: auto !important;
@@ -125,7 +144,7 @@ body {
 
 /* 最小高度  */
 .m-minHight{
-	min-height: 1000px !important;
+	min-height: 800px !important;
 }
 
 /*---text--- */

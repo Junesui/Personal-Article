@@ -24,5 +24,9 @@ public interface CommentMapper {
 
 	public List<CommentExtDTO> listChildCommentByParentId(Long parentId);
 
+	public void incReplyCntById(Long id);
+
+	public void incLikeCntByCommentId(Long commentId);
+
 	
 }
