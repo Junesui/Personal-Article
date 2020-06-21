@@ -29,6 +29,7 @@
                     <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>时间轴</a> 
                     <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
                     <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
+                    <a th:href="@{/friends}" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i class="child icon"></i>友人链</a>
                     <div class="right m-item item m-mobile-hide">
                         <form name="search" th:action="@{/search}" method="post" target="_blank">
                             <div class="ui icon input transparent inverted">
@@ -101,7 +102,7 @@
         <script>
             $(function(){
             	/* 网站营业时间 */
-                setInterval(setTime, 1000);
+                setInterval(setOpenTime(), 1000);
                 
             	/* 固定导航栏 */
                 $('.ui.sticky').sticky({

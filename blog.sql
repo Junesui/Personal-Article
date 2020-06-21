@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/6/20 21:01:00                           */
+/* Created on:     2020/6/21 21:27:38                           */
 /*==============================================================*/
 
 
@@ -9,6 +9,8 @@ drop table if exists blog;
 drop table if exists blog_tag;
 
 drop table if exists comment;
+
+drop table if exists friendslink;
 
 drop table if exists oneword;
 
@@ -94,6 +96,31 @@ create table comment
 );
 
 alter table comment comment '评论';
+
+/*==============================================================*/
+/* Table: friendslink                                           */
+/*==============================================================*/
+create table friendslink
+(
+   id                   int not null auto_increment,
+   website_url          varchar(255) comment '网站地址',
+   website_name         varchar(255) comment '网站名称',
+   website_description  varchar(255) comment '网站简介',
+   picture              varchar(255) comment '展示图片',
+   is_show              boolean comment '是否展示',
+   priority             varchar(255) comment '优先级别',
+   groups               varchar(255) comment '分组',
+   create_time          datetime comment '创建时间',
+   update_time          datetime comment '更新时间',
+   view_count           bigint comment '浏览次数',
+   reserve1             int comment '预留字段1',
+   reserve2             int comment '预留字段2',
+   reserve3             varchar(255) comment '预留字段3',
+   reserve4             varchar(255) comment '预留字段4',
+   primary key (id)
+);
+
+alter table friendslink comment '友人链';
 
 /*==============================================================*/
 /* Table: oneword                                               */

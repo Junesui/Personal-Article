@@ -5,7 +5,7 @@
 </head>
 <body>
     <!--导航 -->
-    <nav th:replace="_fragments :: menu(1)"></nav>
+    <nav th:replace="_fragments :: menu(0)"></nav>
     
     <!--中间内容-->
     <div id="waypoint" class="m-container-small m-paddding-tb-large animated fadeIn m-minHight">
@@ -107,13 +107,13 @@
                                     <div class="actions">
                                         <!-- 赞 -->
                                         <a onclick="incLikeCnt(this)" th:attr="data-commentid=${comment.id}">
-                                            <i class="m-commentIcon large thumbs up outline icon"></i>
-                                            <span id="likeCnt-container" th:if="${comment.likeCount}!=0" th:text="${comment.likeCount}">一级评论赞数量</span>
+                                            <i class="m-commentIcon large thumbs up outline icon" th:id="${'likeIcon-'+comment.id}"></i>
+                                            <span th:id="${'likeCnt-container-'+comment.id}" th:text="${comment.likeCount}">一级评论赞数量</span>
                                         </a>
                                         <!-- 踩 -->
                                         <a onclick="incDownCnt(this)" th:attr="data-commentid=${comment.id}">
-                                            <i class="m-commentIcon thumbs down outline icon"></i>
-                                            <span th:if="${comment.downCount}!=0" th:text="${comment.downCount}">一级评论踩数量</span>
+                                            <i class="m-commentIcon thumbs down outline icon" th:id="${'downIcon-'+comment.id}"></i>
+                                            <span th:id="${'downCnt-container-'+comment.id}" th:text="${comment.downCount}">一级评论踩数量</span>
                                         </a>
                                         <!-- 评论 -->
                                         <a onclick="show2comment(this)" th:attr="data-commentid=${comment.id}">
@@ -321,13 +321,13 @@
         		"email" : $("[name='email']").val(),
         		"content" : $("[name='content']").val()
         	},function (responseTxt,statusTxe,xhr){
-        		/* 清除内容 */
+        		// 清除内容 
         		$("[name='content']").val('');
         		$("[name='nickname']").val('');
         		$("[name='email']").val('');
         		$("[name='parentId']").val(-1);
         		$("[name='content']").attr("placeholder","请输入评论内容......");
-        		/* $(window).scrollTo($('#comment-container'),500);  */
+        		// $(window).scrollTo($('#comment-container'),500);
         	});
         }
         
@@ -345,32 +345,65 @@
         	var commentId = $(obj).data('commentid');
         	var comment = $("#comment-" + commentId);
         	var commentBtn = $("#commentBtn-" + commentId);
-        	/* 切换评论图标样式 */
+        	// 切换评论图标样式 
         	commentBtn.toggleClass('outline');
-        	/* 切换二级评论是否显示 */
+        	// 切换二级评论是否显示 
         	comment.toggle();
         }
         
-        /* 增加赞的数量 */
+        /* 增加点赞的数量 */
         function incLikeCnt(obj){
-        	$.get({
-        		url : '/incLikeCnt',
-        		data : {
-        			"commentId" : $(obj).data('commentid')
-        		},
-        		success : function(data){
-        			/* 获取点赞之前的赞数，然后加1 */
-        			var add =parseInt($('#likeCnt-container').html()) + 1;
-        			/* 点赞数加1后，重新赋值 */
-        			$('#likeCnt-container').html(add);
-        			
-        			/* 改变图标颜色 */
-        			//$('.m-commentIcon').css("color","red");
-        			
-        		}
-        	})
+        	// 获取点赞的图标 
+			var commentId = $(obj).data('commentid');
+			var likeBtn = $('#likeIcon-' + commentId);
+			//获取放点赞数量的元素
+			var likeCntContainerId = $('#likeCnt-container-' + commentId);
+			
+			// 如果没有类'm-red',则可以进行点赞
+			if(!likeBtn.hasClass("m-red")) {
+				// 发送ajax请求 
+				$.get({
+	        		url : '/incLikeCnt',
+	        		data : {
+	        			"commentId" : $(obj).data('commentid')
+	        		},
+	        		success : function(data){
+	        			var add =parseInt(likeCntContainerId.html()) + 1;
+	        			// 点赞数加1后，重新赋值 
+	            	    likeCntContainerId.html(add);
+	        			// 点赞后，,添加类'm-red'，修改为点赞图标为红色 
+	        			likeBtn.addClass("m-red");
+	        		}
+	        	})
+			}
         }
         
+        /* 增加踩的数量 */
+        function incDownCnt(obj){
+        	// 获取点赞的图标 
+			var commentId = $(obj).data('commentid');
+			var downBtn = $('#downIcon-' + commentId);
+			//获取放踩数量的元素
+			var downCntContainerId = $('#downCnt-container-' + commentId);
+			
+			// 如果没有类'm-teal',则可以进行点赞
+			if(!downBtn.hasClass("m-teal")) {
+				// 发送ajax请求 
+				$.get({
+	        		url : '/incDownCnt',
+	        		data : {
+	        			"commentId" : $(obj).data('commentid')
+	        		},
+	        		success : function(data){
+	        			var add =parseInt(downCntContainerId.html()) + 1;
+	        			// 点赞数加1后，重新赋值 
+	            	    downCntContainerId.html(add);
+	        			// 点赞后，,添加类'm-red'，修改为点赞图标为红色 
+	        			downBtn.addClass("m-teal");
+	        		}
+	        	})
+			}
+        }
 </script>    
 </body>
 </html>

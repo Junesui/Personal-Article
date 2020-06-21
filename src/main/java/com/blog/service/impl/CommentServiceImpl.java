@@ -48,6 +48,9 @@ public class CommentServiceImpl implements CommentService {
 			commentMapper.incReplyCntById(comment.getParentId());
 		}
 		comment.setCreateTime(new Date(System.currentTimeMillis()));
+		comment.setLikeCount(0);
+		comment.setDownCount(0);
+		comment.setReplyCount(0);
 		
 		commentMapper.save(comment);
 	}
@@ -102,6 +105,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void incLikeCntByCommentId(Long commentId) {
 		commentMapper.incLikeCntByCommentId(commentId);
+	}
+
+	@Override
+	public void incDownCntByCommentId(Long commentId) {
+		commentMapper.incDownCntByCommentId(commentId);
 	}
 
 }

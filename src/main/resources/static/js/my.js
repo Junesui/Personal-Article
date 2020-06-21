@@ -1,5 +1,5 @@
 /* 网站计时营业 */
-function setTime() {
+function setOpenTime() {
     var create_time = Math.round(new Date(Date.UTC(2019, 09, 12, 13, 14, 21)).getTime() / 1000);
     var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
     currentTime = secondToDate((timestamp - create_time));
@@ -47,4 +47,3 @@ function statInputNum(textArea,numItem) {
     });
 }
 
-    

@@ -5,7 +5,7 @@
 
 	<!-- 列出一级评论 -->
 	<select id="listParentCommentByBlogId" parameterType="long" resultType="com.blog.dto.CommentExtDTO">
-		select * from comment where parent_id is null and blog_id = #{blogId}
+		select * from comment where parent_id is null and blog_id = #{blogId} order by (like_count + reply_count - down_count) desc
 	</select>
 
 	<!-- 通过父id列出子评论 -->
@@ -15,8 +15,8 @@
 	
 	<!-- 保存评论 -->
 	<insert id="save" parameterType="comment">
-		insert into comment (nickname,email,avatar,content,create_time,blog_id,parent_id,is_manager)
-		values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{blogId},#{parentId},#{isManager});
+		insert into comment (nickname,email,avatar,content,create_time,blog_id,parent_id,is_manager,like_count,down_count,reply_count)
+		values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{blogId},#{parentId},#{isManager},#{likeCount},#{downCount},#{replyCount});
 	</insert>
 	
 	<!-- 通过博客id删除评论 -->
@@ -32,6 +32,11 @@
 	<!-- 通过评论id增加赞的数量 -->
 	<update id="incLikeCntByCommentId" parameterType="long">
 		update comment set like_count = like_count + 1 where id = #{id}
+	</update>
+	
+	<!-- 通过评论id增加踩的数量 -->
+	<update id="incDownCntByCommentId" parameterType="long">
+		update comment set down_count = down_count + 1 where id = #{id}
 	</update>
 	
 	

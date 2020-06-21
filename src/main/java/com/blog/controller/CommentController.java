@@ -79,5 +79,11 @@ public class CommentController {
 		return "forward:/comments/" + commentId;
 	}
 	
+	@GetMapping("/incDownCnt")
+	public String incDownCntByCommentId(Long commentId) {
+		commentService.incDownCntByCommentId(commentId);
+		return "forward:/comments/" + commentId;
+	}
+	
 	
 }

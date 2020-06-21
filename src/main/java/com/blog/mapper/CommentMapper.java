@@ -28,5 +28,7 @@ public interface CommentMapper {
 
 	public void incLikeCntByCommentId(Long commentId);
 
+	public void incDownCntByCommentId(Long commentId);
+
 	
 }
