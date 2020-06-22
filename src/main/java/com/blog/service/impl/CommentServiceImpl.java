@@ -86,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
 	/**
 	 * 递归迭代，剥洋葱
 	 * @param comment 被迭代的对象
-	 * @param pNickname 夫评论昵称
+	 * @param pNickname 父评论昵称
 	 */
 	private void recursively(CommentExtDTO comment, String pNickname) {
 

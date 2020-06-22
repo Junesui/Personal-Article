@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/6/21 21:27:38                           */
+/* Created on:     2020/6/22 9:22:42                            */
 /*==============================================================*/
 
 
@@ -106,9 +106,9 @@ create table friendslink
    website_url          varchar(255) comment '网站地址',
    website_name         varchar(255) comment '网站名称',
    website_description  varchar(255) comment '网站简介',
-   picture              varchar(255) comment '展示图片',
+   picture_url          varchar(255) comment '展示图片',
    is_show              boolean comment '是否展示',
-   priority             varchar(255) comment '优先级别',
+   priority             int comment '优先级别',
    groups               varchar(255) comment '分组',
    create_time          datetime comment '创建时间',
    update_time          datetime comment '更新时间',

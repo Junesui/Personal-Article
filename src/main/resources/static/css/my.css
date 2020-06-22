@@ -41,6 +41,16 @@ body {
 	margin: 0 !important;
 }
 
+/* 友人链  */
+.m-margin-friendsLink {
+	margin: 1em 1em !important;
+}
+
+.m-friendslink-pircure {
+	max-height: 250px !important;
+    max-width: 230px !important;
+}
+
 /*---padding--- */
 .m-padding-mini {
 	padding: 0.2em !important;
@@ -110,10 +120,9 @@ body {
 	margin-bottom: 0.3em !important;
 }
 
-.m-margin-friendsLink {
-	margin: 1em 1em !important;
+.m-margin {
+	margin: 1em 0.8em !important;
 }
-
 
 .m-margin-top-mini {
 	margin-top: 3px !important;
@@ -161,6 +170,10 @@ body {
 	font-weight: 300 !important;
 	letter-spacing: 1px !important;
 	line-height: 1.8 !important;
+}
+
+.m-text-werght {
+	font-weight: 700 !important;
 }
 
 .m-author-fontSize {

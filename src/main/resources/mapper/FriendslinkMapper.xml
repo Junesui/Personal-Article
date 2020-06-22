@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.FriendslinkMapper">
+
+	<!-- 列出要展示的友人链信息 -->
+	<select id="listShow" resultType="friendslink">
+		select * from friendslink where is_show is not false order by create_time
+	</select>
+	
+	<!-- 添加友人链 -->
+	<insert id="save" parameterType="friendslink">
+		insert into friendslink (website_url,website_name,website_description,picture_url,is_show,priority,groups,create_time,update_time,view_count)
+			             values (#{websiteUrl},#{websiteName},#{websiteDescription},#{pictureUrl},#{isShow},#{priority},#{groups},#{createTime},#{updateTime},#{viewCount})
+	</insert>
+
+</mapper>

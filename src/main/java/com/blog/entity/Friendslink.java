@@ -20,9 +20,9 @@ public class Friendslink implements Serializable{
 	public String websiteUrl;        
 	public String websiteName;       
 	public String websiteDescription;
-	public String picture;            
+	public String pictureUrl;            
 	public Boolean isShow;            
-	public String priority;
+	public Integer priority;
 	public String groups;             
 	public Date createTime;        
 	public Date updateTime;        
