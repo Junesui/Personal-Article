@@ -19,5 +19,7 @@ public interface FriendslinkMapper {
 
 	void save(Friendslink friendslink);
 
+	void viewFriendslinkById(Integer id);
+
 	
 }

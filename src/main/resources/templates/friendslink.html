@@ -13,7 +13,7 @@
         <div class="ui container">
             <!-- 头部 -->
             <div class="ui top attached segment">
-                <h2 class="ui header m-teal" align="center" th:text="${message}"></h2>
+                <h2 class="ui header m-red" align="center" th:text="${message}"></h2>
                 <h2 class="ui disabled header" align="center" th:text="#{friendslink.randomWorld}"></h2>
             </div>
             <!-- 友人链 申请表单-->
@@ -42,11 +42,11 @@
                     <form class="ui form" th:action="@{/addFriendslink}" method="post">
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站名称</div>
-                            <input type="text" placeholder="请输入网站名称(10字之内)..." maxlength="10" name="websiteName">
+                            <input type="text" placeholder="请输入网站名称(16字之内)..." maxlength="16" name="websiteName">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站简介</div>
-                            <input type="text" placeholder="请输入网站简介(42字之内)..." maxlength="42" name="websiteDescription">
+                            <input type="text" placeholder="请输入网站简介(28字之内)..." maxlength="28" name="websiteDescription">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站地址</div>
@@ -63,22 +63,131 @@
             </div>
             <!-- 友人链显示区域 -->
             <div id="waypoint" class="ui segment">
-                <div class="ui four stackable link cards m-margin-friendsLink">
-                    <!-- 一个友人链区域 -->
-                    <div class="card" th:each="friend : ${friendslinks}">
-                        <!-- 网站图片 -->
-                        <a class="image" th:href="${friend.websiteUrl}" target="_blank">
-                            <img th:src="${friend.pictureUrl}" class="m-friendslink-pircure">
-                        </a>
-                        <!-- 网站名称和简介 -->
+                <div class="ui link cards m-margin-friendsLink">
+                    <!-- 友链示例 -->
+                    <div class="card" style="max-width: 230px;background-color: bisque;" th:if="${page} == 1">
                         <div class="content">
-                            <div class="header" th:text="${friend.websiteName}">网站名称</div>
-                            <div class="description" th:text="${friend.websiteDescription}">网站简介</div>
+                            <!-- 网站图片 -->
+                            <a href="#"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" src="/images/avatar.png"></a>
+                            <!-- 网站名称 -->
+                            <div class="header m-margin-top-mini">
+                                <a href="#" style="color: #000000d9;">这儿显示【网站名称】</a>
+                            </div>
+                            <!-- 网站简介 -->
+                            <div class="description">
+                                <a href="#" style="color: #000000ad;">这儿显示【网站简介网站简介网站简介网站简介网站简介】</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 一个友链区域 -->
+                    <div class="card" style="max-width: 230px;" th:each="friend : ${pageInfo.getList()}">
+                        <div class="content">
+                            <!-- 网站图片 -->
+                            <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" th:src="${friend.pictureUrl}"></a>
+                            <!-- 网站名称 -->
+                            <div class="header m-margin-top-mini">
+                                <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)" th:text="${friend.websiteName}" style="color: #000000d9;">网站名称</a>
+                            </div>
+                            <!-- 网站简介 -->
+                            <div class="description">
+                                <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)" th:text="${friend.websiteDescription}" style="color: #000000ad;">网站简介</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页 -->
+                <div class="ui attached segment m-page" th:if="${pageInfo.pages} > 1">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <a th:href="@{/friendslink(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
+                        </div>
+                        <div class="column right aligned">
+                            <a th:href="@{/friendslink(page=${pageInfo.pageNum}+1)}" th:if="${pageInfo.hasNextPage}" class="ui teal basic mini button">下一页</a>
                         </div>
                     </div>
                 </div>
             </div>
-           
+            <!-- 底部留言框 -->
+            <div class="ui bottom attached segment">
+                <!-- 留言列表 -->
+                <div class="ui bottom attached segment">
+                    <div id="comment-container" class="ui teal segment">
+                        <div th:fragment="commentList">
+                            <div class="ui threaded comments" style="max-width: 100%;">
+                                <h3 class="ui dividing header"><i class="comments icon"></i>留言</h3>
+                                <div class="comment">
+                                    <a class="avatar"> <img>
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">
+                                            <span>评论人昵称</span>
+                                            <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize">管理员</span>
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date">评论时间</span>
+                                        </div>
+                                        <div class="text">评论内容</div>
+                                        <div class="actions">
+                                            <!-- 回复 -->
+                                            <a class="reply" onclick="reply(this)">回复</a>
+                                        </div>
+                                    </div>
+                                    <!-- 二级评论列表 -->
+                                    <div class="comments" style="display: none;">
+                                        <div class="comment">
+                                            <a class="avatar"> <img src="/images/avatar.png">
+                                            </a>
+                                            <div class="content">
+                                                <a class="author">
+                                                    <span ></span>
+                                                    <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" >博主</span>
+                                                    <span  class="m-teal"></span>
+                                                </a>
+                                                <div class="metadata">
+                                                    <span class="date">评论时间</span>
+                                                </div>
+                                                <div class="text" >评论内容</div>
+                                                <div class="actions">
+                                                    <a class="reply"  onclick="reply(this)">回复</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--评论框-->
+                    <div id="comment-form" class="ui form">
+                        <input type="hidden" name="blogId">
+                        <input type="hidden" name="parentId" value="-1">
+                        <div class="field">
+                            <textarea name="content" placeholder="请输入评论信息....."></textarea>                    
+                        </div>
+                        <div class="fields">
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <input type="text" name="nickname" placeholder="姓名">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <div class="ui left icon input">
+                                    <input type="email" name="email" placeholder="邮箱">
+                                    <i class="mail icon"></i>
+                                </div>
+                            </div>
+                            <div class="field m-mobile-wide m-margin-bottom-small">
+                                <button id="commentpost-btn" type="button" class="ui teal small button m-mobile-wide"><i class="edit icon"></i>提交</button>
+                            </div>
+                        </div>
+                        <div class="ui error message"></div>
+                    </div>
+                </div>
+
+
+            
+            </div>
         </div>
     </div>
     
@@ -133,6 +242,16 @@
 			}
 		}
 	});
+	
+	/* 访问友人链 */
+	function viewFriendslink(obj){
+		$.get({
+    		url : '/viewFriendslink',
+    		data : {
+    			"id" : $(obj).data('friendslinkid')
+    		}
+    	})
+	}
 	
 	/* pc-手机端菜单切换 */
 	$('.m-menuToggle').click(function(){

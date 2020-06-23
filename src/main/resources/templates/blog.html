@@ -98,7 +98,7 @@
                                 <div class="content">
                                     <a class="author">
                                         <span th:text="${comment.nickname}">评论人昵称</span>
-                                        <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${comment.isManager}">博主</span>
+                                        <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${comment.isManager}">管理员</span>
                                     </a>
                                     <div class="metadata">
                                         <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">评论时间</span>
@@ -132,7 +132,7 @@
                                         <div class="content">
                                             <a class="author">
                                                 <span th:text="${reply.nickname}"></span>
-                                                <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${reply.isManager}">博主</span>
+                                                <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${reply.isManager}">管理员</span>
                                                 <span th:text="| @ ${reply.parentNickname}|" class="m-teal"></span>
                                             </a>
                                             <div class="metadata">
@@ -170,7 +170,7 @@
                             </div>
                         </div>
                         <div class="field m-mobile-wide m-margin-bottom-small">
-                            <button id="commentpost-btn" type="button" class="ui teal small button m-mobile-wide"><i class="edit icon"></i>发布</button>
+                            <button id="commentpost-btn" type="button" class="ui teal small button m-mobile-wide"><i class="edit icon"></i>提交</button>
                         </div>
                     </div>
                     <div class="ui error message"></div>

@@ -13,5 +13,10 @@
 		insert into friendslink (website_url,website_name,website_description,picture_url,is_show,priority,groups,create_time,update_time,view_count)
 			             values (#{websiteUrl},#{websiteName},#{websiteDescription},#{pictureUrl},#{isShow},#{priority},#{groups},#{createTime},#{updateTime},#{viewCount})
 	</insert>
+	
+	<!-- 更新友人链访问次数 -->
+	<update id="viewFriendslinkById" parameterType="int">
+		update friendslink set view_count = view_count + 1 where id = #{id} 
+	</update>
 
 </mapper>

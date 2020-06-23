@@ -36,4 +36,9 @@ public class FriendslinkServiceImpl implements FriendslinkService{
 		friendslinkMapper.save(friendslink);
 	}
 
+	@Override
+	public void viewFriendslinkById(Integer id) {
+		friendslinkMapper.viewFriendslinkById(id);
+	}
+
 }

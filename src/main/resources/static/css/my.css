@@ -46,9 +46,11 @@ body {
 	margin: 1em 1em !important;
 }
 
-.m-friendslink-pircure {
-	max-height: 250px !important;
-    max-width: 230px !important;
+/* 友人链分页  */
+.m-page {
+	border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
 }
 
 /*---padding--- */

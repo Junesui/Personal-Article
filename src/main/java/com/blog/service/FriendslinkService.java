@@ -18,4 +18,7 @@ public interface FriendslinkService {
 	//添加友人链
 	void save(Friendslink friendslink);
 
+	//访问友人链，更新友人链相关数据
+	void viewFriendslinkById(Integer id);
+
 }
