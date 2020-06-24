@@ -8,23 +8,15 @@
     <!--导航 -->
     <nav th:replace="admin/_fragments :: menu(4)"></nav>
 
-    <!--二级导航 -->
-    <div class="ui attached pointing menu">
-        <div class="ui container">
-                <a th:href="@{/admin/onewords/addPage}" class="item">新增</a>
-                <a th:href="@{/admin/onewords}" class="teal active item">列表</a>
-        </div>
-    </div>
-
     <!--中间内容-->
-    <div class="m-container m-paddding-tb-big m-margin-tb-tiny m-minHight">
+    <div id="waypoint" class="m-container m-paddding-tb-big m-margin-tb-tiny m-minHight">
         <div class="ui container">
             <!-- 提示信息 -->
             <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
                 <i class="close icon"></i>
                 <div class="header">提示:</div><p th:text="${message}"></p>
             </div>
-            <table class="ui celled  table">
+            <table class="ui striped center aligned table">
                 <thead>
                     <tr>
                         <th></th>
@@ -39,8 +31,8 @@
                         <td th:text="${oneword.picture}">图片网址</td>
                         <td th:text="${oneword.content}">内容</td>
                         <td style="width: 15%;">
-                            <a th:href="@{/admin/onewords/edit/{id}(id=${oneword.id})}" class="ui mini teal basic button">编辑</a>
-                            <a th:href="@{/admin/onewords/delete/{id}(id=${oneword.id})}" onclick="return confirm('确定删除吗？');" class="ui mini red basic button">删除</a>
+                            <a th:href="@{/1120/onewords/edit/{id}(id=${oneword.id})}" class="ui mini teal basic button">编辑</a>
+                            <a th:href="@{/1120/onewords/delete/{id}(id=${oneword.id})}" onclick="return confirm('确定删除吗？');" class="ui mini red basic button">删除</a>
                         </td>
                     </tr>
                 </tbody>
@@ -48,10 +40,10 @@
                      <tr>
                         <th colspan="4">
                             <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
-                                <a class="item" th:href="@{/admin/onewords(page=${pageInfo.hasPreviousPage} ? ${pageInfo.prePage}:1)}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
-                                <a class="item" th:href="@{/admin/onewords(page=${pageInfo.hasNextPage} ? ${pageInfo.nextPage}:${pageInfo.pages})}" th:if="${pageInfo.hasNextPage}">下一页</a>
+                                <a class="item" th:href="@{/1120/onewords(page=${pageInfo.hasPreviousPage} ? ${pageInfo.prePage}:1)}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
+                                <a class="item" th:href="@{/1120/onewords(page=${pageInfo.hasNextPage} ? ${pageInfo.nextPage}:${pageInfo.pages})}" th:if="${pageInfo.hasNextPage}">下一页</a>
                             </div>
-                            <a th:href="@{/admin/onewords/addPage}" class="ui right floated teal basic mini button">新增</a>
+                            <a th:href="@{/1120/onewords/addPage}" class="ui right floated teal basic mini button">新增</a>
                         </th>
                      </tr>
                 </tfoot>

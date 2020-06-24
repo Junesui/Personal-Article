@@ -3,6 +3,7 @@ package com.blog.controller.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,15 @@ import com.github.pagehelper.PageInfo;
  * @version V1.0
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/1120")
 public class TypeController {
 
 	@Autowired
 	private TypeService typeService;
+	
+	//博客首页展示的博客数量
+	@Value("${adminTypes.typeSize}")
+	private Integer typeSize;
 
 	/**
 	 * 跳转到分类管理页面
@@ -39,7 +44,8 @@ public class TypeController {
 	 */
 	@GetMapping("/types")
 	public String toTypes(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			@RequestParam(name = "size", defaultValue = "3") Integer size, Model model) {
+			@RequestParam(name = "size", defaultValue = "10") Integer size, Model model) {
+		size = typeSize;
 		//分页
 		PageHelper.startPage(page, size);
 		List<Type> types = typeService.list();
@@ -83,12 +89,12 @@ public class TypeController {
 		//名称是否重复验证
 		if (typeService.findByName(type.getName()) != null) {
 			model.addAttribute("nameError", "分类名称已经存在");
-			return "/admin/type-release";
+			return "admin/type-release";
 		}
 
 		typeService.save(type);
 		attributes.addFlashAttribute("message", "新增成功");
-		return "redirect:/admin/types";
+		return "redirect:/1120/types";
 	}
 
 	/**
@@ -105,12 +111,12 @@ public class TypeController {
 		//名称是否重复验证
 		if (typeService.findByName(type.getName()) != null) {
 			model.addAttribute("nameError", "分类名称已经存在");
-			return "/admin/type-release";
+			return "admin/type-release";
 		}
 
 		typeService.update(type);
 		attributes.addFlashAttribute("message", "更新成功");
-		return "redirect:/admin/types";
+		return "redirect:/1120/types";
 	}
 
 	/**
@@ -123,7 +129,7 @@ public class TypeController {
 	public String delete(@PathVariable Long id, RedirectAttributes attributes) {
 		typeService.deleteById(id);
 		attributes.addFlashAttribute("message", "删除成功");
-		return "redirect:/admin/types";
+		return "redirect:/1120/types";
 	}
 
 }

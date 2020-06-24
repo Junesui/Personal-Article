@@ -34,7 +34,7 @@ import com.github.pagehelper.PageInfo;
  * @version V1.0
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/1120")
 public class BlogController {
 
 	@Autowired
@@ -54,7 +54,7 @@ public class BlogController {
 	 */
 	@GetMapping("/index")
 	public String toIndex() {
-		return "/admin/index";
+		return "admin/index";
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class BlogController {
 		blogService.saveOrUpdate(blogTypeTagDTO);
 
 		attributes.addFlashAttribute("message", "操作成功");
-		return "redirect:/admin/blogs";
+		return "redirect:/1120/blogs";
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class BlogController {
 	public String blogDelete(@PathVariable Long id, RedirectAttributes attributes) {
 		blogService.deleteById(id);
 		attributes.addFlashAttribute("message", "删除成功");
-		return "redirect:/admin/blogs";
+		return "redirect:/1120/blogs";
 	}
 
 }

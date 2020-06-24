@@ -21,5 +21,7 @@ public interface FriendslinkMapper {
 
 	void viewFriendslinkById(Integer id);
 
+	Friendslink findByWebsiteUrl(String websiteUrl);
+
 	
 }

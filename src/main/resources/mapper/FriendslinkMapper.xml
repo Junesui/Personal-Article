@@ -8,6 +8,11 @@
 		select * from friendslink where is_show is not false order by create_time
 	</select>
 	
+	<!-- 通过网站地址查找友人链 -->
+	<select id="findByWebsiteUrl" parameterType="string" resultType="friendslink">
+		select * from friendslink where website_url = #{websiteUrl}
+	</select>
+	
 	<!-- 添加友人链 -->
 	<insert id="save" parameterType="friendslink">
 		insert into friendslink (website_url,website_name,website_description,picture_url,is_show,priority,groups,create_time,update_time,view_count)

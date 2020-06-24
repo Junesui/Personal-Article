@@ -6,19 +6,19 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 标签
+ * 工具
  * @author June
- * @date 2020/05/11
+ * @date 2020/06/24
  * @version V1.0
  */
 @Data
-public class Tag implements Serializable{
+public class Tool implements Serializable{
+	
+	private static final long serialVersionUID = 3458578602089193930L;
 
-	private static final long serialVersionUID = 4896869621607870359L;
-
-	private Long id;
+	private Integer id;
 	private String name;
-	private String description;
+	private String url;
 	private Date createTime;
 	private Date updateTime;
 	

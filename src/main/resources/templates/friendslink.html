@@ -16,7 +16,7 @@
                 <h2 class="ui header m-red" align="center" th:text="${message}"></h2>
                 <h2 class="ui disabled header" align="center" th:text="#{friendslink.randomWorld}"></h2>
             </div>
-            <!-- 友人链 申请表单-->
+            <!-- 友人链 申请信息-->
             <div class="ui attached segment">
                 <div class="m-margin">
                     <div style="margin-left: -15px;">
@@ -39,22 +39,22 @@
                     <div class="ui list">
                         <div class="item m-text-werght">友链申请</div>
                     </div>
-                    <form class="ui form" th:action="@{/addFriendslink}" method="post">
+                    <form class="ui form websiteInfo-form" th:action="@{/addFriendslink}" method="post">
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站名称</div>
-                            <input type="text" placeholder="请输入网站名称(16字之内)..." maxlength="16" name="websiteName">
+                            <input type="text" placeholder="请输入网站名称(16字之内)..." maxlength="16" name="websiteName" autocomplete="off">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站简介</div>
-                            <input type="text" placeholder="请输入网站简介(28字之内)..." maxlength="28" name="websiteDescription">
+                            <input type="text" placeholder="请输入网站简介(28字之内)..." maxlength="28" name="websiteDescription" autocomplete="off">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站地址</div>
-                            <input type="url" placeholder="请输入网站地址..." name="websiteUrl">
+                            <input type="url" placeholder="请输入网站地址..." name="websiteUrl" autocomplete="off">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">图片地址</div>
-                            <input type="text" placeholder="请输入图片地址..." name="pictureUrl">
+                            <input type="text" placeholder="请输入图片地址..." name="pictureUrl" autocomplete="off">
                         </div>
                         <button class="ui fluid teal button" type="submit">提交</button>
                         <div class="ui error message"></div>
@@ -83,7 +83,7 @@
                     <div class="card" style="max-width: 230px;" th:each="friend : ${pageInfo.getList()}">
                         <div class="content">
                             <!-- 网站图片 -->
-                            <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" th:src="${friend.pictureUrl}"></a>
+                            <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" th:src="@{${friend.pictureUrl}}"></a>
                             <!-- 网站名称 -->
                             <div class="header m-margin-top-mini">
                                 <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)" th:text="${friend.websiteName}" style="color: #000000d9;">网站名称</a>
@@ -111,44 +111,49 @@
             <div class="ui bottom attached segment">
                 <!-- 留言列表 -->
                 <div class="ui bottom attached segment">
-                    <div id="comment-container" class="ui teal segment">
-                        <div th:fragment="commentList">
+                    <div id="message-container" class="ui teal segment">
+                        <div th:fragment="messageList">
                             <div class="ui threaded comments" style="max-width: 100%;">
-                                <h3 class="ui dividing header"><i class="comments icon"></i>留言</h3>
-                                <div class="comment">
-                                    <a class="avatar"> <img>
+                                <h3 class="ui dividing header">留言</h3>
+                                <div class="comment" th:each="message : ${messages}">
+                                    <a class="avatar"> <img th:src="${message.avatar}">
                                     </a>
                                     <div class="content">
                                         <a class="author">
-                                            <span>评论人昵称</span>
-                                            <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize">管理员</span>
+                                            <span th:text="${message.nickname}">留言人昵称</span>
+                                            <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${message.isManager}">管理员</span>
                                         </a>
                                         <div class="metadata">
-                                            <span class="date">评论时间</span>
+                                            <span class="date" th:text="${#dates.format(message.createTime,'yyyy-MM-dd HH:mm')}">留言时间</span>
                                         </div>
-                                        <div class="text">评论内容</div>
+                                        <div class="text" th:text="${message.content}">留言内容</div>
                                         <div class="actions">
                                             <!-- 回复 -->
-                                            <a class="reply" onclick="reply(this)">回复</a>
+                                            <a onclick="show2message(this)" th:attr="data-messageid=${message.id}">
+                                                <i class="m-messageIcon comment outline icon messageBtn" th:id="${'messageBtn-'+message.id}"></i>
+                                                <span th:text="${message.replyCount}">留言的回复数量</span>
+                                            </a>
+                                            <!-- 回复 -->
+                                            <a class="reply" th:attr="data-messageid=${message.id},data-messagenickname=${message.nickname}" onclick="reply(this)">回复</a>
                                         </div>
                                     </div>
-                                    <!-- 二级评论列表 -->
-                                    <div class="comments" style="display: none;">
-                                        <div class="comment">
-                                            <a class="avatar"> <img src="/images/avatar.png">
+                                    <!-- 回复列表 -->
+                                    <div class="comments" th:id="${'message-'+message.id}" th:if="${#arrays.length(message.replys)} > 0" style="display: none;">
+                                        <div class="comment" th:each="reply : ${message.replys}">
+                                            <a class="avatar"> <img th:src="${reply.avatar}">
                                             </a>
                                             <div class="content">
                                                 <a class="author">
-                                                    <span ></span>
-                                                    <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" >博主</span>
-                                                    <span  class="m-teal"></span>
+                                                    <span th:text="${reply.nickname}"></span>
+                                                    <span class="ui basic blue left pointing label m-padding-mini m-text-thin m-author-fontSize" th:if="${reply.isManager}">管理员</span>
+                                                    <span th:text="| @ ${reply.parentNickname}|" class="m-teal"></span>
                                                 </a>
                                                 <div class="metadata">
-                                                    <span class="date">评论时间</span>
+                                                    <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">回复时间</span>
                                                 </div>
-                                                <div class="text" >评论内容</div>
+                                                <div class="text" th:text="${reply.content}">回复内容</div>
                                                 <div class="actions">
-                                                    <a class="reply"  onclick="reply(this)">回复</a>
+                                                    <a class="reply" th:attr="data-messageid=${reply.id},data-messagenickname=${reply.nickname}" onclick="reply(this)">回复</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,36 +162,43 @@
                             </div>
                         </div>
                     </div>
-                    <!--评论框-->
-                    <div id="comment-form" class="ui form">
-                        <input type="hidden" name="blogId">
+                    <!--文章分页-->
+                    <div class="ui bottom attached segment" th:if="${pageInfo.pages} > 1">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <a th:href="@{/messages(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
+                            </div>
+                            <div class="column right aligned">
+                                <a th:href="@{/messages(page=${pageInfo.pageNum}+1)}" th:if="${pageInfo.hasNextPage}" class="ui teal basic mini button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--留言框-->
+                    <div id="message-form" class="ui form messageInfo-form">
                         <input type="hidden" name="parentId" value="-1">
                         <div class="field">
-                            <textarea name="content" placeholder="请输入评论信息....."></textarea>                    
+                            <textarea name="content" placeholder="请输入留言信息....." autocomplete="off"></textarea>                    
                         </div>
                         <div class="fields">
                             <div class="field m-mobile-wide m-margin-bottom-small">
                                 <div class="ui left icon input">
-                                    <input type="text" name="nickname" placeholder="姓名">
+                                    <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}" autocomplete="off">
                                     <i class="user icon"></i>
                                 </div>
                             </div>
                             <div class="field m-mobile-wide m-margin-bottom-small">
                                 <div class="ui left icon input">
-                                    <input type="email" name="email" placeholder="邮箱">
+                                    <input type="email" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}" autocomplete="off">
                                     <i class="mail icon"></i>
                                 </div>
                             </div>
                             <div class="field m-mobile-wide m-margin-bottom-small">
-                                <button id="commentpost-btn" type="button" class="ui teal small button m-mobile-wide"><i class="edit icon"></i>提交</button>
+                                <button id="messagepost-btn" type="button" class="ui teal small button m-mobile-wide"><i class="edit icon"></i>提交</button>
                             </div>
                         </div>
                         <div class="ui error message"></div>
                     </div>
                 </div>
-
-
-            
             </div>
         </div>
     </div>
@@ -209,7 +221,7 @@
 
 <script>
 	/* 表单验证 */
-	$('.ui.form').form({
+	$('.websiteInfo-form').form({
 		on : 'blur',
 		fields : {
 			websiteName : {
@@ -243,6 +255,34 @@
 		}
 	});
 	
+	//留言表单验证
+	$('.messageInfo-form').form({
+		on : 'blur',
+		fields : {
+			nickname : {
+				identifier : 'nickname',
+				rules : [ {
+					type : 'empty',
+					prompt : '请输入姓名'
+				} ]
+			},
+			content : {
+				identifier : 'content',
+				rules : [ {
+					type : 'empty',
+					prompt : '请输入留言内容'
+				} ]
+			},
+			email : {
+				identifier : 'email',
+				rules : [ {
+					type : 'email',
+					prompt : '请输入正确邮箱'
+				} ]
+			},
+		}
+	});
+	
 	/* 访问友人链 */
 	function viewFriendslink(obj){
 		$.get({
@@ -252,6 +292,55 @@
     		}
     	})
 	}
+	
+	/* 发布留言 */
+    $('#messagepost-btn').click(function(){
+    	var boo = $('.messageInfo-form').form('validate form');
+    	if (boo){
+    		//表单验证成功
+    		postMessage();
+    	}else{
+    	}
+    });
+	
+	/* ajax提交数据 */
+    function postMessage(){
+    	$("#message-container").load("/postMessages",{
+    		"parentId" : $("[name='parentId']").val(),
+    		"nickname" : $("[name='nickname']").val(),
+    		"email" : $("[name='email']").val(),
+    		"content" : $("[name='content']").val()
+    	},function (responseTxt,statusTxe,xhr){
+    		// 清除内容 
+    		$("[name='content']").val('');
+    		$("[name='nickname']").val('');
+    		$("[name='email']").val('');
+    		$("[name='parentId']").val(-1);
+    		$("[name='content']").attr("placeholder","请输入留言内容......");
+    		// $(window).scrollTo($('#comment-container'),500);
+    	});
+    }
+	
+    /* 回复 */
+    function reply(obj){
+    	var messageId = $(obj).data('messageid');
+    	var messageNickname = $(obj).data('messagenickname');
+    	$("[name='content']").attr("placeholder","@"+messageNickname).focus();
+    	$("[name='parentId']").val(messageId);
+    	$(window).scrollTo($('#message-form'),500); 
+    }
+	
+    /* 展开和隐藏回复 */
+    function show2message(obj){
+    	var messageId = $(obj).data('messageid');
+    	var message = $("#message-" + messageId);
+    	var messageBtn = $("#messageBtn-" + messageId);
+    	// 切换回复图标样式 
+    	messageBtn.toggleClass('outline');
+    	// 切换回复是否显示 
+    	message.toggle();
+    }
+	
 	
 	/* pc-手机端菜单切换 */
 	$('.m-menuToggle').click(function(){

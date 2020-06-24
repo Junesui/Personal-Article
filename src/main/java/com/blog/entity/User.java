@@ -27,8 +27,4 @@ public class User implements Serializable{
 	private Date createTime;
 	private Date updateTime;
 	private String token;
-	private String reserve1;
-	private String reserve2;
-	private Integer reserve3;
-	private Integer reserve4;
 }

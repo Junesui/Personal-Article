@@ -24,7 +24,7 @@ import com.blog.service.UserService;
  * @version V1.0
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/1120")
 public class UserController {
 
 	@Autowired
@@ -65,10 +65,10 @@ public class UserController {
 
 			//存session
 			session.setAttribute("user", user);
-			return "redirect:/admin/index";
+			return "redirect:/1120/index";
 		} else {
 			attributes.addFlashAttribute("message", "用户名或密码错误");
-			return "redirect:/admin/login";
+			return "redirect:/1120/login";
 		}
 	}
 
@@ -84,7 +84,7 @@ public class UserController {
 		Cookie cookie = new Cookie("token", null);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
-		return "redirect:/admin/login";
+		return "redirect:/1120/login";
 	}
 
 }

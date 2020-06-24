@@ -5,10 +5,14 @@ body {
 	opacity: 0.9 !important;
 }
 
+.m-hide {
+	display: none !important;
+}
+
 /* 导航 */
 .m-nav {
 	background-color: #1b1c1d !important;
-    opacity: 0.7 !important;
+    opacity: 0.8 !important;
 }
 
 /* 首页标题 */
@@ -216,6 +220,7 @@ body {
 .m-black {
 	color: #333 !important;
 }
+
 .m-floralwhite{
 	color: floralwhite !important;
 }

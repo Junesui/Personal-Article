@@ -21,4 +21,7 @@ public interface FriendslinkService {
 	//访问友人链，更新友人链相关数据
 	void viewFriendslinkById(Integer id);
 
+	//通过网站地址查找友人链
+	Friendslink findByWebsiteUrl(String websiteUrl);
+
 }

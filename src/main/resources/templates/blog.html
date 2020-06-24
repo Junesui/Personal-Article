@@ -118,7 +118,7 @@
                                         <!-- 评论 -->
                                         <a onclick="show2comment(this)" th:attr="data-commentid=${comment.id}">
                                             <i class="m-commentIcon comment outline icon commentBtn" th:id="${'commentBtn-'+comment.id}"></i>
-                                            <span th:if="${comment.replyCount}!=0" th:text="${comment.replyCount}">一级评论的回复数量</span>
+                                            <span th:text="${comment.replyCount}">一级评论的回复数量</span>
                                         </a>
                                         <!-- 回复 -->
                                         <a class="reply" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.MessageMapper">
+
+	<!-- 列出留言 -->
+	<select id="listMessage" resultType="com.blog.dto.MessageExtDTO">
+		select * from message where parent_id is null order by create_time desc
+	</select>
+	
+	<!-- 找到留言的回复 -->
+	<select id="listReplyMessagesByParentId" parameterType="long" resultType="com.blog.dto.MessageExtDTO">
+		select * from message where parent_id = #{parentId}
+	</select>
+	
+	<!-- 增加留言的回复数量 -->
+	<update id="incReplyCntById" parameterType="long">
+		update message set reply_count = reply_count + 1 where id = #{id}
+	</update>
+	
+	<!-- 保存留言 -->
+	<insert id="save" parameterType="message">
+		insert into message (nickname,email,avatar,content,create_time,parent_id,is_manager,reply_count)
+					values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{parentId},#{isManager},#{replyCount})
+	</insert>
+	
+	
+</mapper>

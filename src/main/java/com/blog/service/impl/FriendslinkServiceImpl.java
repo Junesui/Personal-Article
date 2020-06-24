@@ -41,4 +41,9 @@ public class FriendslinkServiceImpl implements FriendslinkService{
 		friendslinkMapper.viewFriendslinkById(id);
 	}
 
+	@Override
+	public Friendslink findByWebsiteUrl(String websiteUrl) {
+		return friendslinkMapper.findByWebsiteUrl(websiteUrl);
+	}
+
 }

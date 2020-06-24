@@ -8,18 +8,10 @@
     <!--导航 -->
     <nav th:replace="admin/_fragments :: menu(1)"></nav>
    
-   <!--二级导航 -->
-    <div class="ui attached pointing menu">
-        <div class="ui container">
-                <a href="#" class="active teal item">发布</a>
-                <a href="#" class="item">列表</a>
-        </div>
-    </div>
-
     <!--中间内容-->
-    <div class="m-container m-paddding-tb-big m-minHight">
+    <div id="waypoint" class="m-container m-paddding-tb-big m-minHight">
         <div class="ui container">
-            <form id="blog-form" th:object="${blogTypeTagDTO}" th:action="@{/admin/blogs}" method="post" class="ui form">
+            <form id="blog-form" th:object="${blogTypeTagDTO}" th:action="@{/1120/blogs}" method="post" class="ui form">
                 <input type="hidden" name="isPublished">
                 <input type="hidden" name="id" th:value="*{id}">
                 <div class="field">

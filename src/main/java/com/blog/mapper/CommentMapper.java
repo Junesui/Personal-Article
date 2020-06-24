@@ -16,19 +16,19 @@ import com.blog.entity.Comment;
 @Mapper
 public interface CommentMapper {
 
-	public void deleteByBlogId(Long blogId);
+	void deleteByBlogId(Long blogId);
 
-	public void save(Comment comment);
+	void save(Comment comment);
 
-	public List<CommentExtDTO> listParentCommentByBlogId(Long blogId);
+	List<CommentExtDTO> listParentCommentByBlogId(Long blogId);
 
-	public List<CommentExtDTO> listChildCommentByParentId(Long parentId);
+	List<CommentExtDTO> listChildCommentByParentId(Long parentId);
 
-	public void incReplyCntById(Long id);
+	void incReplyCntById(Long id);
 
-	public void incLikeCntByCommentId(Long commentId);
+	void incLikeCntByCommentId(Long commentId);
 
-	public void incDownCntByCommentId(Long commentId);
+	void incDownCntByCommentId(Long commentId);
 
 	
 }

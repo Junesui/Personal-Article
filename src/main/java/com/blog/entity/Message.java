@@ -6,15 +6,15 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 评论
+ * 留言
  * @author June
- * @date 2020/05/11
+ * @date 2020/06/23
  * @version V1.0
  */
 @Data
-public class Comment implements Serializable{
+public class Message implements Serializable{
 
-	private static final long serialVersionUID = 3923574361077359564L;
+	private static final long serialVersionUID = 4919102505027695997L;
 	
 	private Long id;
 	private String nickname;
@@ -23,9 +23,6 @@ public class Comment implements Serializable{
 	private String content;
 	private Date createTime;
 	private Integer replyCount;
-	private Integer likeCount;
-	private Integer downCount;
-	private Long blogId;
 	private Long parentId;
 	private Boolean isManager;
 }

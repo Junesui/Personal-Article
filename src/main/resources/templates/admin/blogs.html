@@ -8,16 +8,8 @@
     <!--导航 -->
     <nav th:replace="admin/_fragments :: menu(1)"></nav>
 
-    <!--二级导航 -->
-    <div class="ui attached pointing menu">
-        <div class="ui container">
-                <a href="#" class="item">发布</a>
-                <a href="#" class="teal active item">列表</a>
-        </div>
-    </div>
-
     <!--中间内容-->
-    <div class="m-container-small m-paddding-tb-big m-minHight">
+    <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
         <div class="ui container">
             <!--上面部分-->
             <div class="ui secondary segment form">
@@ -49,13 +41,13 @@
                         <button id="search-btn" class="ui tiny teal basic button"><i class="search icon"></i>搜索</button>
                     </div>
                     <div class="field">
-                        <a th:href="@{/admin/blogs/add}" class="ui right floated teal tiny basic button"><i class="plus square outline icon"></i>新增</a>
+                        <a th:href="@{/1120/blogs/add}" class="ui right floated teal tiny basic button"><i class="plus square outline icon"></i>新增</a>
                     </div>
                 </div>
             </div>
             <!--下面部分-->
             <div id="table-container">
-                <table th:fragment="blogList" class="ui compact teal table">
+                <table th:fragment="blogList" class="ui striped center aligned table">
                     <thead>
                         <tr>
                             <th></th>
@@ -76,8 +68,8 @@
                             <td th:text="${dto.isPublished} ? '发布':'草稿' " th:class="${dto.isPublished}==false ? 'm-orange'">草稿</td>
                             <td th:text="${#dates.format(dto.updateTime,'yyyy-MM-dd')}">2020-02-05</td>
                             <td>
-                                <a th:href="@{/admin/blogs/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
-                                <a th:href="@{/admin/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('确定删除该博客吗？');" class="ui mini red basic button">删除</a>
+                                <a th:href="@{/1120/blogs/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
+                                <a th:href="@{/1120/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('确定删除该博客吗？');" class="ui mini red basic button">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -88,7 +80,7 @@
                                     <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}-1" th:if="${pageInfo.hasPreviousPage}"  class="item" >上一页</a>
                                     <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}+1" th:if="${pageInfo.hasNextPage}"  class="item" >下一页</a>
                                 </div>
-                                <a th:href="@{/admin/blogs/add}" class="ui right floated teal basic mini button">新增</a>
+                                <a th:href="@{/1120/blogs/add}" class="ui right floated teal basic mini button">新增</a>
                             </th>
                          </tr>
                     </tfoot>
@@ -132,7 +124,7 @@
         
         //通过ajax刷新table中的数据
         function loadData(){
-        	$("#table-container").load("/admin/blogs/search",{
+        	$("#table-container").load("/1120/blogs/search",{
         		title : $("[name='title']").val(),
         		typeId : $("[name='typeId']").val(),
         		isRecommend : $("[name='isRecommend']").val(),

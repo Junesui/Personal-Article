@@ -8,18 +8,10 @@
     <!--头部-->
     <nav th:replace="admin/_fragments :: menu(2)"></nav>
    
-    <!--导航-->
-    <div class="ui attached pointing menu">
-        <div class="ui container">
-                <a th:href="@{/admin/onewords/addPage}" class="active item">新增</a>
-                <a th:href="@{/admin/onewords}" class="teal item">列表</a>
-        </div>
-    </div>
-
     <!--中间-->
-    <div class="m-container-small m-paddding-tb-big m-minHight">
+    <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
         <div class="ui container">
-            <form class="ui form" th:object="${oneword}" th:action="@{/admin/onewords}" method="post">
+            <form class="ui form" th:object="${oneword}" th:action="@{/1120/onewords}" method="post">
                 <input type="hidden" name="id" th:value="*{id}">
                 <!-- 图片地址 -->
                 <div class="field">

@@ -25,7 +25,7 @@ import com.github.pagehelper.PageInfo;
  * @version V1.0
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/1120")
 public class OnewordController {
 
 	@Autowired
@@ -77,7 +77,7 @@ public class OnewordController {
 	public String post(Oneword oneword, RedirectAttributes attributes) {
 		onewordService.saveOrUpdate(oneword);
 		attributes.addFlashAttribute("message", "操作成功");
-		return "redirect:/admin/onewords";
+		return "redirect:/1120/onewords";
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class OnewordController {
 	public String blogDelete(@PathVariable Long id, RedirectAttributes attributes) {
 		onewordService.deleteById(id);
 		attributes.addFlashAttribute("message", "删除成功");
-		return "redirect:/admin/onewords";
+		return "redirect:/1120/onewords";
 	}
 
 }

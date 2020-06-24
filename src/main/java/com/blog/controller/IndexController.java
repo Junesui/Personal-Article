@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.blog.dto.BlogTypeTagDTO;
 import com.blog.entity.Oneword;
 import com.blog.entity.Tag;
+import com.blog.entity.Tool;
 import com.blog.service.BlogService;
 import com.blog.service.OnewordService;
 import com.blog.service.TagService;
+import com.blog.service.ToolService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -30,6 +32,8 @@ public class IndexController {
 	private TagService tagService;
 	@Autowired
 	private OnewordService onewordService;
+	@Autowired
+	private ToolService toolService;
 
 	//博客首页展示的博客数量
 	@Value("${index.pageBlogSize}")
@@ -57,9 +61,11 @@ public class IndexController {
 
 		PageInfo<BlogTypeTagDTO> pageInfo = new PageInfo<>(blogTypeTagDTOs);
 		List<Oneword> onewords = onewordService.listBysize(onewordSize);
+		List<Tool> tools = toolService.list();
 
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("onewords", onewords);
+		model.addAttribute("tools", tools);
 
 		return "index";
 	}

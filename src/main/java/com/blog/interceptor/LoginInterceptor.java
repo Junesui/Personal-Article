@@ -44,7 +44,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 		}
-		response.sendRedirect("/admin/login");
+		response.sendRedirect("/1120/login");
 		return false;
 	}
 

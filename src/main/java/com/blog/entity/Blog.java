@@ -39,8 +39,4 @@ public class Blog implements Serializable{
 	private Date updateTime;
 	private Long typeId;
 	private Long userId;
-	private String reserve1;
-	private String reserve2;
-	private Integer reserve3;
-	private Integer reserve4;
 }
