@@ -99,8 +99,9 @@ public class IndexController {
 	 */
 	@PostMapping("/search")
 	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			             @RequestParam(name = "size", defaultValue = "3") Integer size, 
+			             @RequestParam(name = "size", defaultValue = "10") Integer size, 
 			             @RequestParam String query, Model model) {
+		size = pageBlogSize;
 		//分页
 		PageHelper.startPage(page, size);
 		List<BlogTypeTagDTO> blogTypeTagDTOs = blogService.listByQuery(query);

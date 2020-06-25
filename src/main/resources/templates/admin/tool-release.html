@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/_fragments :: head(~{::title})">
-<title>类型新增</title>
+<title>工具新增</title>
 </head>
 <body>
 
     <!--头部-->
-    <nav th:replace="admin/_fragments :: menu(3)"></nav>
+    <nav th:replace="admin/_fragments :: menu(6)"></nav>
    
     <!--中间-->
     <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
         <div class="ui container">
-            <form class="ui form" th:object="${tag}" th:action="*{id}==null ? @{/1120/tags}:@{/1120/tags/{id}(id=*{id})}" method="post">
+            <form class="ui form" th:object="${tool}" th:action="*{id}==null ? @{/1120/tool}:@{/1120/tool/{id}(id=*{id})}" method="post">
+                <!-- 工具名称 -->
                 <div class="field">
                     <div class="ui labeled input">
-                        <label class="ui teal basic label">标签</label>
-                        <input type="text" name="name" placeholder="标签名称" th:value="*{name}" autocomplete="off">
+                        <label class="ui teal basic label">名称</label>
+                        <input type="text" name="name" placeholder="工具名称" th:value="*{name}" autocomplete="off">
+                    </div>
+                </div>
+                <!-- 工具链接 -->
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui teal basic label">链接</label>
+                        <input type="text" name="url" placeholder="工具链接" th:value="*{url}" autocomplete="off">
                     </div>
                 </div>
                 <div class="ui error message"></div>
                 <!-- 提示信息 -->
                 <!--/*/
-                <div class="ui negative message" th:if="${nameError} != null">
+                 <div class="ui negative message" th:if="${fieldError} != null">
                     <i class="close icon"></i>
                     <div class="header">验证失败</div>
-                    <p th:text="${nameError}"></p>
+                    <p th:text="${fieldError}"></p>
                 </div> 
                 /*/-->
                 <div class="ui right aligned container">
@@ -58,7 +66,14 @@
 				identifier : 'name',
 				rules : [ {
 					type : 'empty',
-					prompt : '请输入分类名称'
+					prompt : '请输入工具名称'
+				} ]
+			},
+			url : {
+				identifier : 'url',
+				rules : [ {
+					type : 'url',
+					prompt : '请输入正确的工具链接地址'
 				} ]
 			}
 		}

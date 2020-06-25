@@ -12,8 +12,11 @@ import com.blog.entity.Friendslink;
  */
 public interface FriendslinkService {
 
-	// 列出要展示的友人链信息
+	//列出要展示的友人链信息
 	List<Friendslink> listShow();
+	
+	//列出所有友链信息
+	List<Friendslink> list();
 
 	//添加友人链
 	void save(Friendslink friendslink);
@@ -23,5 +26,17 @@ public interface FriendslinkService {
 
 	//通过网站地址查找友人链
 	Friendslink findByWebsiteUrl(String websiteUrl);
+
+	//通过id设置友人链为展示状态
+	void showById(Integer id);
+
+	//通过id设置友人链为不展示状态
+	void hideById(Integer id);
+
+	//通过id删除友人链
+	void deleteById(Integer id);
+
+	//通过搜索条件列出友人链
+	List<Friendslink> listBySearch(Boolean isShow);
 
 }

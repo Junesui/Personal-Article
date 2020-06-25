@@ -40,12 +40,12 @@ public class CustomizeErrorController implements ErrorController {
 
 		//前端页面异常
 		if (status.is4xxClientError()) {
-			model.addAttribute("message", "访问的路径出错了，要不然换一个再试试？");
+			model.addAttribute("message", "访问的页面辞职了，世界那么大，他想去看看...");
 		}
 		
 		//服务器内部异常
 		if (status.is5xxServerError()) {
-			model.addAttribute("message", "服务器冒烟了，请稍后再来试试！！！");
+			model.addAttribute("message", "服务器罢工了，可以去向管理员举报哦！");
 		}
 
 		return new ModelAndView("error");

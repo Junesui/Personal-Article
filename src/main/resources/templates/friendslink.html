@@ -42,11 +42,11 @@
                     <form class="ui form websiteInfo-form" th:action="@{/addFriendslink}" method="post">
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站名称</div>
-                            <input type="text" placeholder="请输入网站名称(16字之内)..." maxlength="16" name="websiteName" autocomplete="off">
+                            <input type="text" placeholder="请输入网站名称(16个字符之内)..." maxlength="16" name="websiteName" autocomplete="off">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站简介</div>
-                            <input type="text" placeholder="请输入网站简介(28字之内)..." maxlength="28" name="websiteDescription" autocomplete="off">
+                            <input type="text" placeholder="请输入网站简介(28个字符之内)..." maxlength="28" name="websiteDescription" autocomplete="off">
                         </div>
                         <div class="ui fluid labeled input">
                             <div class="ui label">网站地址</div>
@@ -341,12 +341,6 @@
     	message.toggle();
     }
 	
-	
-	/* pc-手机端菜单切换 */
-	$('.m-menuToggle').click(function(){
-		$('.m-item').toggleClass('m-mobile-hide');
-	});
-
 </script>    
 </body>
 </html>

@@ -7,10 +7,20 @@
 	<select id="listShow" resultType="friendslink">
 		select * from friendslink where is_show is not false order by create_time
 	</select>
+
+	<!-- 列出要展示的友人链信息 -->
+	<select id="list" resultType="friendslink">
+		select * from friendslink order by create_time desc
+	</select>
 	
 	<!-- 通过网站地址查找友人链 -->
 	<select id="findByWebsiteUrl" parameterType="string" resultType="friendslink">
 		select * from friendslink where website_url = #{websiteUrl}
+	</select>
+	
+	<!-- 通过搜索条件列出友人链 -->
+	<select id="listBySearch" parameterType="boolean" resultType="friendslink">
+		select * from friendslink where is_show = #{isShow} order by create_time desc 
 	</select>
 	
 	<!-- 添加友人链 -->
@@ -23,5 +33,20 @@
 	<update id="viewFriendslinkById" parameterType="int">
 		update friendslink set view_count = view_count + 1 where id = #{id} 
 	</update>
+	
+	<!-- 通过id设置友人链为展示状态 -->
+	<update id="showById" parameterType="int">
+		update friendslink set is_show = true,update_time = now() where id = #{id}
+	</update>
+
+	<!-- 通过id设置友人链为不展示状态 -->
+	<update id="hideById" parameterType="int">
+		update friendslink set is_show = false,update_time = now() where id = #{id}
+	</update>
+	
+	<!-- 通过id删除友人链 -->
+	<delete id="deleteById" parameterType="int">
+		delete from friendslink where id = #{id}
+	</delete>
 
 </mapper>

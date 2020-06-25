@@ -46,4 +46,29 @@ public class FriendslinkServiceImpl implements FriendslinkService{
 		return friendslinkMapper.findByWebsiteUrl(websiteUrl);
 	}
 
+	@Override
+	public List<Friendslink> list() {
+		return friendslinkMapper.list();
+	}
+
+	@Override
+	public void showById(Integer id) {
+		friendslinkMapper.showById(id);
+	}
+
+	@Override
+	public void hideById(Integer id) {
+		friendslinkMapper.hideById(id);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		friendslinkMapper.deleteById(id);
+	}
+
+	@Override
+	public List<Friendslink> listBySearch(Boolean isShow) {
+		return friendslinkMapper.listBySearch(isShow);
+	}
+
 }

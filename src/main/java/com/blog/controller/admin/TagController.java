@@ -31,8 +31,8 @@ public class TagController {
 	@Autowired
 	private TagService tagService;
 	
-	//
-	@Value("${adminTags.tagSize}")
+	//标签后台管理页每页展示的数量
+	@Value("${admin.tagSize}")
 	private Integer tagSize;
 	
 	

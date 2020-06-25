@@ -44,6 +44,7 @@ public class BlogController {
 	@Autowired
 	private TagService tagService;
 
+	//博客后台管理每页展示的博客数量
 	@Value("${admin.pageBlogSize}")
 	private Integer pageBlogSize;
 	

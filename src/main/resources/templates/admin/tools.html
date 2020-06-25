@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+<title>工具管理</title>
+</head>
+<body>
+
+    <!--导航 -->
+    <nav th:replace="admin/_fragments :: menu(6)"></nav>
+
+    <!--中间内容-->
+    <div id="waypoint" class="m-container-small m-paddding-tb-big m-margin-tb-tiny m-minHight">
+        <div class="ui container">
+            <!-- 提示信息 -->
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示:</div><p th:text="${message}"></p>
+            </div>
+            <table class="ui striped center aligned table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>名称</th>
+                        <th>链接</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="center aligned">
+                    <tr th:each="tool,iterStat : ${pageInfo.getList()}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${tool.name}">工具名称</td>
+                        <td th:text="${tool.url}">工具链接</td>
+                        <td>
+                            <a th:href="@{/1120/tool/edit/{id}(id=${tool.id})}" class="ui mini teal basic button">编辑</a>
+                            <a th:href="@{/1120/tool/delete/{id}(id=${tool.id})}" onclick="return confirm('确定删除该工具吗？');" class="ui mini red basic button">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                     <tr>
+                        <th colspan="6">
+                            <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
+                                <a class="item" th:href="@{/1120/tool(page=${pageInfo.hasPreviousPage} ? ${pageInfo.prePage}:1)}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
+                                <a class="item" th:href="@{/1120/tool(page=${pageInfo.hasNextPage} ? ${pageInfo.nextPage}:${pageInfo.pages})}" th:if="${pageInfo.hasNextPage}">下一页</a>
+                            </div>
+                            <a th:href="@{/1120/tool/addPage}" class="ui right floated teal basic mini button">新增</a>
+                        </th>
+                     </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="admin/_fragments :: footer"></footer>
+       
+    <!-- script -->
+    <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    
+    <script>
+        $('.m-menuToggle').click(function(){
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+        
+        $('.dropdown').dropdown({
+            on: 'hover'
+        });
+        
+        //消息提示关闭初始化
+        $('.message .close').on('click',function(){
+        	$(this).closest('.message')
+                   .transition('fade');
+        });
+        
+    </script>    
+</body>
+</html>

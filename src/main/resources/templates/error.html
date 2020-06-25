@@ -1,45 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>错误页面</title>
-<style>
-.center {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-}
-.m-gray{
-    color: gray;
-}
-</style>
+<title>出错喽</title>
+<link rel="stylesheet" href="/css/error.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var h = $(window).height();
+        $('body').height(h);
+        $('.mianBox').height(h);
+        centerWindow(".tipInfo");
+    });
+
+    //2.将盒子方法放入这个方，方便法统一调用
+    function centerWindow(a) {
+        center(a);
+        //自适应窗口
+        $(window).bind('scroll resize',
+                function() {
+                    center(a);
+                });
+    }
+
+    //1.居中方法，传入需要剧中的标签
+    function center(a) {
+        var wWidth = $(window).width();
+        var wHeight = $(window).height();
+        var boxWidth = $(a).width();
+        var boxHeight = $(a).height();
+        var scrollTop = $(window).scrollTop();
+        var scrollLeft = $(window).scrollLeft();
+        var top = scrollTop + (wHeight - boxHeight) / 2;
+        var left = scrollLeft + (wWidth - boxWidth) / 2;
+        $(a).css({
+            "top": top,
+            "left": left
+        });
+    }
+</script>
 </head>
 <body>
-
-    <!-- 错误消息 -->
-    <div class="center m-gray" >
-        <h3>提示信息</h3>
-        <div th:text="${message}">错误喽</div>
-        <p>
-            <a th:href="@{/}" role="button">回到主页</a>
-        </p>
+    <div class="mianBox">
+        <img src="images/error/yun0.png" alt="" class="yun yun0" />
+        <img src="images/error/yun1.png" alt="" class="yun yun1" />
+        <img src="images/error/yun2.png" alt="" class="yun yun2" />
+        <img src="images/error/bird.png" alt="" class="bird" />
+        <img src="images/error/san.png" alt="" class="san" />
+        <div class="tipInfo">
+            <div class="in">
+                <div class="textThis">
+                    <h2 th:text="${message}">出错啦！</h2>
+                    <p>
+                        <span>
+                            <a id="href" href="/">回到首页</a>
+                        </span>
+                        <span>
+                            <span>等待   <b id="wait">5</b> 秒</span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- 前端页面隐藏的具体的异常信息 -->
-    <!-- 这时候自定义实现ErrorController的控制器中存放了message，则下面的 ${exception.message}会报错-->
-    <!-- <div>
-        <div th:utext="'&lt;!--'" th:remove="tag"></div>
-        <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
-        <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
-        <ul th:remove="tag">
-            <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}" th:remove="tag"></span></li>
-        </ul>
-        <div th:utext="'--&gt;'" th:remove="tag"></div>
-    </div> -->
-
+<script type="text/javascript">
+	(function() {
+		var wait = document.getElementById('wait'), 
+		href = document.getElementById('href').href;
+		var interval = setInterval(function() {
+			var time = --wait.innerHTML;
+			if (time <= 0) {
+				clearInterval(interval);
+				location.href = "/";
+			};
+		}, 1000);
+		})();
+</script>
 </body>
 </html>

@@ -31,14 +31,14 @@ public class TypeController {
 	@Autowired
 	private TypeService typeService;
 	
-	//博客首页展示的博客数量
-	@Value("${adminTypes.typeSize}")
+	//分类后台管理页每页展示的数量
+	@Value("${admin.typeSize}")
 	private Integer typeSize;
 
 	/**
 	 * 跳转到分类管理页面
-	 * @param pageNum
-	 * @param pageSize
+	 * @param page 页码
+	 * @param size 每页分类的数量
 	 * @param model
 	 * @return 分类管理页面
 	 */
@@ -68,7 +68,7 @@ public class TypeController {
 
 	/**
 	 * 跳转到分类编辑页面
-	 * @param id
+	 * @param id 分类id
 	 * @param model
 	 * @return 分类编辑页面
 	 */
@@ -80,7 +80,7 @@ public class TypeController {
 
 	/**
 	 * 新增分类
-	 * @param type
+	 * @param type 分类
 	 * @param attributes
 	 * @return 分类管理页面
 	 */
@@ -99,9 +99,8 @@ public class TypeController {
 
 	/**
 	 * 编辑分类
-	 * @param type
-	 * @param result
-	 * @param id
+	 * @param type 分类
+	 * @param id 分类id
 	 * @param attributes
 	 * @return 分类管理页面
 	 */
@@ -121,12 +120,12 @@ public class TypeController {
 
 	/**
 	 * 删除分类
-	 * @param id
+	 * @param id 分类id
 	 * @param attributes
 	 * @return
 	 */
 	@GetMapping("/types/delete/{id}")
-	public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+	public String delete(@PathVariable("id") Long id, RedirectAttributes attributes) {
 		typeService.deleteById(id);
 		attributes.addFlashAttribute("message", "删除成功");
 		return "redirect:/1120/types";

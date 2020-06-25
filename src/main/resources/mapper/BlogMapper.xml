@@ -100,6 +100,7 @@
 		INNER JOIN type t on b.type_id = t.id
 		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE 
 		  and b.title like concat('%',#{query},'%') or b.content like concat('%',#{query},'%') or b.description like concat('%',#{query},'%')
+		order by b.update_time desc
 	</select>
 
 	<!-- 插入博客数据 -->

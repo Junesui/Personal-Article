@@ -23,5 +23,15 @@ public interface FriendslinkMapper {
 
 	Friendslink findByWebsiteUrl(String websiteUrl);
 
+	List<Friendslink> list();
+
+	void showById(Integer id);
+
+	void hideById(Integer id);
+
+	void deleteById(Integer id);
+
+	List<Friendslink> listBySearch(Boolean isShow);
+
 	
 }

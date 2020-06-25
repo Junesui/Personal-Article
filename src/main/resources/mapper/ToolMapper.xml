@@ -5,8 +5,38 @@
 
 	<!-- 列出所有的工具 -->
 	<select id="list" resultType="tool">
-		select name,url from tool order by update_time
+		select * from tool order by update_time desc
 	</select>
 	
+	<!-- 通过名称查找工具 -->
+	<select id="findByName" parameterType="string" resultType="tool">
+		select * from tool where name = #{name}
+	</select>
+
+	<!-- 通过id查找工具 -->
+	<select id="findById" parameterType="int" resultType="tool">
+		select * from tool where id = #{id}
+	</select>
+	
+	<!-- 通过链接查找工具 -->
+	<select id="findByUrl" parameterType="string" resultType="tool">
+		select * from tool where url = #{url}
+	</select>
+	
+	<!-- 保存工具 -->
+	<insert id="save" parameterType="tool">
+		insert into tool (name,url,create_time,update_time)
+		          values (#{name},#{url},#{createTime},#{updateTime})
+	</insert>
+	
+	<!-- 更新工具 -->
+	<update id="update" parameterType="tool">
+		update tool set name=#{name},url=#{url},update_time=#{updateTime} where id = #{id}
+	</update>
+	
+	<!-- 通过id删除工具 -->
+	<update id="deleteById" parameterType="int">
+		delete from tool where id = #{id}
+	</update>
 
 </mapper>

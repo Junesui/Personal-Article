@@ -25,6 +25,7 @@
                     <a th:href="@{/1120/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
                     <a th:href="@{/1120/onewords}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="coffee icon"></i>每日一句</a>
                     <a th:href="@{/1120/friendslink}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="child icon"></i>友人链</a>
+                    <a th:href="@{/1120/tool}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="list icon"></i>工具</a>
                     <div class="m-item right menu m-mobile-hide">
                         <div class="ui inline dropdown item">
                             <div class="text">
@@ -77,6 +78,11 @@
         $('.ui.sticky').sticky({
           context: '#waypoint'
         });
+        
+        /* pc-手机端菜单切换 */
+        $('.m-menuToggle').click(function(){
+    		$('.m-item').toggleClass('m-mobile-hide');
+    	});
     </script>
 </body>
 </html>

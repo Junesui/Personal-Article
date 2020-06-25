@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/_fragments :: head(~{::title})">
-<title>博客管理</title>
+<title>友链管理</title>
 </head>
 <body>
 
     <!--导航 -->
-    <nav th:replace="admin/_fragments :: menu(1)"></nav>
+    <nav th:replace="admin/_fragments :: menu(5)"></nav>
 
     <!--中间内容-->
-    <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
+    <div id="waypoint" class="m-container m-paddding-tb-big m-minHight">
         <div class="ui container">
             <!-- 提示信息 -->
             <div class="ui success message" th:if="${message} != null">
@@ -22,60 +22,50 @@
                 <input type="hidden" name="page">
                 <div class="inline fields">
                     <div class="field">
-                        <input type="text" name="title" placeholder="标题">
-                    </div>
-                    <div class="field">
                         <div class="ui labeled action input">
                             <div class="ui selection dropdown">
-                                <input type="hidden" name="typeId">
+                                <input type="hidden" name="isShow">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">分类</div>
+                                <div class="default text">展示状态</div>
                                 <div class="menu">
-                                    <div class="item" th:each="type : ${types}" th:attr="data-value=${type.id}" th:text="${type.name}"></div>
+                                    <div class="item" th:attr="data-value=true">已展示</div>
+                                    <div class="item" th:attr="data-value=false">未展示</div>
                                 </div> 
                             </div>
                             <div class="ui compact button clear-btn">清除</div>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" id="isRecommend" name="isRecommend" value="false" onclick="setVal()">
-                            <label for="isRecommend">推荐</label>
-                        </div>
-                    </div>
-                    <div class="field">
                         <button id="search-btn" class="ui tiny teal basic button"><i class="search icon"></i>搜索</button>
-                    </div>
-                    <div class="field">
-                        <a th:href="@{/1120/blogs/add}" class="ui right floated teal tiny basic button"><i class="plus square outline icon"></i>新增</a>
                     </div>
                 </div>
             </div>
             <!--下面部分-->
             <div id="table-container">
-                <table th:fragment="blogList" class="ui striped center aligned table">
+                <table th:fragment="friendslinkList" class="ui compact striped center aligned table">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>标题</th>
-                            <th>类型</th>
-                            <th>推荐</th>
-                            <th>状态</th>
-                            <th>更新时间</th>
-                            <th>操作</th>
+                            <th class="one wide"></th>
+                            <th class="two wide">网站名称</th>
+                            <th class="four wide">网站简介</th>
+                            <th class="two wide">网站地址</th>
+                            <th class="two wide">创建时间</th>
+                            <th class="one wide">状态</th>
+                            <th class="four wide">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="dto,iterStat : ${pageInfo.getList()}">
+                        <tr th:each="friendslink,iterStat : ${pageInfo.getList()}">
                             <td th:text="${iterStat.count}">1</td>
-                            <td th:text="${dto.title}">被压倒的年轻人</td>
-                            <td th:text="${dto.typeName}">认真升级</td>
-                            <td th:text="${dto.isRecommend} ? '是':'否' ">是</td>
-                            <td th:text="${dto.isPublished} ? '发布':'草稿' " th:class="${dto.isPublished}==false ? 'm-orange'">草稿</td>
-                            <td th:text="${#dates.format(dto.updateTime,'yyyy-MM-dd')}">2020-02-05</td>
+                            <td th:text="${friendslink.websiteName}">网站名字</td>
+                            <td th:text="${friendslink.websiteDescription}">网站简介</td>
+                            <td th:text="${friendslink.websiteUrl}">网站地址</td>
+                            <td th:text="${#dates.format(friendslink.createTime,'yyyy-MM-dd')}">创建时间</td>
+                            <td th:text="${friendslink.isShow} ? '已展示':'未展示' " th:class="!${friendslink.isShow} ? 'm-orange'">状态</td>
                             <td>
-                                <a th:href="@{/1120/blogs/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
-                                <a th:href="@{/1120/blogs/delete/{id}(id=${dto.id})}" onclick="return confirm('确定删除该博客吗？');" class="ui mini red basic button">删除</a>
+                                <a th:href="@{/1120/friendslink/show/{id}(id=${friendslink.id})}" onclick="return confirm('确定展示该友链吗？');" class="ui mini teal basic button m-padding">展示</a>
+                                <a th:href="@{/1120/friendslink/hide/{id}(id=${friendslink.id})}" onclick="return confirm('确定不展示该友链吗？');" class="ui mini blue basic button m-padding">不展示</a>
+                                <a th:href="@{/1120/friendslink/delete/{id}(id=${friendslink.id})}" onclick="return confirm('确定删除该友链吗？');" class="ui mini red basic button m-padding">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -86,7 +76,6 @@
                                     <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}-1" th:if="${pageInfo.hasPreviousPage}"  class="item" >上一页</a>
                                     <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}+1" th:if="${pageInfo.hasNextPage}"  class="item" >下一页</a>
                                 </div>
-                                <a th:href="@{/1120/blogs/add}" class="ui right floated teal basic mini button">新增</a>
                             </th>
                          </tr>
                     </tfoot>
@@ -103,10 +92,8 @@
     <!--/*/ </th:block> /*/-->
     
     <script>
-        $('.m-menuToggle').click(function(){
-            $('.m-item').toggleClass('m-mobile-hide');
-        });
         
+   		/* 是否展示下拉框初始化 */
         $('.dropdown').dropdown({
             on: 'hover'
         });
@@ -124,10 +111,8 @@
         
         //通过ajax刷新table中的数据
         function loadData(){
-        	$("#table-container").load("/1120/blogs/search",{
-        		title : $("[name='title']").val(),
-        		typeId : $("[name='typeId']").val(),
-        		isRecommend : $("[name='isRecommend']").val(),
+        	$("#table-container").load("/1120/friendslink/search",{
+        		isShow : $("[name='isShow']").val(),
         		page : $("[name='page']").val()
         	});
         }
@@ -142,16 +127,6 @@
 		$('.clear-btn').on('click', function() {
 			$('.selection.dropdown').dropdown('clear');
 		});
-        
-        //设置推荐checkbox的值
-        function setVal(){
-        	if($('#isRecommend').is(':checked') == true){
-        		$('#isRecommend').val(true);
-        	}
-        	if($('#isRecommend').is(':checked') == false){
-        		$('#isRecommend').val(false);
-        	}
-        }
         
 	</script>    
 </body>

@@ -17,4 +17,16 @@ public interface ToolMapper {
 
 	List<Tool> list();
 
+	Tool findByName(String name);
+
+	Tool findByUrl(String url);
+
+	void save(Tool tool);
+
+	void update(Tool tool);
+
+	void deleteById(Integer id);
+
+	Tool findById(Integer id);
+
 }
