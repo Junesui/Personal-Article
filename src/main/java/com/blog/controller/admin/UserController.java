@@ -60,7 +60,7 @@ public class UserController {
 			String token = UUID.randomUUID().toString();
 			userService.updateTokenById(token, user.getId());
 			Cookie cookie = new Cookie("token", token);
-			cookie.setMaxAge(50 * 365 * 24 * 60 * 60);
+			cookie.setMaxAge(24 * 60 * 60);
 			response.addCookie(cookie);
 
 			//存session
