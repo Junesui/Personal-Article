@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.TypeMapper">
 	
+	<!-- 统计分类的数量 -->
+	<select id="countAll" resultType="int">
+		select count(*) from type
+	</select>
+	
 	<!-- 统计有博客的分类总数 -->
 	<select id="count" resultType="long">
 		SELECT count(*) FROM type t
@@ -44,10 +49,10 @@
 		update type set name = #{name},update_time = #{updateTime} where id = #{id}
 	</update>
 	
-	<!--  -->
-	<delete id="deleteById" parameterType="long">
-		delete from type where id = #{id}
-	</delete>
+	<!-- 通过id删除分类 -->
+	<update id="deleteById" parameterType="long">
+		
+	</update>
 	
 
 </mapper>

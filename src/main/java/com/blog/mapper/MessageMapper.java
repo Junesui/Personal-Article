@@ -24,4 +24,6 @@ public interface MessageMapper {
 
 	void save(Message message);
 
+	Integer count();
+
 }

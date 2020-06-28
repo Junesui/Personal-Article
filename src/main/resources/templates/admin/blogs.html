@@ -103,14 +103,6 @@
     <!--/*/ </th:block> /*/-->
     
     <script>
-        $('.m-menuToggle').click(function(){
-            $('.m-item').toggleClass('m-mobile-hide');
-        });
-        
-        $('.dropdown').dropdown({
-            on: 'hover'
-        });
-        
         //动态给form中的page赋值
         function page(obj){
             $("[name='page']").val($(obj).data("page"));
@@ -131,12 +123,6 @@
         		page : $("[name='page']").val()
         	});
         }
-        
-        //消息提示关闭初始化
-        $('.message .close').on('click',function(){
-        	$(this).closest('.message')
-                   .transition('fade');
-        });
         
         //清除按钮
 		$('.clear-btn').on('click', function() {

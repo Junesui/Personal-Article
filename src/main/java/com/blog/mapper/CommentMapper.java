@@ -30,5 +30,5 @@ public interface CommentMapper {
 
 	void incDownCntByCommentId(Long commentId);
 
-	
+	Integer count();
 }

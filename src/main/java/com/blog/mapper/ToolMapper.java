@@ -29,4 +29,6 @@ public interface ToolMapper {
 
 	Tool findById(Integer id);
 
+	Integer count();
+
 }

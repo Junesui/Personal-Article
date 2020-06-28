@@ -42,15 +42,6 @@
     <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
     <!--/*/ </th:block> /*/-->    
 <script>
-
-	$('.m-menuToggle').click(function() {
-		$('.m-item').toggleClass('m-mobile-hide');
-	});
-
-	$('.dropdown').dropdown({
-		on : 'hover'
-	});
-
 	$('.ui.form').form({
 		on : 'blur',
 		fields : {
@@ -63,12 +54,6 @@
 			}
 		}
 	});
-	
-	//消息提示关闭初始化
-    $('.message .close').on('click',function(){
-    	$(this).closest('.message')
-               .transition('fade');
-    });
 </script>    
 </body>
 </html>

@@ -3,8 +3,8 @@
 
 <mapper namespace="com.blog.mapper.BlogMapper">
 
-	<!-- 统计博客的总数 -->
-	<select id="count" resultType="long">
+	<!-- 统计博客展示的总数 -->
+	<select id="countShow" resultType="int">
 		select count(*) from blog b where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE
 	</select>
 

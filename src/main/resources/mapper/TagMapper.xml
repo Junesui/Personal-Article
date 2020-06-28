@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.TagMapper">
 	
+	<!-- 统计标签的数量 -->
+	<select id="countAll" resultType="int">
+		select count(*) from tag		
+	</select>
+	
 	<!-- 统计有博客的标签总数 -->
 	<select id="count" resultType="long">
 	SELECT count(*) FROM tag t WHERE t.id IN (SELECT DISTINCT bt.tag_id FROM blog_tag bt inner join blog b on b.is_deleted is not true and b.is_published is not false)

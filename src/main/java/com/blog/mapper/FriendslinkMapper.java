@@ -33,5 +33,7 @@ public interface FriendslinkMapper {
 
 	List<Friendslink> listBySearch(Boolean isShow);
 
+	Integer countShow();
+
 	
 }

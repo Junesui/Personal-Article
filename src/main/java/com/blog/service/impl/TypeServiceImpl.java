@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.dto.TypeBlogNumDTO;
 import com.blog.entity.Type;
@@ -54,6 +55,7 @@ public class TypeServiceImpl implements TypeService {
 		typeMapper.update(type);
 	}
 
+	@Transactional
 	@Override
 	public void deleteById(Long id) {
 		//删除博客

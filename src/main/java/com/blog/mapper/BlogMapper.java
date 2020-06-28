@@ -43,13 +43,11 @@ public interface BlogMapper {
 
 	List<BlogTypeTagDTO> listTagBlogByTagId(Long id);
 
-	Long count();
-
 	List<Blog> archiveBlog();
 
 	List<BlogTypeTagDTO> listByQuery(String query);
 
 	void incCommentCntById(Long blogId);
 
-
+	Integer countShow();
 }

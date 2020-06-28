@@ -24,6 +24,6 @@ public interface OnewordService {
 	//通过id查找每日一句
 	public Oneword findById(Long id);
 
-	//通过id删除每日一句
-	public void deleteById(Long id);
+	//通过id设置删除标志
+	public void updateDel(Long id);
 }

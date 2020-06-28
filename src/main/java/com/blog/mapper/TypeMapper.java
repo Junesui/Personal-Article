@@ -32,5 +32,7 @@ public interface TypeMapper {
 
 	List<TypeBlogNumDTO> listTypeShow();
 
+	Integer countAll();
+
 
 }

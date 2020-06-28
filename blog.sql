@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/6/26 18:42:10                           */
+/* Created on:     2020/6/27 16:17:02                           */
 /*==============================================================*/
 
 
@@ -176,17 +176,8 @@ alter table oneword comment '每日一句话';
 /*==============================================================*/
 create table siteinfo
 (
-   run_time             int comment '运行时间(天)',
+   view_count           bigint comment '总访问次数',
    lastlogin_time       datetime comment '最后一次登陆时间',
-   article_count        int comment '文章总数',
-   view_count           bigint comment '总访问数量',
-   oneword_count        int comment '每日一句总数',
-   friendslink_count    int comment '友链总数',
-   comment_count        int comment '评论总数',
-   message_count        int comment '留言总数',
-   tool_count           int comment '工具总数',
-   type_count           int comment '分类总数',
-   tag_count            int comment '标签总数',
    reserve1             varchar(255) comment '预留字段1',
    reserve2             varchar(255) comment '预留字段2',
    reserve3             int comment '预留字段3',

@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.FriendslinkMapper">
 
+	<!-- 统计展示友链的数量 -->
+	<select id="countShow" resultType="int">
+		select count(*) from friendslink where is_show is not false
+	</select>
+
 	<!-- 列出要展示的友人链信息 -->
 	<select id="listShow" resultType="friendslink">
 		select * from friendslink where is_show is not false order by create_time

@@ -43,7 +43,7 @@ public class OnewordController {
 	 * @return 每日一句管理页
 	 */
 	@GetMapping("/onewords")
-	public String toBlogs(@RequestParam(name = "page", defaultValue = "1") Integer page,
+	public String toOnewords(@RequestParam(name = "page", defaultValue = "1") Integer page,
 			   		      @RequestParam(name = "size", defaultValue = "10") Integer size, 
 			   		      Model model) {
 		size = pageOnewordSize;
@@ -67,9 +67,8 @@ public class OnewordController {
 	}
 
 	/**
-	 * 发布博客
-	 * @param blog
-	 * @param session
+	 * 发布每日一句
+	 * @param oneword
 	 * @param attributes
 	 * @return 博客管理页面
 	 */
@@ -82,12 +81,12 @@ public class OnewordController {
 
 	/**
 	 * 跳转到每日一句编辑页面
-	 * @param id
+	 * @param id 每日一句id
 	 * @param model
 	 * @return 每日一句编辑页面
 	 */
 	@GetMapping("/onewords/edit/{id}")
-	public String blogEdit(@PathVariable Long id, Model model) {
+	public String onewordEdit(@PathVariable Long id, Model model) {
 		//通过id查找每日一句
 		Oneword oneword = onewordService.findById(id);
 	
@@ -96,14 +95,14 @@ public class OnewordController {
 	}
 
 	/**
-	 * 根据id删除每日一句
+	 * 根据id给每日一句设置删除标志
 	 * @param id
 	 * @param model
 	 * @return 每日一句管理页面
 	 */
 	@GetMapping("/onewords/delete/{id}")
-	public String blogDelete(@PathVariable Long id, RedirectAttributes attributes) {
-		onewordService.deleteById(id);
+	public String updateDel(@PathVariable Long id, RedirectAttributes attributes) {
+		onewordService.updateDel(id);
 		attributes.addFlashAttribute("message", "删除成功");
 		return "redirect:/1120/onewords";
 	}

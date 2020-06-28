@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.MessageMapper">
 
+	<!-- 统计留言数量 -->
+	<select id="count" resultType="int">
+		select count(*) from message where parent_id is null
+	</select>
+
 	<!-- 列出留言 -->
 	<select id="listMessage" resultType="com.blog.dto.MessageExtDTO">
 		select * from message where parent_id is null order by create_time desc

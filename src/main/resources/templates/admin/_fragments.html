@@ -26,6 +26,7 @@
                     <a th:href="@{/1120/onewords}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="coffee icon"></i>每日一句</a>
                     <a th:href="@{/1120/friendslink}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="child icon"></i>友人链</a>
                     <a th:href="@{/1120/tool}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="list icon"></i>工具</a>
+                    <a th:href="@{/1120/siteinfo}" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i class="info icon"></i>网站信息</a>
                     <div class="m-item right menu m-mobile-hide">
                         <div class="ui inline dropdown item">
                             <div class="text">
@@ -46,12 +47,12 @@
     </div>
     
     <!--底部-->
-    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-huge">
+    <footer th:fragment="footer" class="ui inverted segment vertical m-paddding-tb-large">
         <div class="ui container center aligned">
                 <!-- 营业时间 -->
                 <div>
                     <span id="htmer_time" style="color: #F08047"></span>
-            </div>
+                </div>
         </div>
     </footer>
 
@@ -83,6 +84,17 @@
         $('.m-menuToggle').click(function(){
     		$('.m-item').toggleClass('m-mobile-hide');
     	});
+        
+        //消息提示关闭初始化
+        $('.message .close').on('click',function(){
+        	$(this).closest('.message')
+                   .transition('fade');
+        });
+        
+        /* 用户头像下拉初始化 */
+        $('.dropdown').dropdown({
+            on: 'hover'
+        });
     </script>
 </body>
 </html>

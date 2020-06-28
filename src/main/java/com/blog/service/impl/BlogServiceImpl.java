@@ -37,8 +37,8 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired
 	private CommentService commentService;
 
-	//博客访问数量
-	private Integer viewCnt = 0;
+	//存放博客访问的数次数
+	private Long viewCnt = 0L;
 	//博客访问数量达到viewCntWrite次，再一次性写入数据库
 	@Value("${blog.viewCntWrite}")
 	private Long viewCntWrite;
@@ -127,8 +127,8 @@ public class BlogServiceImpl implements BlogService {
 	public void incViewCntById(Long id) {
 		viewCnt = viewCnt + 1;
 		//访问数量增加7次后，再一次性写入数据库
-		if (viewCnt == 7 || viewCnt > 7) {
-			viewCnt = 0;
+		if (viewCnt == viewCntWrite || viewCnt > viewCntWrite) {
+			viewCnt = 0L;
 			blogMapper.incViewCntById(viewCntWrite, id);
 		}
 	}
@@ -141,11 +141,6 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<BlogTypeTagDTO> listTagBlogByTagId(Long id) {
 		return blogMapper.listTagBlogByTagId(id);
-	}
-
-	@Override
-	public Long count() {
-		return blogMapper.count();
 	}
 
 	@Override

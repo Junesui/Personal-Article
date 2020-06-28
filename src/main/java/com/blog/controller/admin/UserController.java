@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blog.entity.Siteinfo;
 import com.blog.entity.User;
+import com.blog.service.SiteinfoService;
 import com.blog.service.UserService;
 
 /**
@@ -29,7 +31,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SiteinfoService siteinfoService;
 
+	
 	/**
 	 * 跳转到登录页面
 	 * @return 登录页面
@@ -55,16 +60,21 @@ public class UserController {
 		if (user != null) {
 			//密码清空
 			user.setPassword(null);
-
 			//存cookie
 			String token = UUID.randomUUID().toString();
 			userService.updateTokenById(token, user.getId());
 			Cookie cookie = new Cookie("token", token);
 			cookie.setMaxAge(24 * 60 * 60);
 			response.addCookie(cookie);
-
 			//存session
 			session.setAttribute("user", user);
+			
+			//查询最后一次登录时间
+			Siteinfo siteinfo = siteinfoService.find();
+			attributes.addFlashAttribute("lastLoginTime", siteinfo.getLastloginTime());
+			//更新最后一次登陆时间为现在的时间
+			siteinfoService.update();
+			
 			return "redirect:/1120/index";
 		} else {
 			attributes.addFlashAttribute("message", "用户名或密码错误");

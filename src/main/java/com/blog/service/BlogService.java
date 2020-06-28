@@ -44,9 +44,6 @@ public interface BlogService {
 	//通过标签id获取博客相关信息
 	public List<BlogTypeTagDTO> listTagBlogByTagId(Long id);
 
-	//统计博客的总数
-	public Long count();
-
 	//博客归档
 	public List<Blog> archiveBlog();
 

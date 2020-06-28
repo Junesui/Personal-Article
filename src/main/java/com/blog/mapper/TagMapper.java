@@ -40,4 +40,6 @@ public interface TagMapper {
 
 	List<TagBlogNumDTO> listTagShow();
 
+	Integer countAll();
+
 }

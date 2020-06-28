@@ -3,6 +3,12 @@
 
 <mapper namespace="com.blog.mapper.CommentMapper">
 
+	<!-- 统计一级评论的总数 -->
+	<select id="count" resultType="int">
+		select count(*) from comment where parent_id is null
+	</select>
+
+
 	<!-- 列出一级评论 -->
 	<select id="listParentCommentByBlogId" parameterType="long" resultType="com.blog.dto.CommentExtDTO">
 		select * from comment where parent_id is null and blog_id = #{blogId} order by (like_count + reply_count - down_count) desc

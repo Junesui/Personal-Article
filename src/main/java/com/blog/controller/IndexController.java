@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.dto.BlogTypeTagDTO;
 import com.blog.entity.Oneword;
+import com.blog.entity.Siteinfo;
 import com.blog.entity.Tag;
 import com.blog.entity.Tool;
 import com.blog.service.BlogService;
 import com.blog.service.OnewordService;
+import com.blog.service.SiteinfoService;
 import com.blog.service.TagService;
 import com.blog.service.ToolService;
 import com.github.pagehelper.PageHelper;
@@ -34,13 +36,21 @@ public class IndexController {
 	private OnewordService onewordService;
 	@Autowired
 	private ToolService toolService;
-
+	@Autowired
+	private SiteinfoService siteinfoService;
+	
 	//博客首页展示的博客数量
 	@Value("${index.pageBlogSize}")
 	private Integer pageBlogSize;
 	//每日一句展示的数量
 	@Value("${index.onewordSize}")
 	private Integer onewordSize;
+	
+	//存放网站访问的次数
+	private Long viewCnt = 0L;
+	//网站访问数量达到viewCntWrite次，再一次性写入数据库
+	@Value("${siteinfo.viewCntWrite}")
+	private Long viewCntWrite;
 	
 	
 	/**
@@ -66,6 +76,18 @@ public class IndexController {
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("onewords", onewords);
 		model.addAttribute("tools", tools);
+		
+		// 写入siteinfo表
+		Siteinfo siteinfo = siteinfoService.find();
+		if (siteinfo == null) {
+			siteinfoService.initUpdate();
+		}else {
+			viewCnt = viewCnt + 1;
+			if (viewCnt == viewCntWrite || viewCnt > viewCntWrite) {
+				viewCnt = 0L;
+				siteinfoService.incViewCnt(viewCntWrite);
+			}
+		}
 
 		return "index";
 	}

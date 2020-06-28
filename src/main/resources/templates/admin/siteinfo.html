@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+<title>网站信息</title>
+</head>
+<body>
+
+    <!--导航 -->
+    <nav th:replace="admin/_fragments :: menu(7)"></nav>
+
+    <!--中间内容-->
+    <div id="waypoint" class="m-container m-paddding-tb-big m-margin-tb-tiny m-minHight">
+        <div class="ui container">
+            <table class="ui striped center aligned table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>网站信息</th>
+                        <th>查询结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>每日一句数量</td><td th:text="${siteinfoExtDTO.onewordCount}">查询结果</td></tr>
+                    <tr><td>2</td><td>文章数量</td><td th:text="${siteinfoExtDTO.articleCount}">查询结果</td></tr>
+                    <tr><td>3</td><td>评论数量</td><td th:text="${siteinfoExtDTO.commentCount}">查询结果</td></tr>
+                    <tr><td>4</td><td>分类数量</td><td th:text="${siteinfoExtDTO.typeCount}">查询结果</td></tr>
+                    <tr><td>5</td><td>标签数量</td><td th:text="${siteinfoExtDTO.tagCount}">查询结果</td></tr>
+                    <tr><td>6</td><td>友链数量</td><td th:text="${siteinfoExtDTO.friendslinkCount}">查询结果</td></tr>
+                    <tr><td>7</td><td>留言数量</td><td th:text="${siteinfoExtDTO.messageCount}">查询结果</td></tr>
+                    <tr><td>8</td><td>工具数量</td><td th:text="${siteinfoExtDTO.toolCount}">查询结果</td></tr>
+                    <tr><td>9</td><td>访问数量</td><td th:text="${siteinfoExtDTO.viewCount}">查询结果</td></tr>
+                    <tr><td>10</td><td>运行时间</td><td th:text="|${siteinfoExtDTO.runTime} 天|">查询结果</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="admin/_fragments :: footer"></footer>
+       
+    <!-- script -->
+    <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    
+</body>
+</html>

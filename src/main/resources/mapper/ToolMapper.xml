@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.ToolMapper">
 
+	<!-- 统计工具数量 -->
+	<select id="count" resultType="int">
+		select count(*) from tool
+	</select>
+
 	<!-- 列出所有的工具 -->
 	<select id="list" resultType="tool">
 		select * from tool order by update_time desc

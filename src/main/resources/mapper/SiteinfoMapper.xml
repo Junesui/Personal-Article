@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.blog.mapper.SiteinfoMapper">
+	
+	<!-- 查找总访问数量 -->
+	<select id="findViewCount" resultType="long">
+		select view_count from siteinfo
+	</select>
+	
+	<select id="find" resultType="siteinfo">
+		select * from siteinfo
+	</select>
+	
+	<!--设置网站总访问数初始化为0  -->
+	<update id="initUpdate">
+		update siteinfo set view_count = 0
+	</update>
+	
+	<!-- 增加网站访问次数 -->
+	<update id="incViewCnt" parameterType="long">
+		update siteinfo set view_count = view_count + #{viewCntWrite}
+	</update>
+	
+	<!-- 更新最后一次登录时间为现在的时间 -->
+	<update id="update">
+		update siteinfo set lastlogin_time = now()
+	</update>
+	
+</mapper>

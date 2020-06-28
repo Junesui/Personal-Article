@@ -3,6 +3,11 @@
 
 <mapper namespace="com.blog.mapper.OnewordMapper">
 	
+	<!-- 统计展示的每日一句 -->
+	<select id="countShow" resultType="int">
+		select count(*) from oneword where is_deleted is not true and is_published is not false
+	</select>
+	
 	<!-- 列出指定数量的每日语一句 -->
 	<select id="listBysize" parameterType="int" resultType="oneword">
 		select * from oneword 
@@ -36,7 +41,7 @@
 	</update>
 	
 	<!-- 通过id删除每日一句 -->
-	<delete id="deleteById" parameterType="long">
-		delete from oneword where id = #{id}
-	</delete>
+	<update id="updateDel" parameterType="long">
+		update oneword set is_deleted = true where id = #{id}
+	</update>
 </mapper>
