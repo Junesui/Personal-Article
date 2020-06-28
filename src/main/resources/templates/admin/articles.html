@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+<title>文章管理</title>
+</head>
+<body>
+
+    <!--导航 -->
+    <nav th:replace="admin/_fragments :: menu(1)"></nav>
+
+    <!--中间内容-->
+    <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
+        <div class="ui container">
+            <!-- 提示信息 -->
+            <div class="ui success message" th:if="${message} != null">
+                <i class="close icon"></i>
+                <div class="header">提示:</div>
+                <p th:text="${message}"></p>
+            </div>
+            <!--上面部分-->
+            <div class="ui secondary segment form">
+                <input type="hidden" name="page">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="title" placeholder="标题">
+                    </div>
+                    <div class="field">
+                        <div class="ui labeled action input">
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="typeId">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">分类</div>
+                                <div class="menu">
+                                    <div class="item" th:each="type : ${types}" th:attr="data-value=${type.id}" th:text="${type.name}"></div>
+                                </div> 
+                            </div>
+                            <div class="ui compact button clear-btn">清除</div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="isRecommend" name="isRecommend" value="false" onclick="setVal()">
+                            <label for="isRecommend">推荐</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button id="search-btn" class="ui tiny teal basic button"><i class="search icon"></i>搜索</button>
+                    </div>
+                    <div class="field">
+                        <a th:href="@{/1120/articles/add}" class="ui right floated teal tiny basic button"><i class="plus square outline icon"></i>新增</a>
+                    </div>
+                </div>
+            </div>
+            <!--下面部分-->
+            <div id="table-container">
+                <table th:fragment="articleList" class="ui striped center aligned table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>标题</th>
+                            <th>类型</th>
+                            <th>推荐</th>
+                            <th>状态</th>
+                            <th>更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="dto,iterStat : ${pageInfo.getList()}">
+                            <td th:text="${iterStat.count}">1</td>
+                            <td th:text="${dto.title}">被压倒的年轻人</td>
+                            <td th:text="${dto.typeName}">认真升级</td>
+                            <td th:text="${dto.isRecommend} ? '是':'否' ">是</td>
+                            <td th:text="${dto.isPublished} ? '发布':'草稿' " th:class="${dto.isPublished}==false ? 'm-orange'">草稿</td>
+                            <td th:text="${#dates.format(dto.updateTime,'yyyy-MM-dd')}">2020-02-05</td>
+                            <td>
+                                <a th:href="@{/1120/articles/edit/{id}(id=${dto.id})}" class="ui mini teal basic button">编辑</a>
+                                <a th:href="@{/1120/articles/delete/{id}(id=${dto.id})}" onclick="return confirm('确定删除该文章吗？');" class="ui mini red basic button">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                         <tr>
+                            <th colspan="7">
+                                <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
+                                    <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}-1" th:if="${pageInfo.hasPreviousPage}"  class="item" >上一页</a>
+                                    <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}+1" th:if="${pageInfo.hasNextPage}"  class="item" >下一页</a>
+                                </div>
+                                <a th:href="@{/1120/articles/add}" class="ui right floated teal basic mini button">新增</a>
+                            </th>
+                         </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!--底部-->
+    <footer th:replace="admin/_fragments :: footer"></footer>
+       
+    <!-- script -->
+    <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
+    <!--/*/ </th:block> /*/-->
+    
+    <script>
+        //动态给form中的page赋值
+        function page(obj){
+            $("[name='page']").val($(obj).data("page"));
+            loadData();
+        }
+        
+        $('#search-btn').click(function(){
+        	$("[name='page']").val(0);
+        	loadData();
+        });
+        
+        //通过ajax刷新table中的数据
+        function loadData(){
+        	$("#table-container").load("/1120/articles/search",{
+        		title : $("[name='title']").val(),
+        		typeId : $("[name='typeId']").val(),
+        		isRecommend : $("[name='isRecommend']").val(),
+        		page : $("[name='page']").val()
+        	});
+        }
+        
+        //清除按钮
+		$('.clear-btn').on('click', function() {
+			$('.selection.dropdown').dropdown('clear');
+		});
+        
+        //设置推荐checkbox的值
+        function setVal(){
+        	if($('#isRecommend').is(':checked') == true){
+        		$('#isRecommend').val(true);
+        	}
+        	if($('#isRecommend').is(':checked') == false){
+        		$('#isRecommend').val(false);
+        	}
+        }
+        
+	</script>    
+</body>
+</html>

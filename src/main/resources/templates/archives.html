@@ -12,12 +12,12 @@
         <div class="m-container-small m-paddding-tb-big">    
             <section class="timeline">
               <ul>
-                <li th:each="blog : ${blogs}">
+                <li th:each="article : ${articles}">
                   <div>
-                    <time th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-05-28</time>
+                    <time th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2020-05-28</time>
                     <div class="scientist" >
                         <h3 class="state" style="text-align:center;font-size: 16px;color: #000;">
-                            <a class="m-black" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}">标题 </a>
+                            <a class="m-black" th:href="@{/article/{id}(id=${article.id})}" target="_blank" th:text="${article.title}">标题 </a>
                          </h3>
                     </div>
                   </div>

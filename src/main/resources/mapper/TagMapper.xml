@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.blog.mapper.TagMapper">
+<mapper namespace="com.article.mapper.TagMapper">
 	
 	<!-- 统计标签的数量 -->
 	<select id="countAll" resultType="int">
 		select count(*) from tag		
 	</select>
 	
-	<!-- 统计有博客的标签总数 -->
+	<!-- 统计有文章的标签总数 -->
 	<select id="count" resultType="long">
-	SELECT count(*) FROM tag t WHERE t.id IN (SELECT DISTINCT bt.tag_id FROM blog_tag bt inner join blog b on b.is_deleted is not true and b.is_published is not false)
+	SELECT count(*) FROM tag t WHERE t.id IN (SELECT DISTINCT bt.tag_id FROM article_tag bt inner join article b on b.is_deleted is not true and b.is_published is not false)
 	</select>
 	
 	<!-- 列出所有类型 -->
@@ -28,30 +28,30 @@
 		select * from tag where id = #{id}
 	</select>
 	
-	<!-- 通过博客id查找对应的标签id -->
-	<select id="listByBlogId" parameterType="long" resultType="tag">
+	<!-- 通过文章id查找对应的标签id -->
+	<select id="listByArticleId" parameterType="long" resultType="tag">
 		select * from tag t 
-		inner join blog_tag bt on t.id=bt.tag_id
-		inner join blog b on bt.blog_id=b.id
-		where b.id=#{blogId}
+		inner join article_tag bt on t.id=bt.tag_id
+		inner join article b on bt.article_id=b.id
+		where b.id=#{articleId}
 	</select>
 	
-	<!-- 获取博客首页的标签  -->
-	<select id="listTopTag" parameterType="int" resultType="com.blog.dto.TagBlogNumDTO">
-		select t.id,t.name,count(t.id) blogNum from tag t
-		inner join blog_tag bt on t.id = bt.tag_id
-		inner join blog b on bt.blog_id=b.id where b.is_deleted is not true and b.is_published is not false
+	<!-- 获取文章首页的标签  -->
+	<select id="listTopTag" parameterType="int" resultType="com.article.dto.TagArticleNumDTO">
+		select t.id,t.name,count(t.id) articleNum from tag t
+		inner join article_tag bt on t.id = bt.tag_id
+		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false
 		group by t.id
-		order by blogNum desc limit #{topTagNum}
+		order by articleNum desc limit #{topTagNum}
 	</select>
 	
-	<!-- 列出标签及对应的博客数量 -->
-	<select id="listTagShow" resultType="com.blog.dto.TagBlogNumDTO">
-		select t.id,t.name,count(t.id) blogNum from tag t
-		inner join blog_tag bt on t.id = bt.tag_id
-		inner join blog b on bt.blog_id=b.id where b.is_deleted is not true and b.is_published is not false
+	<!-- 列出标签及对应的文章数量 -->
+	<select id="listTagShow" resultType="com.article.dto.TagArticleNumDTO">
+		select t.id,t.name,count(t.id) articleNum from tag t
+		inner join article_tag bt on t.id = bt.tag_id
+		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false
 		group by t.id
-		order by blogNum desc
+		order by articleNum desc
 	</select>
 	
     <!-- 保存标签 -->
@@ -59,14 +59,14 @@
 		insert into tag (name,create_time,update_time) values (#{name},#{createTime},#{updateTime})
 	</insert>
 	
-    <!-- 向blog_tag中间表插入数据 -->
-	<insert id="saveBlogAndTag" parameterType="long">
-		insert into blog_tag (blog_id,tag_id) values (#{blogId},#{tagId})
+    <!-- 向article_tag中间表插入数据 -->
+	<insert id="saveArticleAndTag" parameterType="long">
+		insert into article_tag (article_id,tag_id) values (#{articleId},#{tagId})
 	</insert>
 	
-	<!-- 通过blog_id删除blog_tag中间表的数据 -->
-	<delete id="deleteByBlogId" parameterType="long">
-		delete from blog_tag where blog_id = #{blogId}
+	<!-- 通过article_id删除article_tag中间表的数据 -->
+	<delete id="deleteByArticleId" parameterType="long">
+		delete from article_tag where article_id = #{articleId}
 	</delete>
 	
 	<!-- 通过id删除标签 -->
@@ -74,9 +74,9 @@
 		delete from tag where id = #{id}
 	</delete>
 	
-	<!-- 通过标签id删除blog_tag中间表 -->
+	<!-- 通过标签id删除article_tag中间表 -->
 	<delete id="deleteByTagId" parameterType="long">
-		delete from blog_tag where tag_id = #{id}
+		delete from article_tag where tag_id = #{id}
 	</delete>
 	
 	<!-- 更新标签 -->

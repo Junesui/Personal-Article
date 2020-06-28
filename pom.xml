@@ -9,11 +9,11 @@
 		<version>2.2.6.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bolg</groupId>
-	<artifactId>personal-blog</artifactId>
+	<groupId>com.article</groupId>
+	<artifactId>personal-article</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>personal-blog</name>
-	<description>personal blog</description>
+	<name>article</name>
+	<description>article</description>
 
 	<dependencies>
 		<!-- web -->

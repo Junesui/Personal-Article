@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.article.mapper.ArticleMapper">
+
+	<!-- 统计文章展示的总数 -->
+	<select id="countShow" resultType="int">
+		select count(*) from article b where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE
+	</select>
+
+	<!-- 列出所有文章和对应的类型名称 -->
+	<select id="listArticleAndType" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,t.name typeName from article b inner join type t on b.type_id = t.id order by update_time desc
+	</select>
+
+	<!-- 通过id查找文章 -->
+	<select id="findById" parameterType="long" resultType="article">
+		select * from article where id = #{id}
+	</select>
+
+	<!-- 搜索文章 -->
+	<select id="listBySearch" parameterType="com.article.dto.ArticleQueryDTO" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,t.name typeName from article b inner join type t on b.type_id = t.id
+		<where>
+			<if test="title != '' and title != null">
+				and b.title like concat('%',#{title},'%')
+			</if>
+			<if test="typeId != '' and typeId != null">
+				and b.type_id = #{typeId}
+			</if>
+			<if test="isRecommend == true">
+				and b.is_recommend = true
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+	
+	<!-- 通过id查找文章和对应的类型，标签 -->
+	<select id="findArticleAndTypeById" parameterType="long" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,type.id typeId
+		from article b
+		inner join type on b.type_id=type.id
+		where b.id=#{id}
+	</select>
+	
+	<!-- 列出首页展示的文章相关信息  -->
+	<select id="listTopArticle" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from article b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false order by update_time desc
+	</select>
+	
+	<!-- 通过分类id获取文章相关信息 -->
+	<select id="listTypeArticleByTypeId" parameterType="long" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from article b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false and b.type_id = #{id} 
+		order by update_time desc
+	</select>
+	
+	<!-- 通过标签id获取文章相关信息 -->
+	<select id="listTagArticleByTagId" parameterType="long" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from article b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id 
+		INNER JOIN article_tag bt on b.id = bt.article_id
+		INNER JOIN tag on bt.tag_id = tag.id
+		where b.is_deleted is not true and b.is_published is not false and tag.id = #{id}
+		order by update_time desc
+	</select>
+	
+	<!-- 列出首页展示的推荐文章 -->
+	<select id="listTopRecommendArticle" parameterType="int" resultType="article">
+		select id,title from article where is_commented = true order by update_time desc limit #{topRecommendNum}
+	</select>
+	
+	<!-- 获取文章详情页的信息 -->
+	<select id="findArticleDetailById" parameterType="long" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
+		from article b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id where b.id = #{id} and b.is_deleted is not true and b.is_published is not false
+	</select>
+	
+	<!-- 列出所有的年份 -->
+	<select id="listGroupYear" resultType="string">
+		SELECT DATE_FORMAT(b.update_time,'%Y') ud from article b GROUP BY ud ORDER BY ud desc
+	</select>
+	
+	<!-- 根据年份获取文章 -->
+	<select id="archiveArticle" resultType="article">
+		select b.id,b.title,b.update_time,b.flag from article b 
+		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE 
+		order by update_time desc
+	</select>
+	
+	<!-- 通过关键字搜索文章 -->
+	<select id="listByQuery" parameterType="string" resultType="com.article.dto.ArticleTypeTagDTO">
+		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName,t.id typeId
+		from article b INNER JOIN user u on b.user_id = u.id
+		INNER JOIN type t on b.type_id = t.id
+		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE 
+		  and b.title like concat('%',#{query},'%') or b.content like concat('%',#{query},'%') or b.description like concat('%',#{query},'%')
+		order by b.update_time desc
+	</select>
+
+	<!-- 插入文章数据 -->
+	<insert id="save" parameterType="com.article.dto.ArticleTypeTagDTO"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into article
+		(title,content,description,first_picture,flag,original_link,view_count,comment_count,like_count,down_count,is_appreciated,is_shared,is_commented,is_deleted,is_recommend,is_top,is_privated,is_published,create_time,update_time,type_id,user_id)
+		values
+		(#{title},#{content},#{description},#{firstPicture},#{flag},#{originalLink},#{viewCount},#{commentCount},#{likeCount},#{downCount},#{isAppreciated},#{isShared},#{isCommented},#{isDeleted},#{isRecommend},#{isTop},#{isPrivated},#{isPublished},#{createTime},#{updateTime},#{typeId},#{userId})
+	</insert>
+
+	<!-- 通过id更新文章 -->
+	<update id="update" parameterType="article">
+		update article set
+		title=#{title},content=#{content},description=#{description},first_picture=#{firstPicture},flag=#{flag},is_appreciated=#{isAppreciated},is_shared=#{isShared},is_commented=#{isCommented},is_recommend=#{isRecommend},is_published=#{isPublished},update_time=#{updateTime},type_id=#{typeId}
+		where id =#{id}
+	</update>
+	
+	<!-- 根据id增加文章访问数量 -->
+	<update id="incViewCntById" parameterType="long">
+		update article set view_count = view_count + #{viewCntWrite} where id = #{id}
+	</update>
+	
+	<!-- 通过id给文章设置删除标志 -->
+	<update id="deleteById" parameterType="long">
+		update article set is_deleted = true where id = #{id}
+	</update>
+	
+	<!-- 通过类型id给文章设置删除标志 -->
+	<update id="deleteByTypeId" parameterType="long">
+		update article set is_deleted = true where type_id = #{typeId}
+	</update>
+	
+	<!-- 通过文章id增加评论数 -->
+	<update id="incCommentCntById" parameterType="long">
+		update article set comment_count = comment_count + 1 where id = #{articleId}
+	</update>
+	
+</mapper>

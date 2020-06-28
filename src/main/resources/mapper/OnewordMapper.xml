@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.blog.mapper.OnewordMapper">
+<mapper namespace="com.article.mapper.OnewordMapper">
 	
 	<!-- 统计展示的每日一句 -->
 	<select id="countShow" resultType="int">
@@ -11,7 +11,7 @@
 	<!-- 列出指定数量的每日语一句 -->
 	<select id="listBysize" parameterType="int" resultType="oneword">
 		select * from oneword 
-		where is_deleted is not true and is_published is not false 
+		where is_deleted is not true and is_published is true 
 		order by update_time desc 
 		limit #{size}
 	</select>

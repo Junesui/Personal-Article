@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.blog.mapper.CommentMapper">
+<mapper namespace="com.article.mapper.CommentMapper">
 
 	<!-- 统计一级评论的总数 -->
 	<select id="count" resultType="int">
@@ -10,24 +10,24 @@
 
 
 	<!-- 列出一级评论 -->
-	<select id="listParentCommentByBlogId" parameterType="long" resultType="com.blog.dto.CommentExtDTO">
-		select * from comment where parent_id is null and blog_id = #{blogId} order by (like_count + reply_count - down_count) desc
+	<select id="listParentCommentByArticleId" parameterType="long" resultType="com.article.dto.CommentExtDTO">
+		select * from comment where parent_id is null and article_id = #{articleId} order by (like_count + reply_count - down_count) desc
 	</select>
 
 	<!-- 通过父id列出子评论 -->
-	<select id="listChildCommentByParentId" parameterType="long" resultType="com.blog.dto.CommentExtDTO">
+	<select id="listChildCommentByParentId" parameterType="long" resultType="com.article.dto.CommentExtDTO">
 		select * from comment where parent_id = #{parentId}
 	</select>
 	
 	<!-- 保存评论 -->
 	<insert id="save" parameterType="comment">
-		insert into comment (nickname,email,avatar,content,create_time,blog_id,parent_id,is_manager,like_count,down_count,reply_count)
-		values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{blogId},#{parentId},#{isManager},#{likeCount},#{downCount},#{replyCount});
+		insert into comment (nickname,email,avatar,content,create_time,article_id,parent_id,is_manager,like_count,down_count,reply_count)
+		values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{articleId},#{parentId},#{isManager},#{likeCount},#{downCount},#{replyCount});
 	</insert>
 	
-	<!-- 通过博客id删除评论 -->
-	<delete id="deleteByBlogId" parameterType="long">
-		delete from comment where blog_id = #{blogId}
+	<!-- 通过文章id删除评论 -->
+	<delete id="deleteByArticleId" parameterType="long">
+		delete from comment where article_id = #{articleId}
 	</delete>
 	
 	<!-- 增加一级评论的回复数量 -->

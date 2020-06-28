@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.blog.mapper.TypeMapper">
+<mapper namespace="com.article.mapper.TypeMapper">
 	
 	<!-- 统计分类的数量 -->
 	<select id="countAll" resultType="int">
 		select count(*) from type
 	</select>
 	
-	<!-- 统计有博客的分类总数 -->
+	<!-- 统计有文章的分类总数 -->
 	<select id="count" resultType="long">
 		SELECT count(*) FROM type t
 		WHERE t.id in
-		(SELECT b.type_id from blog b
+		(SELECT b.type_id from article b
 		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE)
 	</select>
 	
@@ -31,10 +31,10 @@
 		select * from type where id = #{id}
 	</select>
 	
-	<!-- 列出分类及对应的博客数量  -->
-	<select id="listTypeShow" resultType="com.blog.dto.TypeBlogNumDTO">
-		select t.id,t.name,count(t.id) blogNum from type t 
-		inner join blog b on t.id = b.type_id where b.is_deleted is not true and b.is_published is not false
+	<!-- 列出分类及对应的文章数量  -->
+	<select id="listTypeShow" resultType="com.article.dto.TypeArticleNumDTO">
+		select t.id,t.name,count(t.id) articleNum from type t 
+		inner join article b on t.id = b.type_id where b.is_deleted is not true and b.is_published is not false
 		group by t.id
 		order by count(t.id) desc
 	</select>

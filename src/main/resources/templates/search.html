@@ -21,40 +21,40 @@
                     </div>
                 </div>
             </div>
-            <!--博客列表-->
+            <!--文章列表-->
             <div class="ui teal top attached segment">
-                <div class="ui padded vertical segment m-padding-content" th:each="blog : ${pageInfo.getList()}">
+                <div class="ui padded vertical segment m-padding-content" th:each="article : ${pageInfo.getList()}">
                             <div class="ui mobile reversed stackable grid  middle aligned">
                                 <div class="eleven wide column">
-                                    <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" th:text="${blog.title}" class="m-black">被压倒的年轻人</a></h3>
-                                    <p th:text="${#strings.abbreviate(blog.description,100)}"></p>
+                                    <h3 class="ui header"><a th:href="@{/article/{id}(id=${article.id})}" target="_blank" th:text="${article.title}" class="m-black">被压倒的年轻人</a></h3>
+                                    <p th:text="${#strings.abbreviate(article.description,100)}"></p>
                                     <div class="ui grid">
                                         <div class="eleven wide column">
                                             <div class="ui mini horizontal link list">
                                                 <div class="item">
-                                                    <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="${blog.userAvatar}">
+                                                    <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="${article.userAvatar}">
                                                     <div class="content">
-                                                        <a href="#" class="header" th:text="${blog.userNickname}">June</a>
+                                                        <a href="#" class="header" th:text="${article.userNickname}">June</a>
                                                     </div>
                                                 </div>
                                                 <div class="item">
                                                     <i class="calendar icon"></i>
-                                                    <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}"></span>
+                                                    <span th:text="${#dates.format(article.updateTime, 'yyyy-MM-dd')}"></span>
                                                 </div>
                                                 <div class="item">
                                                     <i class="eye icon"></i>
-                                                    <span th:text="${blog.viewCount}"></span>
+                                                    <span th:text="${article.viewCount}"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="right aligned five wide column">
-                                            <a th:href="@{/types/{id}(id=${blog.typeId})}" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${blog.typeName}">认知升级</a>
+                                            <a th:href="@{/types/{id}(id=${article.typeId})}" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${article.typeName}">认知升级</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="five wide column">
-                                    <a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
-                                        <img alt="" th:src="@{${blog.firstPicture}}" class="ui rounded image">
+                                    <a th:href="@{/article/{id}(id=${article.id})}" target="_blank">
+                                        <img alt="" th:src="@{${article.firstPicture}}" class="ui rounded image">
                                     </a>
                                 </div>
                             </div>
