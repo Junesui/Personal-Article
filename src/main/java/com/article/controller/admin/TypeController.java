@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,10 +87,14 @@ public class TypeController {
 	 * @return 分类管理页面
 	 */
 	@PostMapping("/types")
-	public String post(Type type, RedirectAttributes attributes, Model model) {
+	public String post(@Validated Type type, BindingResult result,RedirectAttributes attributes, Model model) {
 		//名称是否重复验证
 		if (typeService.findByName(type.getName()) != null) {
-			model.addAttribute("nameError", "分类名称已经存在");
+			result.rejectValue("name", "nameError","分类名称已经存在");
+		}
+		
+		//type字段验证
+		if (result.hasErrors()) {
 			return "admin/type-release";
 		}
 
@@ -105,11 +111,15 @@ public class TypeController {
 	 * @return 分类管理页面
 	 */
 	@PostMapping("/types/{id}")
-	public String editPost(Type type, @PathVariable Long id, RedirectAttributes attributes, Model model) {
+	public String editPost(@Validated Type type, BindingResult result,@PathVariable("id") Long id, RedirectAttributes attributes, Model model) {
 
 		//名称是否重复验证
 		if (typeService.findByName(type.getName()) != null) {
-			model.addAttribute("nameError", "分类名称已经存在");
+			result.rejectValue("name", "nameError","标签名称已经存在");
+		}
+		
+		//type字段验证
+		if (result.hasErrors()) {
 			return "admin/type-release";
 		}
 

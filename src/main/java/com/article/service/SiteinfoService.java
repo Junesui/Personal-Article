@@ -15,7 +15,7 @@ public interface SiteinfoService {
 	SiteinfoExtDTO querySiteinfo();
 
 	//设置网站总访问数初始化为0
-	void initUpdate();
+	void save();
 
 	//获取网站信息
 	Siteinfo find();

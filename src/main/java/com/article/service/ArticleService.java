@@ -30,7 +30,7 @@ public interface ArticleService {
 	public void deleteById(Long id);
 
 	//列出首页展示的文章相关信息
-	public List<ArticleTypeTagDTO> listTopArticle();
+	public List<ArticleTypeTagDTO> listShowArticle();
 
 	//获取文章并转换文章内容的格式
 	public ArticleTypeTagDTO findAndConvertById(Long id);

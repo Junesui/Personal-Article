@@ -5,7 +5,7 @@
 	
 	<!-- 统计标签的数量 -->
 	<select id="countAll" resultType="int">
-		select count(*) from tag		
+		select count(*) from tag where is_deleted is not true
 	</select>
 	
 	<!-- 统计有文章的标签总数 -->
@@ -15,41 +15,41 @@
 	
 	<!-- 列出所有类型 -->
 	<select id="list" resultType="tag">
-		select * from tag order by update_time desc
+		select * from tag where is_deleted is not true order by update_time desc
 	</select>
 	
 	<!-- 通过名字找标签 -->
 	<select id="findByName" parameterType="string" resultType="tag">
-		select * from tag where name = #{name}
+		select * from tag where is_deleted is not true and name = #{name}
 	</select>
 	
 	<!-- 通过id获取标签 -->
 	<select id="findById" parameterType="long" resultType="tag">
-		select * from tag where id = #{id}
+		select * from tag where is_deleted is not true and id = #{id}
 	</select>
 	
-	<!-- 通过文章id查找对应的标签id -->
+	<!-- 通过文章id查找对应的标签 -->
 	<select id="listByArticleId" parameterType="long" resultType="tag">
 		select * from tag t 
 		inner join article_tag bt on t.id=bt.tag_id
 		inner join article b on bt.article_id=b.id
-		where b.id=#{articleId}
+		where b.id=#{articleId} and b.is_deleted is not true and t.is_deleted is not true
 	</select>
 	
 	<!-- 获取文章首页的标签  -->
 	<select id="listTopTag" parameterType="int" resultType="com.article.dto.TagArticleNumDTO">
 		select t.id,t.name,count(t.id) articleNum from tag t
 		inner join article_tag bt on t.id = bt.tag_id
-		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false
+		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false and t.is_deleted is not true
 		group by t.id
 		order by articleNum desc limit #{topTagNum}
 	</select>
 	
 	<!-- 列出标签及对应的文章数量 -->
-	<select id="listTagShow" resultType="com.article.dto.TagArticleNumDTO">
+	<select id="listTagAndArticle" resultType="com.article.dto.TagArticleNumDTO">
 		select t.id,t.name,count(t.id) articleNum from tag t
 		inner join article_tag bt on t.id = bt.tag_id
-		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false
+		inner join article b on bt.article_id=b.id where b.is_deleted is not true and b.is_published is not false and t.is_deleted is not true
 		group by t.id
 		order by articleNum desc
 	</select>
@@ -65,19 +65,19 @@
 	</insert>
 	
 	<!-- 通过article_id删除article_tag中间表的数据 -->
-	<delete id="deleteByArticleId" parameterType="long">
-		delete from article_tag where article_id = #{articleId}
-	</delete>
+	<update id="deleteByArticleId" parameterType="long">
+		update article_tag at set is_deleted = true where article_id = #{articleId}
+	</update>
 	
 	<!-- 通过id删除标签 -->
-	<delete id="deleteById" parameterType="long">
-		delete from tag where id = #{id}
-	</delete>
+	<update id="deleteById" parameterType="long">
+		update tag set is_deleted = true where id = #{id}
+	</update>
 	
 	<!-- 通过标签id删除article_tag中间表 -->
-	<delete id="deleteByTagId" parameterType="long">
-		delete from article_tag where tag_id = #{id}
-	</delete>
+	<update id="deleteByTagId" parameterType="long">
+		update article_tag at set is_deleted = true where tag_id = #{id}
+	</update>
 	
 	<!-- 更新标签 -->
 	<update id="update" parameterType="tag">

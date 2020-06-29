@@ -72,7 +72,7 @@ public class IndexController {
 		size = pageArticleSize;
 		//分页
 		PageHelper.startPage(page, size);
-		List<ArticleTypeTagDTO> articleTypeTagDTOs = articleService.listTopArticle();
+		List<ArticleTypeTagDTO> articleTypeTagDTOs = articleService.listShowArticle();
 
 		PageInfo<ArticleTypeTagDTO> pageInfo = new PageInfo<>(articleTypeTagDTOs);
 		List<Oneword> onewords = onewordService.listBysize(onewordSize);
@@ -85,7 +85,7 @@ public class IndexController {
 		// 写入siteinfo表
 		Siteinfo siteinfo = siteinfoService.find();
 		if (siteinfo == null) {
-			siteinfoService.initUpdate();
+			siteinfoService.save();
 		}else {
 			viewCnt = viewCnt + 1;
 			if (viewCnt == viewCntWrite || viewCnt > viewCntWrite) {
@@ -99,12 +99,12 @@ public class IndexController {
 
 	/**
 	 * 跳转到文章详情页
-	 * @param id
+	 * @param id 文章id
 	 * @param model
 	 * @return 文章详情页
 	 */
 	@GetMapping("/article/{id}")
-	public String toArticle(@PathVariable Long id, Model model) {
+	public String toArticle(@PathVariable("id") Long id, Model model) {
 		ArticleTypeTagDTO articleTypeTagDTO = articleService.findAndConvertById(id);
 		List<Tag> tags = tagService.listByArticleId(id);
 
@@ -118,9 +118,9 @@ public class IndexController {
 
 	/**
 	 * 搜索文章
-	 * @param page
-	 * @param size
-	 * @param query
+	 * @param page 页码
+	 * @param size 每页文章的数量
+	 * @param query 搜索关键字
 	 * @param model
 	 * @return 搜索结果页面
 	 */

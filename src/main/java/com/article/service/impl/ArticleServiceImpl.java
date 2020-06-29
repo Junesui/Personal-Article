@@ -108,8 +108,8 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleTypeTagDTO> listTopArticle() {
-		return articleMapper.listTopArticle();
+	public List<ArticleTypeTagDTO> listShowArticle() {
+		return articleMapper.listShowArticle();
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,7 +75,13 @@ public class OnewordController {
 	 * @return 文章管理页面
 	 */
 	@PostMapping("/onewords")
-	public String post(Oneword oneword, RedirectAttributes attributes) {
+	public String post(@Validated Oneword oneword, BindingResult result,RedirectAttributes attributes) {
+		
+		//字段验证
+		if (result.hasErrors()) {
+			return "admin/oneword-release";
+		}
+		
 		onewordService.saveOrUpdate(oneword);
 		attributes.addFlashAttribute("message", "操作成功");
 		return "redirect:/1120/onewords";
@@ -86,7 +94,7 @@ public class OnewordController {
 	 * @return 每日一句编辑页面
 	 */
 	@GetMapping("/onewords/edit/{id}")
-	public String onewordEdit(@PathVariable Long id, Model model) {
+	public String onewordEdit(@PathVariable("id") Long id, Model model) {
 		//通过id查找每日一句
 		Oneword oneword = onewordService.findById(id);
 	
@@ -101,8 +109,8 @@ public class OnewordController {
 	 * @return 每日一句管理页面
 	 */
 	@GetMapping("/onewords/delete/{id}")
-	public String updateDel(@PathVariable Long id, RedirectAttributes attributes) {
-		onewordService.updateDel(id);
+	public String delete(@PathVariable("id") Long id, RedirectAttributes attributes) {
+		onewordService.delete(id);
 		attributes.addFlashAttribute("message", "删除成功");
 		return "redirect:/1120/onewords";
 	}

@@ -10,7 +10,7 @@
 
 	<!-- 列出所有文章和对应的类型名称 -->
 	<select id="listArticleAndType" resultType="com.article.dto.ArticleTypeTagDTO">
-		select b.*,t.name typeName from article b inner join type t on b.type_id = t.id order by update_time desc
+		select b.*,t.name typeName from article b inner join type t on b.type_id = t.id where b.is_deleted IS NOT TRUE order by b.update_time desc
 	</select>
 
 	<!-- 通过id查找文章 -->
@@ -23,16 +23,16 @@
 		select b.*,t.name typeName from article b inner join type t on b.type_id = t.id
 		<where>
 			<if test="title != '' and title != null">
-				and b.title like concat('%',#{title},'%')
+				and b.title like concat('%',#{title},'%') 
 			</if>
 			<if test="typeId != '' and typeId != null">
-				and b.type_id = #{typeId}
+				and b.type_id = #{typeId} 
 			</if>
 			<if test="isRecommend == true">
-				and b.is_recommend = true
+				and b.is_recommend = true 
 			</if>
 		</where>
-		order by update_time desc
+		and b.is_deleted IS NOT TRUE order by b.update_time desc
 	</select>
 	
 	<!-- 通过id查找文章和对应的类型，标签 -->
@@ -40,14 +40,14 @@
 		select b.*,type.id typeId
 		from article b
 		inner join type on b.type_id=type.id
-		where b.id=#{id}
+		where b.id=#{id} and b.is_deleted is not true
 	</select>
 	
 	<!-- 列出首页展示的文章相关信息  -->
-	<select id="listTopArticle" resultType="com.article.dto.ArticleTypeTagDTO">
+	<select id="listShowArticle" resultType="com.article.dto.ArticleTypeTagDTO">
 		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
 		from article b INNER JOIN user u on b.user_id = u.id
-		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false order by update_time desc
+		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false order by b.update_time desc
 	</select>
 	
 	<!-- 通过分类id获取文章相关信息 -->
@@ -55,7 +55,7 @@
 		select b.*,u.avatar userAvatar,u.nickname userNickname,t.name typeName
 		from article b INNER JOIN user u on b.user_id = u.id
 		INNER JOIN type t on b.type_id = t.id where b.is_deleted is not true and b.is_published is not false and b.type_id = #{id} 
-		order by update_time desc
+		order by b.update_time desc
 	</select>
 	
 	<!-- 通过标签id获取文章相关信息 -->
@@ -66,12 +66,12 @@
 		INNER JOIN article_tag bt on b.id = bt.article_id
 		INNER JOIN tag on bt.tag_id = tag.id
 		where b.is_deleted is not true and b.is_published is not false and tag.id = #{id}
-		order by update_time desc
+		order by b.update_time desc
 	</select>
 	
 	<!-- 列出首页展示的推荐文章 -->
 	<select id="listTopRecommendArticle" parameterType="int" resultType="article">
-		select id,title from article where is_commented = true order by update_time desc limit #{topRecommendNum}
+		select id,title from article where b.is_deleted is not true and is_commented = true order by update_time desc limit #{topRecommendNum}
 	</select>
 	
 	<!-- 获取文章详情页的信息 -->
@@ -83,14 +83,14 @@
 	
 	<!-- 列出所有的年份 -->
 	<select id="listGroupYear" resultType="string">
-		SELECT DATE_FORMAT(b.update_time,'%Y') ud from article b GROUP BY ud ORDER BY ud desc
+		SELECT DATE_FORMAT(b.update_time,'%Y') ud from article b where b.is_deleted is not true GROUP BY ud ORDER BY ud desc
 	</select>
 	
 	<!-- 根据年份获取文章 -->
 	<select id="archiveArticle" resultType="article">
 		select b.id,b.title,b.update_time,b.flag from article b 
 		where b.is_deleted IS NOT TRUE AND b.is_published IS NOT FALSE 
-		order by update_time desc
+		order by b.update_time desc
 	</select>
 	
 	<!-- 通过关键字搜索文章 -->

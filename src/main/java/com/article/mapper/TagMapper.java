@@ -38,7 +38,7 @@ public interface TagMapper {
 
 	Long count();
 
-	List<TagArticleNumDTO> listTagShow();
+	List<TagArticleNumDTO> listTagAndArticle();
 
 	Integer countAll();
 

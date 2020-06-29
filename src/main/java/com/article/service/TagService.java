@@ -38,6 +38,6 @@ public interface TagService {
 	Long count();
 
 	//列出标签及对应的文章数量
-	List<TagArticleNumDTO> listTagShow();
+	List<TagArticleNumDTO> listTagAndArticle();
 
 }

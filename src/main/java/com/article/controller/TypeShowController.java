@@ -37,9 +37,9 @@ public class TypeShowController {
 	
 	/**
 	 * 跳转到分类页面
-	 * @param page
-	 * @param size
-	 * @param id
+	 * @param page 页码
+	 * @param size 每页展示的文章数量
+	 * @param id 分类id
 	 * @param model
 	 * @return 分类页面
 	 */
@@ -51,7 +51,7 @@ public class TypeShowController {
 		//统计有文章的分类总数
 		Long typeCnt = typeService.count();
 		
-		List<TypeArticleNumDTO> types = typeService.listTypeShow();
+		List<TypeArticleNumDTO> types = typeService.listTypeAndArticle();
 		if (id == -1) {
 			id = types.get(0).getId();
 		}

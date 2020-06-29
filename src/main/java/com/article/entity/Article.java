@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -30,19 +31,17 @@ public class Article implements Serializable{
 	private String content;
 	
 	@NotBlank(message = "请输入文章描述")
-	@Length(max = 150,message = "文章标题不能超过150个字符")
+	@Length(max = 150,message = "文章描述不能超过150个字符")
 	private String description;
 	
 	@NotBlank(message = "请输入文章首图地址")
 	@Length(max = 255,message = "图片地址长度不能超过255个字符")
 	private String firstPicture;
 	
-	@NotBlank(message = "请选择文章分类")
+	@NotNull(message = "请选择文章分类")
 	private Long typeId;
 	
-	@NotBlank(message = "请选择文章标签")
-	private Long userId;
-	
+	private Long userId;	
 	private String flag;
 	private String originalLink;
 	private Integer viewCount;

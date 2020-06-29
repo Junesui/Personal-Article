@@ -5,12 +5,12 @@
 
 	<!-- 统计留言数量 -->
 	<select id="count" resultType="int">
-		select count(*) from message where parent_id is null
+		select count(*) from message where parent_id is null and is_deleted is not true
 	</select>
 
 	<!-- 列出留言 -->
 	<select id="listMessage" resultType="com.article.dto.MessageExtDTO">
-		select * from message where parent_id is null order by create_time desc
+		select * from message where is_deleted is not true and parent_id is null order by create_time desc
 	</select>
 	
 	<!-- 找到留言的回复 -->

@@ -12,6 +12,14 @@
     <div id="waypoint" class="m-container m-paddding-tb-big m-minHight">
         <div class="ui container">
             <form id="article-form" th:object="${articleTypeTagDTO}" th:action="@{/1120/articles}" method="post" class="ui form">
+                <!-- 字段不符合提示信息 -->
+                 <div class="ui negative message" th:if="${#fields.hasAnyErrors()}">
+                    <i class="close icon"></i>
+                    <ul th:each="err : ${#fields.allErrors()}">
+                        <li th:text="${err}"></li>
+                    </ul>
+                </div> 
+                <!-- 隐藏值 -->
                 <input type="hidden" name="isPublished">
                 <input type="hidden" name="id" th:value="*{id}">
                 <div class="field">
@@ -26,7 +34,7 @@
                                 <div class="item" data-value="翻译">翻译</div>
                             </div>
                         </div>
-                        <input type="text" name="title" placeholder="标题" th:value="*{title}">
+                        <input type="text" name="title" placeholder="标题" th:value="*{title}" maxlength="60">
                     </div>
                 </div>
                 <div class="field">
@@ -65,11 +73,11 @@
                 <div class="field">
                     <div class="ui labeled input">
                         <label class="ui teal basic label">首图</label>
-                        <input type="text" name="firstPicture" placeholder="首图引用地址(650*400)" th:value="*{firstPicture}">
+                        <input type="text" name="firstPicture" placeholder="首图引用地址(650*400)" th:value="*{firstPicture}" maxlength="255">
                     </div>
                 </div>
                 <div class="field" id="wordCount">
-                    <textarea name="description" th:text="*{description}" placeholder="请输入文章描述信息(用于文章首页展示)..." maxlength="100"></textarea>
+                    <textarea name="description" th:text="*{description}" placeholder="请输入文章描述信息(用于文章首页展示)..." maxlength="150"></textarea>
                     <div class="wordwrap m-textareaSum" style="color: white;"><var class="m-word">150</var>/150</div>
                 </div>
                 

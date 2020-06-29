@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.updateTokenById(token,id);
 	}
 
+	@Override
+	public void updateLastLoginTimeById(Long id) {
+		userMapper.updateLastLoginTimeById(id);
+	}
+
 }

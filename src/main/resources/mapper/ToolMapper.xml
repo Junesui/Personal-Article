@@ -5,27 +5,27 @@
 
 	<!-- 统计工具数量 -->
 	<select id="count" resultType="int">
-		select count(*) from tool
+		select count(*) from tool where is_deleted is not true
 	</select>
 
 	<!-- 列出所有的工具 -->
 	<select id="list" resultType="tool">
-		select * from tool order by update_time desc
+		select * from tool where is_deleted is not true order by update_time desc
 	</select>
 	
 	<!-- 通过名称查找工具 -->
 	<select id="findByName" parameterType="string" resultType="tool">
-		select * from tool where name = #{name}
+		select * from tool where name = #{name} and is_deleted is not true
 	</select>
 
 	<!-- 通过id查找工具 -->
 	<select id="findById" parameterType="int" resultType="tool">
-		select * from tool where id = #{id}
+		select * from tool where id = #{id} and is_deleted is not true
 	</select>
 	
 	<!-- 通过链接查找工具 -->
 	<select id="findByUrl" parameterType="string" resultType="tool">
-		select * from tool where url = #{url}
+		select * from tool where url = #{url} and is_deleted is not true
 	</select>
 	
 	<!-- 保存工具 -->
@@ -41,7 +41,7 @@
 	
 	<!-- 通过id删除工具 -->
 	<update id="deleteById" parameterType="int">
-		delete from tool where id = #{id}
+		update tool set is_deleted = true where id = #{id}
 	</update>
 
 </mapper>

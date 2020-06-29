@@ -5,18 +5,18 @@
 
 	<!-- 统计一级评论的总数 -->
 	<select id="count" resultType="int">
-		select count(*) from comment where parent_id is null
+		select count(*) from comment where is_deleted is not true and parent_id is null
 	</select>
 
 
 	<!-- 列出一级评论 -->
 	<select id="listParentCommentByArticleId" parameterType="long" resultType="com.article.dto.CommentExtDTO">
-		select * from comment where parent_id is null and article_id = #{articleId} order by (like_count + reply_count - down_count) desc
+		select * from comment where is_deleted is not true and parent_id is null and article_id = #{articleId} order by (like_count + reply_count - down_count) desc
 	</select>
 
 	<!-- 通过父id列出子评论 -->
 	<select id="listChildCommentByParentId" parameterType="long" resultType="com.article.dto.CommentExtDTO">
-		select * from comment where parent_id = #{parentId}
+		select * from comment where is_deleted is not true and parent_id = #{parentId}
 	</select>
 	
 	<!-- 保存评论 -->
@@ -26,9 +26,9 @@
 	</insert>
 	
 	<!-- 通过文章id删除评论 -->
-	<delete id="deleteByArticleId" parameterType="long">
-		delete from comment where article_id = #{articleId}
-	</delete>
+	<update id="deleteByArticleId" parameterType="long">
+		update comment set is_deleted = true where article_id = #{articleId}
+	</update>
 	
 	<!-- 增加一级评论的回复数量 -->
 	<update id="incReplyCntById" parameterType="long">

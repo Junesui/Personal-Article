@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,8 +103,13 @@ public class ArticleController {
 	 * @return 文章管理页面
 	 */
 	@PostMapping("/articles")
-	public String post(ArticleTypeTagDTO articleTypeTagDTO, HttpSession session, RedirectAttributes attributes) {
+	public String post(@Validated ArticleTypeTagDTO articleTypeTagDTO, BindingResult result, HttpSession session, RedirectAttributes attributes) {
 
+		//字段验证
+		if (result.hasErrors()) {
+			return "admin/article-release";
+		}
+		
 		User user = (User) session.getAttribute("user");
 		articleTypeTagDTO.setUserId(user.getId());
 

@@ -15,7 +15,7 @@ public interface SiteinfoMapper {
 
 	Long findViewCount();
 
-	void initUpdate();
+	void save();
 
 	Siteinfo find();
 

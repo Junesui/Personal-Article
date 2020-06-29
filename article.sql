@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/6/28 19:35:12                           */
+/* Created on:     2020/6/29 21:10:34                           */
 /*==============================================================*/
 
 
@@ -71,6 +71,7 @@ create table article_tag
    id                   bigint(0) not null auto_increment,
    article_id           bigint not null comment '文章id',
    tag_id               bigint not null comment '标签id',
+   is_deleted           boolean comment '是否删除',
    primary key (id)
 );
 
@@ -178,7 +179,7 @@ alter table oneword comment '每日一句话';
 /*==============================================================*/
 create table siteinfo
 (
-   view_count           bigint comment '总访问次数',
+   view_count           bigint default 0 comment '总访问次数',
    reserve1             varchar(255) comment '预留字段1',
    reserve2             varchar(255) comment '预留字段2',
    reserve3             int comment '预留字段3',

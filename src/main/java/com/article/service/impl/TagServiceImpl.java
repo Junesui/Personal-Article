@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.article.dto.TagArticleNumDTO;
 import com.article.entity.Tag;
@@ -56,6 +57,7 @@ public class TagServiceImpl implements TagService {
 		tagMapper.update(tag);
 	}
 
+	@Transactional
 	@Override
 	public void deleteById(Long id) {
 		//删除中间表
@@ -70,8 +72,8 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public List<TagArticleNumDTO> listTagShow() {
-		return tagMapper.listTagShow();
+	public List<TagArticleNumDTO> listTagAndArticle() {
+		return tagMapper.listTagAndArticle();
 	}
 
 }

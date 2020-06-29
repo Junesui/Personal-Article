@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +40,8 @@ public class TagController {
 	
 	/**
 	 * 跳转到标签管理页面
-	 * @param pageNum
-	 * @param pageSize
+	 * @param page 页码
+	 * @param size 每页展示标签的数量
 	 * @param model
 	 * @return 标签管理页面
 	 */
@@ -74,7 +76,7 @@ public class TagController {
 	 * @return 标签编辑页面
 	 */
 	@GetMapping("/tags/edit/{id}")
-	public String toEdit(@PathVariable Long id, Model model) {
+	public String toEdit(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("tag", tagService.findById(id));
 		return "admin/tag-release";
 	}
@@ -86,11 +88,15 @@ public class TagController {
 	 * @return
 	 */
 	@PostMapping("/tags")
-	public String post(Tag tag, RedirectAttributes attributes, Model model) {
+	public String post(@Validated Tag tag, BindingResult result,RedirectAttributes attributes, Model model) {
 
 		//名称是否重复验证
 		if (tagService.findByName(tag.getName()) != null) {
-			model.addAttribute("nameError", "标签名称已经存在");
+			result.rejectValue("name", "nameError","标签名称已经存在");
+		}
+		
+		//tag字段验证
+		if (result.hasErrors()) {
 			return "admin/tag-release";
 		}
 
@@ -109,11 +115,15 @@ public class TagController {
 	 * @return 标签管理页面
 	 */
 	@PostMapping("/tags/{id}")
-	public String editpost(Tag tag, @PathVariable Long id, RedirectAttributes attributes, Model model) {
+	public String editpost(@Validated Tag tag, BindingResult result,@PathVariable("id") Long id, RedirectAttributes attributes, Model model) {
 
 		//名称是否重复验证
 		if (tagService.findByName(tag.getName()) != null) {
-			model.addAttribute("nameError", "分类名称已经存在");
+			result.rejectValue("name", "nameError","标签名称已经存在");
+		}
+		
+		//tag字段验证
+		if (result.hasErrors()) {
 			return "admin/tag-release";
 		}
 

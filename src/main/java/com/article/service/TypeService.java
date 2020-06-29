@@ -35,6 +35,6 @@ public interface TypeService {
 	Long count();
 
 	//列出分类及对应的文章数量
-	List<TypeArticleNumDTO> listTypeShow();
+	List<TypeArticleNumDTO> listTypeAndArticle();
 
 }

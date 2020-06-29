@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LogAspect {
-
+	
 	@Pointcut("execution(* com.article.controller.*.*(..)) || execution(* com.article.service.*.*(..))")
 	public void log() {}
 	

@@ -25,5 +25,5 @@ public interface OnewordService {
 	public Oneword findById(Long id);
 
 	//通过id设置删除标志
-	public void updateDel(Long id);
+	public void delete(Long id);
 }

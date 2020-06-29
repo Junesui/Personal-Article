@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,15 +90,18 @@ public class ToolController {
 	 * @return 后台工具管理页面
 	 */
 	@PostMapping("/tool")
-	public String post(Tool tool, RedirectAttributes attributes, Model model) {
+	public String post(@Validated Tool tool, BindingResult result,RedirectAttributes attributes, Model model) {
 		//名称是否重复验证
 		if (toolService.findByName(tool.getName()) != null) {
-			model.addAttribute("fieldError", "工具名称已经存在");
-			return "admin/tool-release";
+			result.rejectValue("name", "nameError","工具名称已经存在");
 		}
 		//链接是否重复验证
 		if (toolService.findByUrl(tool.getUrl()) != null) {
-			model.addAttribute("fieldError", "工具链接已经存在");
+			result.rejectValue("name", "nameError","工具名称已经存在");
+		}
+		
+		//type字段验证
+		if (result.hasErrors()) {
 			return "admin/tool-release";
 		}
 
@@ -114,7 +119,22 @@ public class ToolController {
 	 * @return 
 	 */
 	@PostMapping("/tool/{id}")
-	public String editPost(Tool tool, @PathVariable("id") Long id, RedirectAttributes attributes, Model model) {
+	public String editPost(@Validated Tool tool, BindingResult result, @PathVariable("id") Long id, RedirectAttributes attributes, Model model) {
+		
+		//名称是否重复验证
+		if (toolService.findByName(tool.getName()) != null) {
+			result.rejectValue("name", "nameError","工具名称已经存在");
+		}
+		//链接是否重复验证
+		if (toolService.findByUrl(tool.getUrl()) != null) {
+			result.rejectValue("name", "nameError","工具名称已经存在");
+		}
+		
+		//type字段验证
+		if (result.hasErrors()) {
+			return "admin/tool-release";
+		}
+		
 		toolService.update(tool);
 		attributes.addFlashAttribute("message", "更新成功");
 		return "redirect:/1120/tool";

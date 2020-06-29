@@ -39,7 +39,7 @@ public class Comment implements Serializable{
 	private Integer replyCount;
 	private Integer likeCount;
 	private Integer downCount;
-	
+	private Long articleId;
 	private Long parentId;
 	private Boolean isManager;
 }

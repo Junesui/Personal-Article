@@ -11,7 +11,7 @@ import com.article.entity.Article;
 import com.article.service.ArticleService;
 
 /**
- * 归档展示控制器
+ * 时间轴控制器
  * @author June
  * @date 2020/05/17
  * @version V1.0
@@ -24,9 +24,9 @@ public class ArchiveShowController {
 	
 	
 	/**
-	 * 跳转到归档页面
+	 * 跳转到时间轴页面
 	 * @param model
-	 * @return 归档页面
+	 * @return 时间轴页面
 	 */
 	@GetMapping("/archives")
 	public String toArchives(Model model) {

@@ -1,5 +1,6 @@
 package com.article.controller.admin;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.article.entity.User;
-import com.article.service.SiteinfoService;
 import com.article.service.UserService;
 
 /**
@@ -30,8 +30,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private SiteinfoService siteinfoService;
 
 	
 	/**
@@ -45,8 +43,8 @@ public class UserController {
 
 	/**
 	 * 登录验证
-	 * @param username
-	 * @param password
+	 * @param username 用户名
+	 * @param password 密码
 	 * @param session
 	 * @param attributes
 	 * @param response
@@ -69,10 +67,10 @@ public class UserController {
 			session.setAttribute("user", user);
 			
 			//查询最后一次登录时间
-//			Siteinfo siteinfo = siteinfoService.find();
-//			attributes.addFlashAttribute("lastLoginTime", siteinfo.getLastloginTime());
+			Date lastLoginTime = user.getLastLoginTime();
+			attributes.addFlashAttribute("lastLoginTime", lastLoginTime);
 			//更新最后一次登陆时间为现在的时间
-			siteinfoService.update();
+			userService.updateLastLoginTimeById(user.getId());
 			
 			return "redirect:/1120/index";
 		} else {

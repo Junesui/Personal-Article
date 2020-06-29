@@ -11,7 +11,7 @@
 	<!-- 列出指定数量的每日语一句 -->
 	<select id="listBysize" parameterType="int" resultType="oneword">
 		select * from oneword 
-		where is_deleted is not true and is_published is true 
+		where is_deleted is not true and is_published is not false 
 		order by update_time desc 
 		limit #{size}
 	</select>
@@ -19,13 +19,13 @@
 	<!-- 列出所有的每日一句 -->
 	<select id="list" resultType="oneword">
 		select * from oneword 
-		where is_deleted is not true and is_published is not false 
+		where is_deleted is not true
 		order by update_time desc
 	</select>
 	
 	<!-- 通过id查找每日一句 -->
 	<select id="findById" parameterType="long" resultType="oneword">
-		select * from oneword where id = #{id}
+		select * from oneword where id = #{id} and is_deleted is not true
 	</select>
 	
 	<!-- 保存每日一句 -->
@@ -41,7 +41,7 @@
 	</update>
 	
 	<!-- 通过id删除每日一句 -->
-	<update id="updateDel" parameterType="long">
+	<update id="delete" parameterType="long">
 		update oneword set is_deleted = true where id = #{id}
 	</update>
 </mapper>

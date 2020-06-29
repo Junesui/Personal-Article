@@ -1,5 +1,7 @@
 package com.article.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import com.article.entity.Article;
 
 import lombok.Data;
@@ -14,7 +16,7 @@ import lombok.Data;
 public class ArticleTypeTagDTO extends Article {
 
 	//分类d
-	private Long typeId;
+	//private Long typeId;
 	//分类名称
 	private String typeName;
 	
@@ -24,6 +26,7 @@ public class ArticleTypeTagDTO extends Article {
 	private String tagName;
 	
 	//发布文章页面的多个标签id
+	@NotBlank(message = "请选择文章标签")
 	private String tagIds;
 	
 	//用户id

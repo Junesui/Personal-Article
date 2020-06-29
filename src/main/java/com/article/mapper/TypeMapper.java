@@ -30,7 +30,7 @@ public interface TypeMapper {
 
 	Long count();
 
-	List<TypeArticleNumDTO> listTypeShow();
+	List<TypeArticleNumDTO> listTypeAndArticle();
 
 	Integer countAll();
 

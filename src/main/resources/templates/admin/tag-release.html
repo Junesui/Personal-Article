@@ -20,13 +20,12 @@
                 </div>
                 <div class="ui error message"></div>
                 <!-- 提示信息 -->
-                <!--/*/
-                <div class="ui negative message" th:if="${nameError} != null">
+                 <div class="ui negative message" th:if="${#fields.hasAnyErrors()}">
                     <i class="close icon"></i>
-                    <div class="header">验证失败</div>
-                    <p th:text="${nameError}"></p>
-                </div> 
-                /*/-->
+                    <ul th:each="err : ${#fields.allErrors()}">
+                        <li th:text="${err}"></li>
+                    </ul>
+                </div>
                 <div class="ui right aligned container">
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
                     <button class="ui teal submit button">提交</button>

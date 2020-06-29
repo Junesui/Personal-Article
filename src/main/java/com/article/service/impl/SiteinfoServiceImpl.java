@@ -85,8 +85,8 @@ public class SiteinfoServiceImpl implements SiteinfoService{
 	}
 
 	@Override
-	public void initUpdate() {
-		siteinfoMapper.initUpdate();	
+	public void save() {
+		siteinfoMapper.save();	
 	}
 
 	@Override

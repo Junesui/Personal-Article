@@ -13,9 +13,9 @@
 	</select>
 	
 	<!--设置网站总访问数初始化为0  -->
-	<update id="initUpdate">
-		update siteinfo set view_count = 0
-	</update>
+	<insert id="save">
+		insert into siteinfo (view_count) values (0)
+	</insert>
 	
 	<!-- 增加网站访问次数 -->
 	<update id="incViewCnt" parameterType="long">

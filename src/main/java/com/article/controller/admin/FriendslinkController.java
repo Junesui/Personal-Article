@@ -96,6 +96,14 @@ public class FriendslinkController {
 		return "redirect:/1120/friendslink";
 	}
 	
+	/**
+	 * 通过条件搜索友人链
+	 * @param page 页码
+	 * @param size 每页展示数据的大小
+	 * @param isShow 是否展示
+	 * @param model
+	 * @return 友链管理页面
+	 */
 	@PostMapping("/friendslink/search")
 	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
 			             @RequestParam(name = "size", defaultValue = "10") Integer size, 

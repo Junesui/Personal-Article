@@ -19,4 +19,6 @@ public interface UserMapper {
 
 	void updateTokenById(String token, Long id);
 
+	void updateLastLoginTimeById(Long id);
+
 }

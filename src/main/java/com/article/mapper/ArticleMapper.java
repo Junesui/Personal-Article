@@ -33,7 +33,7 @@ public interface ArticleMapper {
 
 	void deleteByTypeId(Long typeId);
 
-	List<ArticleTypeTagDTO> listTopArticle();
+	List<ArticleTypeTagDTO> listShowArticle();
 
 	ArticleTypeTagDTO findArticleDetailById(Long id);
 

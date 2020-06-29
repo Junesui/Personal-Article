@@ -17,5 +17,11 @@
 	<update id="updateTokenById">
 		update user set token = #{token} where id = #{id}
 	</update>
+	
+	<!-- 通过用户id更新最有一次登陆时间为现在的时间  -->
+	<update id="updateLastLoginTimeById" parameterType="long">
+		update user set last_login_time = now() where id = #{id}
+	</update>
+	
 
 </mapper>

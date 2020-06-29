@@ -37,9 +37,9 @@ public class TagShowController {
 
 	/**
 	 * 跳转到标签展示页面
-	 * @param page
-	 * @param size
-	 * @param id
+	 * @param page 页码
+	 * @param size 每页展示文章的大小
+	 * @param id 标签id
 	 * @param model
 	 * @return 标签展示页面
 	 */
@@ -50,7 +50,7 @@ public class TagShowController {
 		//统计有文章的标签总数
 		Long tagCnt = tagService.count();
 		
-		List<TagArticleNumDTO> tags = tagService.listTagShow();
+		List<TagArticleNumDTO> tags = tagService.listTagAndArticle();
 		if (id == -1) {
 			id = tags.get(0).getId();
 		}

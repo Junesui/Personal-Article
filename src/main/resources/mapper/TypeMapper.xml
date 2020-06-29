@@ -5,7 +5,7 @@
 	
 	<!-- 统计分类的数量 -->
 	<select id="countAll" resultType="int">
-		select count(*) from type
+		select count(*) from type where is_deleted is not true
 	</select>
 	
 	<!-- 统计有文章的分类总数 -->
@@ -18,23 +18,23 @@
 	
 	<!-- 列出所有类型 -->
 	<select id="list" resultType="type">
-		select * from type order by update_time desc
+		select * from type where is_deleted is not true order by update_time desc
 	</select>
 	
 	<!-- 通过名字查找分类 -->
 	<select id="findByName" parameterType="string" resultType="type">
-		select * from type where name = #{name}
+		select * from type where is_deleted is not true and name = #{name}
 	</select>
 	
 	<!-- 通过id查找分类 -->
 	<select id="findById" parameterType="long" resultType="type">
-		select * from type where id = #{id}
+		select * from type where is_deleted is not true and id = #{id}
 	</select>
 	
 	<!-- 列出分类及对应的文章数量  -->
-	<select id="listTypeShow" resultType="com.article.dto.TypeArticleNumDTO">
+	<select id="listTypeAndArticle" resultType="com.article.dto.TypeArticleNumDTO">
 		select t.id,t.name,count(t.id) articleNum from type t 
-		inner join article b on t.id = b.type_id where b.is_deleted is not true and b.is_published is not false
+		inner join article b on t.id = b.type_id where t.is_deleted is not true and b.is_deleted is not true and b.is_published is not false
 		group by t.id
 		order by count(t.id) desc
 	</select>
@@ -51,7 +51,7 @@
 	
 	<!-- 通过id删除分类 -->
 	<update id="deleteById" parameterType="long">
-		
+		update type set is_deleted = true where id = #{id}
 	</update>
 	
 

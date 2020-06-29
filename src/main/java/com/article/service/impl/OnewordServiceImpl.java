@@ -55,8 +55,8 @@ public class OnewordServiceImpl implements OnewordService{
 	}
 
 	@Override
-	public void updateDel(Long id) {
-		onewordMapper.updateDel(id);
+	public void delete(Long id) {
+		onewordMapper.delete(id);
 	}
 
 }

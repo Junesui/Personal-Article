@@ -71,8 +71,8 @@ public class TypeServiceImpl implements TypeService {
 	}
 
 	@Override
-	public List<TypeArticleNumDTO> listTypeShow() {
-		return typeMapper.listTypeShow();
+	public List<TypeArticleNumDTO> listTypeAndArticle() {
+		return typeMapper.listTypeAndArticle();
 	}
 
 }

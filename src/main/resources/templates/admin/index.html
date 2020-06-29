@@ -14,6 +14,7 @@
             <div class="ui success larger message">
                 <h3>Hi</h3>
                 <p th:text="${session.user.nickname}+'，欢迎登录！'">用户昵称,欢迎登录！</p>
+                <span th:if="${lastLoginTime}!=null" th:text="|上次登录时间: ${#dates.format(lastLoginTime,'yyyy-MM-dd HH:mm')}|"></span>
             </div>
             <img alt="" src="https://picsum.photos/id/1001/1000/450" class="ui rounded bordered fluid image">
         </div>

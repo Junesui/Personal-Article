@@ -25,7 +25,7 @@ public interface OnewordMapper {
 
 	Oneword findById(Long id);
 
-	void updateDel(Long id);
+	void delete(Long id);
 
 	Integer countShow();
 
