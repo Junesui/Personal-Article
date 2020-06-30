@@ -1,5 +1,6 @@
 package com.article.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.article.entity.Friendslink;
 import com.article.entity.Oneword;
 import com.article.service.OnewordService;
 import com.github.pagehelper.PageHelper;
@@ -113,6 +115,34 @@ public class OnewordController {
 		onewordService.delete(id);
 		attributes.addFlashAttribute("message", "删除成功");
 		return "redirect:/1120/onewords";
+	}
+	
+	/**
+	 * 通过条件搜索友人链
+	 * @param page 页码
+	 * @param size 每页展示数据的大小
+	 * @param isPublished 是否发布
+	 * @param model
+	 * @return 每日一句管理页面
+	 */
+	@PostMapping("/onewords/search")
+	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
+			             @RequestParam(name = "size", defaultValue = "10") Integer size, 
+			             Boolean isPublished, Model model) {
+		size = pageOnewordSize;
+		List<Oneword> onewords = new ArrayList<Oneword>();
+		//分页
+		PageHelper.startPage(page, size);
+		//不加搜索条件时候，搜索所有的友人链
+		if (isPublished == null) {
+			onewords = onewordService.list();
+		}else {
+			onewords = onewordService.listBySearch(isPublished);
+		}
+		
+		PageInfo<Oneword> pageInfo = new PageInfo<>(onewords);
+		model.addAttribute("pageInfo", pageInfo);
+		return "admin/oneword :: onewordList";
 	}
 
 }

@@ -25,11 +25,11 @@
                     <h2 class="ui header teal item m-margin-navLogo"><a th:href="@{/}">Time</a></h2> 
                     <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>首页</a>
                     <a th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i> 分类</a> 
-                    <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> 
-                    <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>时间轴</a> 
-                    <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于我</a>
-                    <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="music icon"></i>听音乐</a>
-                    <a th:href="@{/friendslink}" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i class="child icon"></i>友人链</a>
+                    <!-- <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a> --> 
+                    <a th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="clone icon"></i>时间轴</a> 
+                    <a th:href="@{/friendslink}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="child icon"></i>友人链</a>
+                    <a th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="music icon"></i>听音乐</a>
+                    <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="info icon"></i>关于我</a>
                     <!-- 工具 -->
                     <div class="ui dropdown m-item item m-tool m-mobile-hide" th:classappend="${n!=1} ? 'm-hide'">
                         <span>工具</span>

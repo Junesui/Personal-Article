@@ -16,13 +16,38 @@
                 <i class="close icon"></i>
                 <div class="header">提示:</div><p th:text="${message}"></p>
             </div>
-            <table class="ui striped center aligned table">
+            <!--查找条件部分-->
+            <div class="ui secondary segment form">
+                <input type="hidden" name="page">
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui labeled action input">
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="isPublished">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">状态</div>
+                                <div class="menu">
+                                    <div class="item" th:attr="data-value=true">已发布</div>
+                                    <div class="item" th:attr="data-value=false">未发布</div>
+                                </div> 
+                            </div>
+                            <div class="ui compact button clear-btn">清除</div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button id="search-btn" class="ui tiny teal basic button"><i class="search icon"></i>搜索</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 展示表格 -->
+            <table th:fragment="onewordList" class="ui striped center aligned table" id="table-container">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>图片地址</th>
-                        <th>内容</th>
-                        <th>操作</th>
+                        <th class="one wide"></th>
+                        <th class="three wide">图片地址</th>
+                        <th class="seven wide">内容</th>
+                        <th class="two wide">状态</th>
+                        <th class="three wide">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +55,7 @@
                         <td th:text="${iterStat.count}">1</td>
                         <td th:text="${oneword.picture}">图片网址</td>
                         <td th:text="${oneword.content}">内容</td>
+                        <td th:text="${oneword.isPublished} ? '已发布':'未发布'" th:class="${oneword.isPublished}==false ? 'm-orange'">状态</td>
                         <td style="width: 15%;">
                             <a th:href="@{/1120/onewords/edit/{id}(id=${oneword.id})}" class="ui mini teal basic button">编辑</a>
                             <a th:href="@{/1120/onewords/delete/{id}(id=${oneword.id})}" onclick="return confirm('确定删除吗？');" class="ui mini red basic button">删除</a>
@@ -40,8 +66,8 @@
                      <tr>
                         <th colspan="4">
                             <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
-                                <a class="item" th:href="@{/1120/onewords(page=${pageInfo.hasPreviousPage} ? ${pageInfo.prePage}:1)}" th:if="${pageInfo.hasPreviousPage}">上一页</a>
-                                <a class="item" th:href="@{/1120/onewords(page=${pageInfo.hasNextPage} ? ${pageInfo.nextPage}:${pageInfo.pages})}" th:if="${pageInfo.hasNextPage}">下一页</a>
+                                <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}-1" class="item" th:if="${pageInfo.hasPreviousPage}">上一页</a>
+                                <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}+1" class="item" th:if="${pageInfo.hasNextPage}">下一页</a>
                             </div>
                             <a th:href="@{/1120/onewords/addPage}" class="ui right floated teal basic mini button">新增</a>
                         </th>
@@ -58,5 +84,30 @@
     <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
     <!--/*/ </th:block> /*/-->
 
+<script>
+    //动态给form中的page赋值
+    function page(obj){
+        $("[name='page']").val($(obj).data("page"));
+        loadData();
+    }
+    
+    $('#search-btn').click(function(){
+    	$("[name='page']").val(0);
+    	loadData();
+    });
+    
+    //通过ajax刷新table中的数据
+    function loadData(){
+    	$("#table-container").load("/1120/onewords/search",{
+    		isPublished : $("[name='isPublished']").val(),
+    		page : $("[name='page']").val()
+    	});
+    }
+    
+    //清除按钮
+    $('.clear-btn').on('click', function() {
+    	$('.selection.dropdown').dropdown('clear');
+    });
+</script>
 </body>
 </html>

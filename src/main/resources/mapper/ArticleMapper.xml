@@ -70,8 +70,8 @@
 	</select>
 	
 	<!-- 列出首页展示的推荐文章 -->
-	<select id="listTopRecommendArticle" parameterType="int" resultType="article">
-		select id,title from article where b.is_deleted is not true and is_commented = true order by update_time desc limit #{topRecommendNum}
+	<select id="listTopRecommendArticle" resultType="article">
+		select id,title,first_picture from article where is_deleted is not true and is_published is not false and is_recommend is true order by update_time desc limit 4
 	</select>
 	
 	<!-- 获取文章详情页的信息 -->

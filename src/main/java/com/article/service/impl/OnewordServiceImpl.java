@@ -59,4 +59,9 @@ public class OnewordServiceImpl implements OnewordService{
 		onewordMapper.delete(id);
 	}
 
+	@Override
+	public List<Oneword> listBySearch(Boolean isPublished) {
+		return onewordMapper.listBySearch(isPublished);
+	}
+
 }

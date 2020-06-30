@@ -23,14 +23,36 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
+    
+    <!-- 最新推荐 -->
+    <div class="m-paddding-tb-large">
+        <!-- 最新推荐文字 -->
+        <div class="ui m-container-small m-margin-bottom m-margin-top-small">
+            <div class="ui secondary segment" align="center">
+                <i class="bookmark icon"></i>
+                <span>最新推荐</span>
+            </div>
+        </div>
+        <!-- 推荐文章列表 -->
+        <div class="ui stackable grid" style="margin-left: 3px;margin-right: 3px;">
+            <div class="four wide column" th:each="article : ${articles}">
+                <a class="m-recomment-outer" th:href="@{/article/{id}(id=${article.id})}" target="_blank">
+                    <img th:src="${article.firstPicture}" class="ui rounded image">
+                    <span class="m-recomment-inner">
+                        <h4 class="m-margin-tb-tiny m-recommend-font" th:text="${article.title}">文章标题</h4>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <!--中间内容-->
+    <!--最新文章-->
     <div id="waypoint" class="m-container m-paddding-tb-large m-minHight">
         <div class="ui container">
             <div class="ui stackable grid">
                 <div class="ui vertical segment">
-                    <!-- 最新文章 -->
-                    <div class="ui m-container-small">
+                    <!-- 最新文章文字 -->
+                    <div class="ui m-container-small m-margin-top-small m-margin-bottom">
                         <div class="ui secondary segment" align="center">
                             <i class="bookmark icon"></i>
                             <span>最新文章</span>
@@ -108,6 +130,14 @@
         </div>
     </div>
     
+    <!-- 反馈按钮 -->
+    <div style="position: fixed; bottom: 80px; right: 30px; cursor: pointer;">
+        <div class="ui icon button" data-tooltip="建议反馈" data-position="left center" data-inverted="">
+            <i class="heart icon"></i>
+        </div>
+    </div>
+
+
     <!--底部-->
     <footer th:replace="_fragments :: footer"></footer>
     

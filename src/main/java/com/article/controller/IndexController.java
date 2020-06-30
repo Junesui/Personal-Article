@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.article.dto.ArticleTypeTagDTO;
+import com.article.entity.Article;
 import com.article.entity.Oneword;
 import com.article.entity.Siteinfo;
 import com.article.entity.Tag;
@@ -76,10 +77,12 @@ public class IndexController {
 
 		PageInfo<ArticleTypeTagDTO> pageInfo = new PageInfo<>(articleTypeTagDTOs);
 		List<Oneword> onewords = onewordService.listBysize(onewordSize);
+		List<Article> articles = articleService.listTopRecommendArticle();
 		List<Tool> tools = toolService.list();
 
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("onewords", onewords);
+		model.addAttribute("articles", articles);
 		model.addAttribute("tools", tools);
 		
 		// 写入siteinfo表

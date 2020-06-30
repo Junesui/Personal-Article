@@ -24,7 +24,7 @@ public class Article implements Serializable{
 	private Long id;
 	
 	@NotBlank(message = "请输入文章标题")
-	@Length(max = 60,message = "文章标题不能超过60个字符")
+	@Length(max = 16,message = "文章标题不能超过16个字符")
 	private String title;
 	
 	@NotBlank(message = "请输入文章内容")

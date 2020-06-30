@@ -26,4 +26,7 @@ public interface OnewordService {
 
 	//通过id设置删除标志
 	public void delete(Long id);
+
+	//通过搜索条件查找每日一句
+	public List<Oneword> listBySearch(Boolean isPublished);
 }

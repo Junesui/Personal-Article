@@ -29,6 +29,8 @@ public interface OnewordMapper {
 
 	Integer countShow();
 
+	List<Oneword> listBySearch(Boolean isPublished);
+
 
 	
 }

@@ -50,4 +50,7 @@ public interface ArticleService {
 	//通过关键字搜索文章
 	public List<ArticleTypeTagDTO> listByQuery(String query);
 
+	//列出首页展示的推荐文章
+	public List<Article> listTopRecommendArticle();
+
 }

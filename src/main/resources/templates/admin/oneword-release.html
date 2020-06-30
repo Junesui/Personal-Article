@@ -11,7 +11,9 @@
     <!--中间-->
     <div id="waypoint" class="m-container-small m-paddding-tb-big m-minHight">
         <div class="ui container">
-            <form class="ui form" th:object="${oneword}" th:action="@{/1120/onewords}" method="post">
+            <form id="oneword-form" class="ui form" th:object="${oneword}" th:action="@{/1120/onewords}" method="post">
+                <!-- 隐藏字段 -->
+                <input type="hidden" name="isPublished">
                 <input type="hidden" name="id" th:value="*{id}">
                 <!-- 图片地址 -->
                 <div class="field">
@@ -37,7 +39,8 @@
                 </div>
                 <div class="ui right aligned container">
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-                    <button class="ui teal submit button">提交</button>
+                    <button type="button" id="save-btn" class="ui secondary button">保存</button>
+                    <button type="button" id="publish-btn" class="ui teal button">发布</button>
                  </div>
             </form>
         </div>
@@ -50,6 +53,7 @@
     <!--/*/ <th:block th:replace="admin/_fragments :: script"> /*/-->
     <!--/*/ </th:block> /*/-->    
 <script>
+	//表单验证
 	$('.ui.form').form({
 		on : 'blur',
 		fields : {
@@ -68,6 +72,17 @@
 				} ]
 			}
 		}
+	});
+	
+	//保存每日一句
+	$('#save-btn').click(function(){
+		$('[name="isPublished"]').val(false);
+		$('#oneword-form').submit();
+	});
+	//发布每日一句
+	$('#publish-btn').click(function(){
+		$('[name="isPublished"]').val(true);
+		$('#oneword-form').submit();
 	});
 </script>    
 </body>

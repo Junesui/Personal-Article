@@ -153,4 +153,9 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.listByQuery(query);
 	}
 
+	@Override
+	public List<Article> listTopRecommendArticle() {
+		return articleMapper.listTopRecommendArticle();
+	}
+
 }

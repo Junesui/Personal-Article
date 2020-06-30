@@ -50,4 +50,6 @@ public interface ArticleMapper {
 	void incCommentCntById(Long articleId);
 
 	Integer countShow();
+
+	List<Article> listTopRecommendArticle();
 }

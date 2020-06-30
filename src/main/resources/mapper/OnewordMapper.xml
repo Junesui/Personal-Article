@@ -28,15 +28,20 @@
 		select * from oneword where id = #{id} and is_deleted is not true
 	</select>
 	
+	<!-- 通过搜索条件查找每日一句 -->
+	<select id="listBySearch" parameterType="boolean" resultType="oneword">
+		select * from oneword where is_published = #{isPublished} and is_deleted is not true
+	</select>
+	
 	<!-- 保存每日一句 -->
 	<insert id="save" parameterType="oneword">
-		insert into oneword (picture,content,create_time,update_time) 
-		             values (#{picture},#{content},#{createTime},#{updateTime})
+		insert into oneword (picture,content,is_published,create_time,update_time) 
+		             values (#{picture},#{content},${isPublished},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 通过id更新每日一句 -->
 	<update id="update" parameterType="oneword">
-		update oneword set picture=#{picture},content=#{content},update_time=#{updateTime}
+		update oneword set picture=#{picture},content=#{content},update_time=#{updateTime},is_published=#{isPublished}
 		where id=#{id}
 	</update>
 	

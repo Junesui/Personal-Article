@@ -139,10 +139,12 @@
 	    allowAdditions: true
 	  });
 
+	//保存文章
 	$('#save-btn').click(function(){
 		$('[name="isPublished"]').val(false);
 		$('#article-form').submit();
 	});
+	//发布文章
 	$('#publish-btn').click(function(){
 		$('[name="isPublished"]').val(true);
 		$('#article-form').submit();

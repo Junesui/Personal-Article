@@ -61,7 +61,7 @@
                             <td th:text="${friendslink.websiteDescription}">网站简介</td>
                             <td th:text="${friendslink.websiteUrl}">网站地址</td>
                             <td th:text="${#dates.format(friendslink.createTime,'yyyy-MM-dd')}">创建时间</td>
-                            <td th:text="${friendslink.isShow} ? '已展示':'未展示' " th:class="!${friendslink.isShow} ? 'm-orange'">状态</td>
+                            <td th:text="${friendslink.isShow} ? '已展示':'未展示' " th:class="${friendslink.isShow}==false ? 'm-orange'">状态</td>
                             <td>
                                 <a th:href="@{/1120/friendslink/show/{id}(id=${friendslink.id})}" onclick="return confirm('确定展示该友链吗？');" class="ui mini teal basic button m-padding">展示</a>
                                 <a th:href="@{/1120/friendslink/hide/{id}(id=${friendslink.id})}" onclick="return confirm('确定不展示该友链吗？');" class="ui mini blue basic button m-padding">不展示</a>
