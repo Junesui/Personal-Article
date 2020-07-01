@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/6/29 21:10:34                           */
+/* Created on:     2020/7/1 21:19:29                            */
 /*==============================================================*/
 
 
@@ -9,6 +9,8 @@ drop table if exists article;
 drop table if exists article_tag;
 
 drop table if exists comment;
+
+drop table if exists feedback;
 
 drop table if exists friendslink;
 
@@ -103,6 +105,27 @@ create table comment
 );
 
 alter table comment comment 'ÆÀÂÛ';
+
+/*==============================================================*/
+/* Table: feedback                                              */
+/*==============================================================*/
+create table feedback
+(
+   id                   bigint not null auto_increment,
+   url                  varchar(255) comment '·´À¡Á´½Ó',
+   content              text comment 'ÄÚÈÝ',
+   email                varchar(30) comment 'ÓÊÏä',
+   create_time          datetime not null comment '´´½¨Ê±¼ä',
+   is_fixed             boolean comment 'ÊÇ·ñÐÞ¸´',
+   is_deleted           boolean comment 'ÊÇ·ñÉ¾³ý',
+   reserve1             varchar(255) comment 'Ô¤Áô×Ö¶Î1',
+   reserve2             varchar(255) comment 'Ô¤Áô×Ö¶Î2',
+   reserve3             int comment 'Ô¤Áô×Ö¶Î3',
+   reserve4             int comment 'Ô¤Áô×Ö¶Î4',
+   primary key (id)
+);
+
+alter table feedback comment '·´À¡½¨Òé';
 
 /*==============================================================*/
 /* Table: friendslink                                           */

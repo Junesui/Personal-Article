@@ -119,6 +119,32 @@
                 </div>
             </div>
         </div>
+        <!-- 反馈表单 -->
+        <div class="ui dimmer m-feedback" style="left: 50% !important;top: 55% !important;">
+            <div class="content">
+                <div class="center">
+                    <form class="ui form" style="height: 87%;width: 90%;left: 5%;">
+                        <div class="field" id="wordCount">
+                            <h3 class="m-black m-text">建议反馈</h3>
+                            <textarea name="content" rows="15" placeholder="填写意见或者建议。如：常见小bug、希望添加的新功能。Thank you~"></textarea>
+                            <div class="wordwrap m-textareaSum" style="color: white;"><var class="m-word">500</var>/500</div>
+                        </div>
+                        <div class="field">
+                            <div id="feedback-cancelBtn" class="ui black basic small button">取消</div>
+                            <div id="feedback-submit" class="ui teal basic small button" style="margin-left: 50px;">提交</div>
+                        </div>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 反馈成功提示 -->
+    <div id="feedback-success" style="position: fixed; max-width: 120px; right: 0px;top: 80px; z-index: 1000;">
+        <div class="ui raised card">
+             <div class="content" align="center"><i class="check green large icon"></i>反馈成功</div>       
+        </div>
     </div>
     
     <!-- 回到顶部按钮 -->
@@ -131,9 +157,9 @@
     </div>
     
     <!-- 反馈按钮 -->
-    <div style="position: fixed; bottom: 80px; right: 30px; cursor: pointer;">
+    <div id="feedback" style="position: fixed; bottom: 75px; right: 30px; cursor: pointer; z-index: 1;">
         <div class="ui icon button" data-tooltip="建议反馈" data-position="left center" data-inverted="">
-            <i class="heart icon"></i>
+            <i class="heart icon m-teal"></i>
         </div>
     </div>
 
@@ -146,6 +172,26 @@
     <!--/*/ </th:block> /*/-->
 
 <script>
+
+	/* 反馈遮罩层初始化 */
+    $('#feedback').click(function(){
+    	$('#waypoint').dimmer('show');
+    });
+	/* 反馈遮罩层取消 */
+	$('#feedback-cancelBtn').click(function(){
+		$('#waypoint').dimmer('hide');
+	});
+	/* 提交反馈表单 */
+	$('#feedback-submit').click(function(){
+		var content = $("[name='content']").val();
+		$.post("/feedback",{content:content},function(data){
+			//回调
+			
+			
+			//setTimeout("document.getElementById('k').style.display='none'",3000);
+		},"json");
+	});
+	
 	/* 初始化轮播图 */
 	var swiper = new Swiper('.swiper-container', {
         spaceBetween: 20,
@@ -171,6 +217,29 @@
         },
     });
 	
-</script>    
+	/* 反馈表单验证 */
+	$('.ui.form').form({
+		on : 'click',
+		fields : {
+			content : {
+				identifier : 'content',
+				rules : [ {
+					type : 'empty',
+					prompt : '请先输入内容 ~'
+				} ]
+			}
+		}
+	})
+	
+	/* 反馈框 textarea 文字数量监视 */
+    $(function(){
+        //先选出 textarea 和 统计字数 dom 节点
+        var wordCount = $("#wordCount"),
+            textArea = wordCount.find("textarea"),
+            word = wordCount.find(".m-word");
+        //调用
+        statInputNum(textArea,word);
+    });
+	</script>    
 </body>
 </html>

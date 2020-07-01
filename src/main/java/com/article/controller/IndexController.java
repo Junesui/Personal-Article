@@ -1,18 +1,25 @@
 package com.article.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.article.dto.ArticleTypeTagDTO;
 import com.article.entity.Article;
+import com.article.entity.Feedback;
 import com.article.entity.Oneword;
 import com.article.entity.Siteinfo;
 import com.article.entity.Tag;
@@ -149,6 +156,20 @@ public class IndexController {
 	@GetMapping("/music")
 	public String toMusic() {
 		return "music";
+	}
+	
+	@ResponseBody
+	@PostMapping("/feedback")
+	public Object feedback(@Validated Feedback feedback,BindingResult result,Model model) {
+		
+		//字段验证
+		if (result.hasErrors()) {
+			return "forward:/";
+		}
+		System.out.println(feedback);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("result", 1);
+		return map;
 	}
 
 }

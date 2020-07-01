@@ -27,7 +27,7 @@ body {
 /* 首页回到顶部按钮 */
 .m-indexUpBtn {
 	transform: rotate(-90deg) !important;
-	font-size: 50px !important;
+	font-size: 40px !important;
 	color: #e9ecf1 !important;
 	font-weight: 1000 !important;
 }
@@ -57,6 +57,15 @@ body {
 	border-bottom: none !important;
     border-left: none !important;
     border-right: none !important;
+}
+
+.m-feedback {
+	display: block !important;
+    height: 70% !important;
+    width: 65% !important;
+    position: fixed !important;
+    transform: translate(-50%,-50%) !important;
+    background-color: floralwhite !important;
 }
 
 /*---padding--- */
