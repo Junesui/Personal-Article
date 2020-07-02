@@ -281,8 +281,8 @@ body {
 }
 
 .m-right-bottom {
-	right: 0 !important;
-	bottom: 0 !important;
+	right: -12px !important;
+    bottom: 55px !important;
 }
 
 .m-mobile-show {

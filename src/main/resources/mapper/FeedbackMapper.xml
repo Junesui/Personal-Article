@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.article.mapper.FeedbackMapper">
+	
+	<!-- 保存反馈建议 -->
+	<insert id="save" parameterType="feedback">
+		insert into feedback (url,content,email,create_time) 
+		         values (#{url},#{content},#{email},#{createTime})
+	</insert>
+
+	<!-- 统计反馈总数 -->
+	<select id="count" resultType="int">
+		select count(*) from feedback where is_deleted is not true
+	</select>
+	
+</mapper>

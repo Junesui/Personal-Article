@@ -1,6 +1,7 @@
 package com.article.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.validation.constraints.Email;
 
@@ -30,7 +31,7 @@ public class Feedback implements Serializable{
 	@Email(message = "请输入正确的邮箱格式")
 	public String email;
 	
-	public String createTime;
-	public String isFixed;
-	public String isDeleted;
+	public Date createTime;
+	public Boolean isFixed;
+	public Boolean isDeleted;
 }

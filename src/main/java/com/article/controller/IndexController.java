@@ -1,5 +1,6 @@
 package com.article.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.article.entity.Siteinfo;
 import com.article.entity.Tag;
 import com.article.entity.Tool;
 import com.article.service.ArticleService;
+import com.article.service.FeedbackService;
 import com.article.service.OnewordService;
 import com.article.service.SiteinfoService;
 import com.article.service.TagService;
@@ -51,6 +53,8 @@ public class IndexController {
 	private ToolService toolService;
 	@Autowired
 	private SiteinfoService siteinfoService;
+	@Autowired
+	private FeedbackService feedbackService;
 	
 	//文章首页展示的文章数量
 	@Value("${index.pageArticleSize}")
@@ -161,15 +165,13 @@ public class IndexController {
 	@ResponseBody
 	@PostMapping("/feedback")
 	public Object feedback(@Validated Feedback feedback,BindingResult result,Model model) {
-		
 		//字段验证
 		if (result.hasErrors()) {
 			return "forward:/";
 		}
-		System.out.println(feedback);
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("result", 1);
-		return map;
+		//保存反馈
+		feedbackService.save(feedback);
+		return new Feedback();
 	}
 
 }

@@ -24,4 +24,5 @@ public class SiteinfoExtDTO extends Siteinfo{
 	public Integer toolCount;
 	public Integer typeCount;
 	public Integer tagCount;
+	public Integer feedbackCount;
 }

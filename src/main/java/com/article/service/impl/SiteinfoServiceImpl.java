@@ -11,6 +11,7 @@ import com.article.dto.SiteinfoExtDTO;
 import com.article.entity.Siteinfo;
 import com.article.mapper.ArticleMapper;
 import com.article.mapper.CommentMapper;
+import com.article.mapper.FeedbackMapper;
 import com.article.mapper.FriendslinkMapper;
 import com.article.mapper.MessageMapper;
 import com.article.mapper.OnewordMapper;
@@ -47,6 +48,8 @@ public class SiteinfoServiceImpl implements SiteinfoService{
 	private OnewordMapper onewordMapper;
 	@Autowired
 	private ToolMapper toolMapper;
+	@Autowired
+	private FeedbackMapper feedbackMapper;
 	
 	@Value("${admin.siteBeginDate}")
 	private String siteBeginDate;
@@ -65,6 +68,7 @@ public class SiteinfoServiceImpl implements SiteinfoService{
 		Integer onewordCount = onewordMapper.countShow();
 		Integer toolCount = toolMapper.count();
 		Long viewCount = siteinfoMapper.findViewCount();
+		Integer feedbackCount = feedbackMapper.count();
 		try {
 			Long runTime = (new Date().getTime() - new SimpleDateFormat("yyyy-MM-dd").parse(siteBeginDate).getTime())/1000/60/60/24;
 			dto.setRunTime(runTime);
@@ -81,6 +85,7 @@ public class SiteinfoServiceImpl implements SiteinfoService{
 		dto.setOnewordCount(onewordCount);
 		dto.setToolCount(toolCount);
 		dto.setViewCount(viewCount);
+		dto.setFeedbackCount(feedbackCount);
 		return dto;
 	}
 

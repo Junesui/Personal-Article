@@ -141,8 +141,8 @@
     </div>
     
     <!-- 反馈成功提示 -->
-    <div id="feedback-success" style="position: fixed; max-width: 120px; right: 0px;top: 80px; z-index: 1000;">
-        <div class="ui raised card">
+    <div id="feedback-success" style="position: fixed; max-width: 120px; left: 0px;top: 100px; z-index: 1000;display: none;">
+        <div class="ui raised card" style="background-color: seashell;">
              <div class="content" align="center"><i class="check green large icon"></i>反馈成功</div>       
         </div>
     </div>
@@ -157,7 +157,7 @@
     </div>
     
     <!-- 反馈按钮 -->
-    <div id="feedback" style="position: fixed; bottom: 75px; right: 30px; cursor: pointer; z-index: 1;">
+    <div id="feedback" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 1;">
         <div class="ui icon button" data-tooltip="建议反馈" data-position="left center" data-inverted="">
             <i class="heart icon m-teal"></i>
         </div>
@@ -185,10 +185,13 @@
 	$('#feedback-submit').click(function(){
 		var content = $("[name='content']").val();
 		$.post("/feedback",{content:content},function(data){
-			//回调
-			
-			
-			//setTimeout("document.getElementById('k').style.display='none'",3000);
+			//回调函数
+			//隐藏反馈框
+			$('#waypoint').dimmer('hide');
+			//0.5秒后弹出反馈成功提示
+			setTimeout(function(){$('#feedback-success').show();},500);
+			//2秒后反馈成功提示消失
+			setTimeout(function(){$('#feedback-success').hide();},2000);
 		},"json");
 	});
 	
