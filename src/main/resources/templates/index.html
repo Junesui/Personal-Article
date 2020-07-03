@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <!--文章列表-->
-                    <div class="ui padded segment m-paddding-tb-large" th:each="article : ${pageInfo.getList()}">
+                    <div class="ui top attached padded segment m-paddding-tb-large" th:each="article : ${pageInfo.getList()}">
                         <div class="ui mobile reversed stackable grid large aligned">
                             <!-- 左侧文章内容 -->
                             <div class="eleven wide column">
@@ -74,7 +74,7 @@
                                             <div class="item">
                                                 <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="@{${article.userAvatar}}">
                                                 <div class="content">
-                                                    <a href="#" class="header" th:text="${article.userNickname}">June</a>
+                                                    <a href="javascript:void(0);" class="header" th:text="${article.userNickname}">June</a>
                                                 </div>
                                             </div>
                                             <div class="item">
@@ -93,7 +93,7 @@
                                     </div>
                                     <!-- 文章分类 -->
                                     <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${article.typeName}">认知升级</a>
+                                        <a th:href="@{/types/{id}(id=${article.typeId})}" target="_blank" class="ui teal basic label m-padding-tiny m-text-thin" th:text="${article.typeName}">认知升级</a>
                                     </div>
                                 </div>
                             </div>
@@ -105,36 +105,41 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--文章分页-->
-                <div class="ui bottom attached segment" th:if="${pageInfo.pages} > 1">
-                    <div class="ui middle aligned two column grid">
-                        <div class="column">
-                            <a th:href="@{/(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
-                        </div>
-                        <div class="column right aligned">
-                            <a th:href="@{/(page=${pageInfo.pageNum}+1)}" th:if="${pageInfo.hasNextPage}" class="ui teal basic mini button">下一页</a>
+                    <!--文章分页-->
+                    <div class="ui bottom attached segment" th:if="${pageInfo.pages} > 1">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <a th:href="@{/(page=${pageInfo.pageNum}-1)}" th:if="${pageInfo.hasPreviousPage}" class="ui teal basic mini button">上一页</a>
+                            </div>
+                            <div class="column right aligned">
+                                <a th:href="@{/(page=${pageInfo.pageNum}+1)}" th:if="${pageInfo.hasNextPage}" class="ui teal basic mini button">下一页</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
         <!-- 反馈表单 -->
-        <div class="ui dimmer m-feedback" style="left: 50% !important;top: 55% !important;">
-            <div class="content">
-                <div class="center">
-                    <form class="ui form" style="height: 87%;width: 90%;left: 5%;">
-                        <div class="field" id="wordCount">
-                            <h3 class="m-black m-text">建议反馈</h3>
-                            <textarea name="content" rows="15" placeholder="填写意见或者建议。如：常见小bug、希望添加的新功能。Thank you~"></textarea>
-                            <div class="wordwrap m-textareaSum" style="color: white;"><var class="m-word">500</var>/500</div>
-                        </div>
-                        <div class="field">
-                            <div id="feedback-cancelBtn" class="ui black basic small button">取消</div>
-                            <div id="feedback-submit" class="ui teal basic small button" style="margin-left: 50px;">提交</div>
-                        </div>
-                        <div class="ui error message"></div>
-                    </form>
+        <div id="feedback-container">
+            <div class="ui dimmer m-feedback" style="left: 50% !important; top: 55% !important; display: none !important;">
+                <div class="content">
+                    <div class="center">
+                        <form class="ui form" style="height: 87%; width: 90%; left: 5%;">
+                            <div class="field" id="wordCount">
+                                <h3 class="m-black m-text">建议反馈</h3>
+                                <textarea name="content" rows="15" placeholder="填写意见或者建议。如：常见小bug、希望添加的新功能。よろしくね~"></textarea>
+                                <div class="wordwrap m-textareaSum" style="color: white;">
+                                    <var class="m-word">500</var>/500
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div id="feedback-cancelBtn" class="ui black basic small button">取消</div>
+                                <div id="feedback-submit" class="ui teal basic small button" style="margin-left: 50px;">提交</div>
+                            </div>
+                            <div class="ui error message"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,77 +177,89 @@
     <!--/*/ </th:block> /*/-->
 
 <script>
+    
+    /* 反馈遮罩层显示 */
+    $('#feedback').click(function() {
+    	$("[name='content']").val(null);
+        $('#feedback-container').dimmer('show');
+    });
+    /* 反馈遮罩层取消 */
+    $('#feedback-cancelBtn').click(function() {
+        $('#feedback-container').dimmer('hide');
+    });
+    /* 提交反馈表单 */
+    $('#feedback-submit').click(function() {
+        var content = $("[name='content']").val();
+        if(content.trim() != '' && content != null){
+        	//ajax发送post请求
+        	$.post("/feedback", {
+                content : content
+            }, function(data) {
+                //回调函数
+                //隐藏反馈框
+                $('#feedback-container').dimmer('hide');
+                //0.5秒后弹出反馈成功提示
+                setTimeout(function() {
+                    $('#feedback-success').show();
+                }, 500);
+                //2秒后反馈成功提示消失
+                setTimeout(function() {
+                    $('#feedback-success').hide();
+                }, 2000);
+                //清空内容
+                $("[name='content']").val('');
+            }, "json");
+        }
+    });
 
-	/* 反馈遮罩层初始化 */
-    $('#feedback').click(function(){
-    	$('#waypoint').dimmer('show');
-    });
-	/* 反馈遮罩层取消 */
-	$('#feedback-cancelBtn').click(function(){
-		$('#waypoint').dimmer('hide');
-	});
-	/* 提交反馈表单 */
-	$('#feedback-submit').click(function(){
-		var content = $("[name='content']").val();
-		$.post("/feedback",{content:content},function(data){
-			//回调函数
-			//隐藏反馈框
-			$('#waypoint').dimmer('hide');
-			//0.5秒后弹出反馈成功提示
-			setTimeout(function(){$('#feedback-success').show();},500);
-			//2秒后反馈成功提示消失
-			setTimeout(function(){$('#feedback-success').hide();},2000);
-		},"json");
-	});
-	
-	/* 初始化轮播图 */
-	var swiper = new Swiper('.swiper-container', {
-        spaceBetween: 20,
-        speed:2500,
-		autoplay:{
-            delay: 10000,
-            disableOnInteraction: false,
-            waitForTransition: false,
-          },
-        keyboard: {
-            enabled: true,
-          },
-        hashNavigation: {
-        watchState: true,
+    /* 初始化轮播图 */
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween : 20,
+        speed : 2500,
+        autoplay : {
+            delay : 10000,
+            disableOnInteraction : false,
+            waitForTransition : false,
         },
-        pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
+        keyboard : {
+            enabled : true,
         },
-        navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        hashNavigation : {
+            watchState : true,
+        },
+        pagination : {
+            el : '.swiper-pagination',
+            clickable : true,
+        },
+        navigation : {
+            nextEl : '.swiper-button-next',
+            prevEl : '.swiper-button-prev',
         },
     });
-	
-	/* 反馈表单验证 */
-	$('.ui.form').form({
-		on : 'click',
-		fields : {
-			content : {
-				identifier : 'content',
-				rules : [ {
-					type : 'empty',
-					prompt : '请先输入内容 ~'
-				} ]
-			}
-		}
-	})
-	
-	/* 反馈框 textarea 文字数量监视 */
-    $(function(){
+
+    /* 反馈表单验证 */
+    $('.ui.form').form({
+        on : 'blur',
+        fields : {
+            content : {
+                identifier : 'content',
+                rules : [ {
+                    type : 'empty',
+                    prompt : '请先输入内容 ~'
+                } ]
+            }
+        }
+    })
+
+    /* 反馈框 textarea 文字数量监视 */
+    $(function() {
         //先选出 textarea 和 统计字数 dom 节点
-        var wordCount = $("#wordCount"),
-            textArea = wordCount.find("textarea"),
-            word = wordCount.find(".m-word");
+        var wordCount = $("#wordCount"), textArea = wordCount.find("textarea"), word = wordCount
+                .find(".m-word");
         //调用
-        statInputNum(textArea,word);
+        statInputNum(textArea, word);
     });
-	</script>    
+</script> 
+   
 </body>
 </html>

@@ -5,13 +5,38 @@
 	
 	<!-- 保存反馈建议 -->
 	<insert id="save" parameterType="feedback">
-		insert into feedback (url,content,email,create_time) 
-		         values (#{url},#{content},#{email},#{createTime})
+		insert into feedback (url,content,email,create_time,is_fixed) 
+		         values (#{url},#{content},#{email},#{createTime},#{isFixed})
 	</insert>
 
 	<!-- 统计反馈总数 -->
 	<select id="count" resultType="int">
 		select count(*) from feedback where is_deleted is not true
 	</select>
+	
+	<!-- 列出所有的反馈 -->
+	<select id="list" resultType="feedback">
+		select * from feedback where is_deleted is not true order by create_time desc
+	</select>
+	
+	<!-- 通过搜索条件列出反馈 -->
+	<select id="listBySearch" parameterType="boolean" resultType="feedback">
+		select * from feedback where is_fixed = #{isFixed} and is_deleted is not true order by create_time desc
+	</select>	
+	
+	<!-- 通过id设置反馈为未修复状态 -->
+	<update id="fixById" parameterType="long">
+		update feedback set is_fixed = true where id = #{id}
+	</update>
+	
+	<!-- 通过id设置反馈为未修复状态 -->
+	<update id="nofixById" parameterType="long">
+		update feedback set is_fixed = false where id = #{id}
+	</update>
+	
+	<!-- 通过id给反馈设置删除标志 -->
+	<update id="deleteById" parameterType="long">
+		update feedback set is_deleted = true where id = #{id}
+	</update>
 	
 </mapper>

@@ -10,7 +10,7 @@
 
 	<!-- 列出要展示的友人链信息 -->
 	<select id="listShow" resultType="friendslink">
-		select * from friendslink where is_show is not false order by create_time
+		select * from friendslink where is_show is not false order by update_time
 	</select>
 
 	<!-- 列出要展示的友人链信息 -->

@@ -1,5 +1,7 @@
 package com.article.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.article.entity.Feedback;
@@ -16,5 +18,15 @@ public interface FeedbackMapper {
 	void save(Feedback feedback);
 
 	Integer count();
+
+	List<Feedback> list();
+
+	void fixById(Long id);
+
+	void nofixById(Long id);
+
+	void deleteById(Long id);
+
+	List<Feedback> listBySearch(Boolean isFixed);
 
 }

@@ -6,7 +6,7 @@
 <body>
 
     <!--导航 -->
-    <nav th:replace="admin/_fragments :: menu(5)"></nav>
+    <nav th:replace="admin/_fragments :: menu(8)"></nav>
 
     <!--中间内容-->
     <div id="waypoint" class="m-container m-paddding-tb-big m-minHight">
@@ -24,12 +24,12 @@
                     <div class="field">
                         <div class="ui labeled action input">
                             <div class="ui selection dropdown">
-                                <input type="hidden" name="isShow">
+                                <input type="hidden" name="isFixed">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">展示状态</div>
+                                <div class="default text">状态</div>
                                 <div class="menu">
-                                    <div class="item" th:attr="data-value=true">已展示</div>
-                                    <div class="item" th:attr="data-value=false">未展示</div>
+                                    <div class="item" th:attr="data-value=true">已修复</div>
+                                    <div class="item" th:attr="data-value=false">未修复</div>
                                 </div> 
                             </div>
                             <div class="ui compact button clear-btn">清除</div>
@@ -42,30 +42,26 @@
             </div>
             <!--下面部分-->
             <div id="table-container">
-                <table th:fragment="friendslinkList" class="ui compact striped center aligned table">
+                <table th:fragment="feedbackList" class="ui compact striped center aligned table">
                     <thead>
                         <tr>
                             <th class="one wide"></th>
-                            <th class="two wide">网站名称</th>
-                            <th class="four wide">网站简介</th>
-                            <th class="two wide">网站地址</th>
+                            <th class="eight wide">反馈内容</th>
                             <th class="two wide">创建时间</th>
                             <th class="one wide">状态</th>
                             <th class="four wide">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="friendslink,iterStat : ${pageInfo.getList()}">
+                        <tr th:each="feedback,iterStat : ${pageInfo.getList()}">
                             <td th:text="${iterStat.count}">1</td>
-                            <td th:text="${friendslink.websiteName}">网站名字</td>
-                            <td th:text="${friendslink.websiteDescription}">网站简介</td>
-                            <td th:text="${friendslink.websiteUrl}">网站地址</td>
-                            <td th:text="${#dates.format(friendslink.createTime,'yyyy-MM-dd')}">创建时间</td>
-                            <td th:text="${friendslink.isShow} ? '已展示':'未展示' " th:class="${friendslink.isShow}==false ? 'm-orange'">状态</td>
+                            <td th:text="${feedback.content}">反馈内容</td>
+                            <td th:text="${#dates.format(feedback.createTime,'yyyy-MM-dd')}">创建时间</td>
+                            <td th:text="${feedback.isFixed} ? '已修复':'未修复' " th:class="${feedback.isFixed}==false ? 'm-orange'">状态</td>
                             <td>
-                                <a th:href="@{/1120/friendslink/show/{id}(id=${friendslink.id})}" onclick="return confirm('确定【展示】该友链吗？');" class="ui mini teal basic button m-padding">展示</a>
-                                <a th:href="@{/1120/friendslink/hide/{id}(id=${friendslink.id})}" onclick="return confirm('确定【不展示】该友链吗？');" class="ui mini blue basic button m-padding">不展示</a>
-                                <a th:href="@{/1120/friendslink/delete/{id}(id=${friendslink.id})}" onclick="return confirm('确定删除该友链吗？');" class="ui mini red basic button m-padding">删除</a>
+                                <a th:href="@{/1120/feedback/fix/{id}(id=${feedback.id})}" onclick="return confirm('确定设置为【已修复】状态吗？');" class="ui mini teal basic button m-padding">修复</a>
+                                <a th:href="@{/1120/feedback/nofix/{id}(id=${feedback.id})}" onclick="return confirm('确定设置为【未修复】状态吗？');" class="ui mini blue basic button m-padding">未修复</a>
+                                <a th:href="@{/1120/feedback/delete/{id}(id=${feedback.id})}" onclick="return confirm('确定删除该反馈吗？');" class="ui mini red basic button m-padding">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -105,8 +101,8 @@
         
         //通过ajax刷新table中的数据
         function loadData(){
-        	$("#table-container").load("/1120/friendslink/search",{
-        		isShow : $("[name='isShow']").val(),
+        	$("#table-container").load("/1120/feedback/search",{
+        		isFixed : $("[name='isFixed']").val(),
         		page : $("[name='page']").val()
         	});
         }
