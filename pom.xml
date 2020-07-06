@@ -11,6 +11,7 @@
 	</parent>
 	<groupId>com.article</groupId>
 	<artifactId>personal-article</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>article</name>
 	<description>article</description>
@@ -97,7 +98,12 @@
 			<artifactId>UserAgentUtils</artifactId>
 			<version>1.21</version>
 		</dependency>
-
+		<!-- 打包时依赖 provided：表示编译运行时使用tomcat,打包时不需要将tomcat打进包中-->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

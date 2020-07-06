@@ -55,7 +55,7 @@ public class FeedbackController {
 		
 		PageInfo<Feedback> pageInfo = new PageInfo<>(feedbacks);
 		model.addAttribute("pageInfo", pageInfo);
-		return "/admin/feedback";
+		return "admin/feedback";
 	}
 	
 	/**

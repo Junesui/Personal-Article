@@ -56,7 +56,7 @@ public class ToolController {
 		
 		PageInfo<Tool> pageInfo = new PageInfo<>(tools);
 		model.addAttribute("pageInfo", pageInfo);
-		return "/admin/tools";
+		return "admin/tools";
 	}
 	
 	/**
