@@ -41,7 +41,7 @@
                                 <div class="eleven wide column">
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
-                                            <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="@{${article.userAvatar}}">
+                                            <img class="ui avatar image" th:src="@{${article.userAvatar}}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" />
                                             <div class="content">
                                                 <a href="#" class="header" th:text="${article.userNickname}">June</a>
                                             </div>
@@ -66,7 +66,8 @@
                             </div>
                         </div>
                         <div class="five wide column">
-                            <a th:href="@{/article/{id}(id=${article.id})}" target="_blank"> <img alt="" th:src="@{${article.firstPicture}}" class="ui rounded image">
+                            <a th:href="@{/article/{id}(id=${article.id})}" target="_blank">
+                                <img th:src="@{|/show/${article.firstPicture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui rounded image">
                             </a>
                         </div>
                     </div>

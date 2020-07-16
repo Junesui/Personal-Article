@@ -74,19 +74,19 @@
 			<version>1.2.3</version>
 		</dependency>
 		<!-- markdown语法相关的三个 -->
-		<!--主要依赖  -->
+		<!--主要依赖 -->
 		<dependency>
 			<groupId>com.atlassian.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
 			<version>0.10.0</version>
 		</dependency>
-		<!--h标签添加id属性  -->
+		<!--h标签添加id属性 -->
 		<dependency>
 			<groupId>com.atlassian.commonmark</groupId>
 			<artifactId>commonmark-ext-heading-anchor</artifactId>
 			<version>0.10.0</version>
 		</dependency>
-		<!--表格显示  -->
+		<!--表格显示 -->
 		<dependency>
 			<groupId>com.atlassian.commonmark</groupId>
 			<artifactId>commonmark-ext-gfm-tables</artifactId>
@@ -98,12 +98,13 @@
 			<artifactId>UserAgentUtils</artifactId>
 			<version>1.21</version>
 		</dependency>
-		<!-- 打包时依赖 provided：表示编译运行时使用tomcat,打包时不需要将tomcat打进包中-->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency> -->
+		<!-- 文件操作 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

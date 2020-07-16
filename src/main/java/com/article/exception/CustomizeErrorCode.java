@@ -11,7 +11,6 @@ public enum CustomizeErrorCode {
 	SYS_ERROR(1120,"服务器异常，请稍后再来试试！"),
 	ARTICLE_NOT_FOUND(1121,"要找的文章走丢了！");
 	
-	
 	private Integer code;
 	private String messsage;
 	

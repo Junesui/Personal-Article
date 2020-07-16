@@ -14,7 +14,7 @@
             <div class="ui top attached segment">
                 <div class="ui horizontal link list">
                     <div class="item">
-                        <img alt="" th:src="@{${articleTypeTagDTO.userAvatar}}" class="ui avatar image">
+                        <img th:src="@{|/show/${articleTypeTagDTO.userAvatar}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui avatar image">
                         <div class="content">
                             <a href="javascript:void(0);" class="header" th:text="${articleTypeTagDTO.userNickname}">June</a>
                         </div>
@@ -35,7 +35,7 @@
             </div>
             <!--图片 -->
             <div class="ui attached segment">
-                <img alt="" th:src="@{${articleTypeTagDTO.firstPicture}}" class="ui fluid rounded image">
+                <img th:src="@{|/show/${articleTypeTagDTO.firstPicture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui fluid rounded image">
             </div>
             <!--内容 -->
             <div class="ui attached padded segment">
@@ -59,7 +59,7 @@
                     <div class="ui orange basic label">
                         <div class="ui aligned images" style="font-size: inherit !important;">
                             <div class="image">
-                                <img alt="" src="/images/avatar.png" class="ui small image">
+                                <img src="/images/avatar.png" class="ui small image">
                                 <div>支付宝</div>
                             </div>
                             <div class="image">
@@ -82,7 +82,7 @@
                         </ul>
                     </div>
                     <div class="five wide column">
-                        <img alt="" src="/images/avatar.png" class="ui rounded bordered tiny right floated image">
+                        <img src="/images/avatar.png" class="ui rounded bordered tiny right floated image">
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                         <div class="ui threaded comments" style="max-width: 100%;">
                             <h3 class="ui dividing header" id="9b6ad248-e79f-dba3-cd4a-0ea2c1edcfd8">评论</h3>
                             <div class="comment" th:each="comment : ${comments}">
-                                <a class="avatar"> <img th:src="@{${comment.avatar}}">
+                                <a class="avatar"> <img th:src="@{${comment.avatar}}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" />
                                 </a>
                                 <div class="content">
                                     <a class="author">

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.article.dto.ArticleQueryDTO;
@@ -25,6 +26,7 @@ import com.article.entity.User;
 import com.article.service.ArticleService;
 import com.article.service.TagService;
 import com.article.service.TypeService;
+import com.article.util.FileOptUtils;
 import com.article.util.StringAndListConvertUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -50,7 +52,12 @@ public class ArticleController {
 	//文章后台管理每页展示的文章数量
 	@Value("${admin.pageArticleSize}")
 	private Integer pageArticleSize;
-	
+	//项目图片存放的根路径
+	@Value("${picture.basePath}")
+	private String basePath;
+	//允许上传图片的大小
+	@Value("${picture.maxSize}")
+	private Long maxSize;
 	
 	/**
 	 * 跳转到后台首页
@@ -103,22 +110,42 @@ public class ArticleController {
 	 * @return 文章管理页面
 	 */
 	@PostMapping("/articles")
-	public String post(@Validated ArticleTypeTagDTO articleTypeTagDTO, BindingResult result, HttpSession session, RedirectAttributes attributes) {
+	public String post(@RequestParam("picFile") MultipartFile file, @Validated ArticleTypeTagDTO articleTypeTagDTO,
+			BindingResult result, HttpSession session, RedirectAttributes attributes) {
 
 		//字段验证
 		if (result.hasErrors()) {
 			return "admin/article-release";
 		}
-		
+
 		User user = (User) session.getAttribute("user");
 		articleTypeTagDTO.setUserId(user.getId());
 
-		articleService.saveOrUpdate(articleTypeTagDTO);
+		//获取文件大小并转换单位为M
+		long size = file.getSize() / 1024 / 1024;
+		if (size > maxSize) {
+			attributes.addFlashAttribute("upFailMsg", "图片大小超过限制");
+			return "redirect:/1120/articles/add";
+		} else {
+			//上传图片
+			String childPath = FileOptUtils.upload(file, basePath, "userId" + user.getId() + "/article");
+			if ("false".equals(childPath)) {
+				attributes.addFlashAttribute("upFailMsg", "图片上传失败");
+				return "redirect:/1120/articles/add";
+			}
+			//为了读取，把斜杠/换成横杠-
+			String firstPicture = (basePath + "/" + childPath).replaceAll("/", "-");
+			//设置首图地址
+			articleTypeTagDTO.setFirstPicture(firstPicture);
+			//保存或更新文章
+			articleService.saveOrUpdate(articleTypeTagDTO);
 
-		attributes.addFlashAttribute("message", "操作成功");
-		return "redirect:/1120/articles";
+			attributes.addFlashAttribute("message", "操作成功");
+			return "redirect:/1120/articles";
+		}
+
 	}
-
+	
 	/**
 	 * 后台查找文章
 	 * @param pageNum
@@ -147,7 +174,7 @@ public class ArticleController {
 	 * @return 文章编辑页面
 	 */
 	@GetMapping("/articles/edit/{id}")
-	public String articleEdit(@PathVariable Long id, Model model) {
+	public String articleEdit(@PathVariable("id") Long id, Model model) {
 		//通过文章id查找文章和分类
 		ArticleTypeTagDTO articleTypeTagDTO = articleService.findArticleAndTypeById(id);
 

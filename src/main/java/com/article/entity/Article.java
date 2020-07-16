@@ -34,7 +34,6 @@ public class Article implements Serializable{
 	@Length(max = 150,message = "文章描述不能超过150个字符")
 	private String description;
 	
-	@NotBlank(message = "请输入文章首图地址")
 	@Length(max = 255,message = "图片地址长度不能超过255个字符")
 	private String firstPicture;
 	

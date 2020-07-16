@@ -12,7 +12,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" th:each="oneword : ${onewords}">
                 <div style="width: 100%;height: 100%;">
-                    <img alt="picture is lose" th:src="${oneword.picture}" class="ui bordered fluid image m-lbPicture">
+                    <img th:src="@{|/show/${oneword.picture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui bordered fluid image m-lbPicture" >
                     <div th:text="${oneword.content}" class="m-lbfont"></div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="ui stackable grid" style="margin-left: 3px;margin-right: 3px;">
             <div class="four wide column" th:each="article : ${articles}">
                 <a class="m-recomment-outer" th:href="@{/article/{id}(id=${article.id})}" target="_blank">
-                    <img th:src="${article.firstPicture}" class="ui rounded image">
+                    <img th:src="@{|/show/${article.firstPicture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui rounded image">
                     <span class="m-recomment-inner">
                         <h4 class="m-margin-tb-tiny m-recommend-font" th:text="${article.title}">文章标题</h4>
                     </span>
@@ -72,7 +72,7 @@
                                     <div class="eleven wide column">
                                         <div class="ui mini horizontal link list">
                                             <div class="item">
-                                                <img alt="" src="https://picsum.photos/id/1001/100/100" class="ui avatar image" th:src="@{${article.userAvatar}}">
+                                                <img class="ui avatar image" th:src="@{|/show/${article.userAvatar}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;">
                                                 <div class="content">
                                                     <a href="javascript:void(0);" class="header" th:text="${article.userNickname}">June</a>
                                                 </div>
@@ -100,7 +100,7 @@
                             <!-- 右侧文章图片 -->
                             <div class="five wide column">
                                 <a th:href="@{/article/{id}(id=${article.id})}" target="_blank">
-                                    <img alt="" th:src="@{${article.firstPicture}}" class="ui rounded image">
+                                    <img th:src="@{|/show/${article.firstPicture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui rounded image">
                                 </a>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
     <!--/*/ </th:block> /*/-->
 
 <script>
-    
+
     /* 反馈遮罩层显示 */
     $('#feedback').click(function() {
     	$("[name='content']").val(null);

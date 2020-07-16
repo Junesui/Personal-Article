@@ -11,14 +11,22 @@
     <!--中间内容-->
     <div id="waypoint" class="m-container m-paddding-tb-big m-minHight">
         <div class="ui container">
-            <form id="article-form" th:object="${articleTypeTagDTO}" th:action="@{/1120/articles}" method="post" class="ui form">
+            <form id="article-form" th:object="${articleTypeTagDTO}" th:action="@{/1120/articles}" method="post" enctype="multipart/form-data" class="ui form">
                 <!-- 字段不符合提示信息 -->
-                 <div class="ui negative message" th:if="${#fields.hasAnyErrors()}">
+                <div class="ui negative message" th:if="${#fields.hasAnyErrors()}">
                     <i class="close icon"></i>
                     <ul th:each="err : ${#fields.allErrors()}">
                         <li th:text="${err}"></li>
                     </ul>
-                </div> 
+                </div>
+                <!-- 图片上传失败提示 -->
+                 <div class="ui negative message" th:unless="${upFailMsg} == null">
+                    <i class="close icon"></i>
+                    <ul>
+                        <li th:text="${upFailMsg}"></li>
+                    </ul>
+                </div>
+
                 <!-- 隐藏值 -->
                 <input type="hidden" name="isPublished">
                 <input type="hidden" name="id" th:value="*{id}">
@@ -73,7 +81,7 @@
                 <div class="field">
                     <div class="ui labeled input">
                         <label class="ui teal basic label">首图</label>
-                        <input type="text" name="firstPicture" placeholder="首图引用地址(650*400)" th:value="*{firstPicture}" maxlength="255">
+                        <input type="file" name="picFile" placeholder="首图引用地址(650*400)" th:value="*{firstPicture}" maxlength="255">
                     </div>
                 </div>
                 <div class="field" id="wordCount">
@@ -141,11 +149,13 @@
 
 	//保存文章
 	$('#save-btn').click(function(){
+		if (checkPic() == false) {return;};
 		$('[name="isPublished"]').val(false);
 		$('#article-form').submit();
 	});
 	//发布文章
 	$('#publish-btn').click(function(){
+		if (checkPic() == false) {return;};
 		$('[name="isPublished"]').val(true);
 		$('#article-form').submit();
 	});
@@ -188,17 +198,27 @@
 					type : 'empty',
 					prompt : '标签不能为空'
 				} ]
-			},
-			firstPicture : {
-				identifier : 'firstPicture',
-				rules : [ {
-					type : 'empty',
-					prompt : '首图不能为空'
-				} ]
 			}
-			
 		}
 	});
+	
+	/* 判断选择的图片是否符合要求 */
+	function checkPic() {
+		//判断文件大小
+        var size = $("[name='picFile']")[0].files[0].size / 1024;
+        if(size > 5120){
+           alert("图片大小不能超过5M");
+           return false;
+        }
+		//判断文件后缀
+		var path = $("[name='picFile']").val();
+	    extStart = path.lastIndexOf('.'),
+        ext = path.substring(extStart,path.length).toUpperCase();
+        if('.PNG' !== ext && '.JPG' !== ext && '.JPEG' !== ext){
+            alert("请选择【jpg,jpeg,png】格式的图片");
+            return false;
+         }
+	}
 	
 	/* textarea 文字数量监视 */
 	$(function(){
