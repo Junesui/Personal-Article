@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
 <title>友人链</title>
 </head>
-<body>
+<body class="animate__animated animate__fadeIn animate__slow">
     <!--导航 -->
     <nav th:replace="_fragments :: menu(4)"></nav>
     
@@ -68,7 +68,7 @@
                     <div class="card" style="max-width: 230px;background-color: bisque;" th:if="${page} == 1">
                         <div class="content">
                             <!-- 网站图片 -->
-                            <a href="#"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" src="/images/avatar.png" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;"></a>
+                            <a href="#"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" src="/images/avatar.png"></a>
                             <!-- 网站名称 -->
                             <div class="header m-margin-top-mini">
                                 <a href="#" style="color: #000000d9;">这儿显示【网站名称】</a>
@@ -83,7 +83,7 @@
                     <div class="card" style="max-width: 230px;" th:each="friend : ${pageInfo.getList()}">
                         <div class="content">
                             <!-- 网站图片 -->
-                            <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" th:src="@{${friend.pictureUrl}}" onerror="javascript:this.src='images/noImg.jpg';this.onerror=null;" /></a>
+                            <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)"><img class="right floated mini ui image" style="max-height: 35px;margin-bottom: 5px;" th:src="@{${friend.pictureUrl}}" /></a>
                             <!-- 网站名称 -->
                             <div class="header m-margin-top-mini">
                                 <a th:href="${friend.websiteUrl}" target="_blank" th:attr="data-friendslinkid=${friend.id}"  onclick="viewFriendslink(this)" th:text="${friend.websiteName}" style="color: #000000d9;">网站名称</a>

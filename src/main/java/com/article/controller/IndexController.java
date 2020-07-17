@@ -1,9 +1,6 @@
 package com.article.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -154,14 +150,12 @@ public class IndexController {
 	}
 	
 	/**
-	 * 跳转到听音乐页面
-	 * @return 听音乐页面
+	 * 保存反馈建议
+	 * @param feedback 反馈建议
+	 * @param result
+	 * @param model
+	 * @return 首页
 	 */
-	@GetMapping("/music")
-	public String toMusic() {
-		return "music";
-	}
-	
 	@ResponseBody
 	@PostMapping("/feedback")
 	public Object feedback(@Validated Feedback feedback,BindingResult result,Model model) {
