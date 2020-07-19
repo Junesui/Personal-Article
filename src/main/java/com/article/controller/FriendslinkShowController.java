@@ -18,9 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.article.dto.MessageExtDTO;
 import com.article.entity.Friendslink;
 import com.article.entity.Message;
+import com.article.entity.Tool;
 import com.article.entity.User;
 import com.article.service.FriendslinkService;
 import com.article.service.MessageService;
+import com.article.service.ToolService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -37,6 +39,9 @@ public class FriendslinkShowController {
 	private FriendslinkService friendslinkService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private ToolService toolService;
+
 	
 	//游客留言用到的头像
 	@Value("${message.avatar}")
@@ -57,12 +62,14 @@ public class FriendslinkShowController {
 		//分页
 		PageHelper.startPage(page, size);
 		List<Friendslink> friendslinks = friendslinkService.listShow();
+		List<Tool> tools = toolService.list();
 		
 		List<MessageExtDTO> messages = messageService.listMessage();
 		PageInfo<Friendslink> pageInfo = new PageInfo<>(friendslinks);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("page", page);
 		model.addAttribute("messages", messages);
+		model.addAttribute("tools", tools);
 		return "friendslink";
 	}
 	

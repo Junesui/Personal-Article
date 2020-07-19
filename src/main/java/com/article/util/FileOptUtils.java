@@ -37,9 +37,10 @@ public class FileOptUtils {
 	 * @return 图片子路径或false
 	 */
 	public static String upload(MultipartFile file, String basePath, String path) {
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		//uuid作为文件名
+		String fileName = UUID.randomUUID().toString().replaceAll("-", "");
 		//拼接子路径
-		String childPath = path + "/" + uuid;
+		String childPath = path + "/" + fileName;
 		//图片存储路径
 		File savedFile = new File(basePath, childPath);
 
@@ -77,7 +78,6 @@ public class FileOptUtils {
 			e.printStackTrace();
 			return "false";
 		}
-
 	}
-
+	
 }

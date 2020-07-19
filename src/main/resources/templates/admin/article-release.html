@@ -204,6 +204,12 @@
 	
 	/* 判断选择的图片是否符合要求 */
 	function checkPic() {
+		//判断是否选择文件
+		var path = $("[name='picFile']").val();
+		if (path == "") {
+			alert("请选择首图...");
+		}
+		
 		//判断文件大小
         var size = $("[name='picFile']")[0].files[0].size / 1024;
         if(size > 5120){
@@ -211,7 +217,6 @@
            return false;
         }
 		//判断文件后缀
-		var path = $("[name='picFile']").val();
 	    extStart = path.lastIndexOf('.'),
         ext = path.substring(extStart,path.length).toUpperCase();
         if('.PNG' !== ext && '.JPG' !== ext && '.JPEG' !== ext){

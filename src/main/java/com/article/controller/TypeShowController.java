@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.article.dto.ArticleTypeTagDTO;
 import com.article.dto.TypeArticleNumDTO;
+import com.article.entity.Tool;
 import com.article.service.ArticleService;
+import com.article.service.ToolService;
 import com.article.service.TypeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +32,9 @@ public class TypeShowController {
 	private TypeService typeService;
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private ToolService toolService;
+
 	
 	//分类页展示的文章数量
 	@Value("${types.pageArticleSize}")
@@ -61,11 +66,13 @@ public class TypeShowController {
 		List<ArticleTypeTagDTO> articleTypeTagDTO = articleService.listTypeArticleByTypeId(id);
 		
 		PageInfo<ArticleTypeTagDTO> pageInfo = new PageInfo<>(articleTypeTagDTO);
+		List<Tool> tools = toolService.list();
 		
 		model.addAttribute("typeCnt", typeCnt);
 		model.addAttribute("types", types);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("activeTypeId", id);
+		model.addAttribute("tools", tools);
 		return "types";
 	}
 }

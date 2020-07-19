@@ -24,7 +24,6 @@ public class Oneword implements Serializable{
 	
 	private Long id;
 	
-	@NotBlank(message = "请输入图片地址")
 	@Length(max = 255,message = "图片地址长度不能超过255个字符")
 	private String picture;
 	

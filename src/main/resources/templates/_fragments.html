@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="/lib/editormd/css/editormd.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/my.css">
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css"> 
-<link rel="stylesheet" type="text/css" href="/css/music.css">
 <link rel="stylesheet" type="text/css" href="/css/timeline.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 <link rel="icon" href="/images/logo.png" type="image/x-icon">
@@ -29,7 +28,7 @@
                     <a th:href="@{/friendslink}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="child icon"></i>友人链</a>
                     <a th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="info icon"></i>关于本站</a>
                     <!-- 工具 -->
-                    <div class="ui dropdown m-item item m-tool m-mobile-hide" th:classappend="${n!=1} ? 'm-hide'">
+                    <div class="ui dropdown m-item item m-tool m-mobile-hide">
                         <span>工具</span>
                         <i class="dropdown icon"></i>
                         <div class="menu" style="background-color: #171d28;">
@@ -47,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#" class="ui black icon button m-right-top m-mobile-show m-menuToggle"><i class="sidebar icon"></i></a>
+            <a href="#" class="ui black icon button m-right-top m-mobile-show m-menuToggle m-margin-top-tiny1"><i class="sidebar large icon"></i></a>
         </nav>
     </div>
     <!--底部-->
@@ -85,7 +84,7 @@
             <div class="ui section divider inverted" style="margin-top: 5px;"></div>
             <!-- 备案号 -->
             <div style="margin-top: -18px;">
-                <p class="m-text-thin m-text-spaced m-opacity-tiny">备案号：闽ICP备15012807号-1</p>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">备案号：暂无</p>
             </div>
         </div>
     </footer>

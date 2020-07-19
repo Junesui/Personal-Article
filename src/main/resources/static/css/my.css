@@ -141,6 +141,10 @@ body {
 	margin: 1em 0.8em !important;
 }
 
+.m-margin-top-tiny {
+	margin-top: 10px !important;
+}
+
 .m-margin-top-mini {
 	margin-top: 3px !important;
 }

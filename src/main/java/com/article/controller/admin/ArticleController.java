@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.article.constant.PictureTypeConst;
 import com.article.dto.ArticleQueryDTO;
 import com.article.dto.ArticleTypeTagDTO;
 import com.article.entity.Tag;
@@ -128,7 +129,7 @@ public class ArticleController {
 			return "redirect:/1120/articles/add";
 		} else {
 			//上传图片
-			String childPath = FileOptUtils.upload(file, basePath, "userId" + user.getId() + "/article");
+			String childPath = FileOptUtils.upload(file, basePath, "userId" + user.getId() + PictureTypeConst.articleDir);
 			if ("false".equals(childPath)) {
 				attributes.addFlashAttribute("upFailMsg", "图片上传失败");
 				return "redirect:/1120/articles/add";

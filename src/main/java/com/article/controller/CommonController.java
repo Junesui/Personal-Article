@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.article.util.FileOptUtils;
 
 /**
- * 全局公用控制器
+ * 全局共用控制器
  * @author June
  * @date 2020/07/16
  * @version V1.0

@@ -43,12 +43,12 @@
                     </div>
                     <!--联系方式-->
                     <div class="ui bottom attached segment">
-                        <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
-                        <a href="#" class="ui circular icon button wechat"><i class="weixin icon"></i></a>
-                        <a href="#" class="ui circular icon button"><i class="qq icon"></i></a>
+                        <a href="javascript:void(0)" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="javascript:void(0)" class="ui circular icon button wechat"><i class="weixin icon"></i></a>
+                        <a href="javascript:void(0)" class="ui circular icon button"><i class="qq icon"></i></a>
                     </div>
                     <div class="ui flowing popup top left transition hidden wechat-qr">
-                        <img alt="" src="/images/avatar.png" class="ui rounded image small">
+                        <img src="/images/avatar.png" class="ui rounded image small">
                     </div>
                 </div>
             </div>
@@ -62,13 +62,25 @@
     <!--/*/ <th:block th:replace="_fragments :: script"> /*/-->
     <!--/*/ </th:block> /*/-->
     <script>
+    	/* github */
+        $('.github').popup({
+    		on : 'click',
+    	    position : 'bottom center',
+    	    target   : '.github',
+    	    content  : '暂未开放'
+    	  });
+    	
+        /* qq */
     	$('.qq').popup({
+    		on : 'click',
     	    position : 'bottom center',
     	    target   : '.qq',
     	    content  : '123456'
     	  });
     	
+    	/* wechat */
     	$('.wechat').popup({
+    		 on : 'click',
     		 popup : $('.wechat-qr'),
     		 position : 'bottom center'
     	});

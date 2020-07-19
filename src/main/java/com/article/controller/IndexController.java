@@ -117,12 +117,14 @@ public class IndexController {
 	public String toArticle(@PathVariable("id") Long id, Model model) {
 		ArticleTypeTagDTO articleTypeTagDTO = articleService.findAndConvertById(id);
 		List<Tag> tags = tagService.listByArticleId(id);
-
+		List<Tool> tools = toolService.list();
+		
 		//增加文章访问次数
 		articleService.incViewCntById(id);
 
 		model.addAttribute("articleTypeTagDTO", articleTypeTagDTO);
 		model.addAttribute("tags", tags);
+		model.addAttribute("tools", tools);
 		return "article";
 	}
 
@@ -135,17 +137,17 @@ public class IndexController {
 	 * @return 搜索结果页面
 	 */
 	@PostMapping("/search")
-	public String search(@RequestParam(name = "page", defaultValue = "1") Integer page,
-			             @RequestParam(name = "size", defaultValue = "10") Integer size, 
-			             @RequestParam String query, Model model) {
-		size = pageArticleSize;
-		//分页
-		PageHelper.startPage(page, size);
+	public String search(@RequestParam String query, Model model) {
+		
+		//查询
 		List<ArticleTypeTagDTO> articleTypeTagDTOs = articleService.listByQuery(query);
 		
 		PageInfo<ArticleTypeTagDTO> pageInfo = new PageInfo<>(articleTypeTagDTOs);
+		List<Tool> tools = toolService.list();
+		
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("query", query);
+		model.addAttribute("tools", tools);
 		return "search";
 	}
 	
