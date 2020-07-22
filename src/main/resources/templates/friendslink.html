@@ -177,7 +177,7 @@
                     <div id="message-form" class="ui form messageInfo-form">
                         <input type="hidden" name="parentId" value="-1">
                         <div class="field">
-                            <textarea name="content" placeholder="请输入留言信息....." autocomplete="off"></textarea>                    
+                            <textarea name="content" placeholder="请输入留言内容(100字符之内)....." maxlength="100" autocomplete="off"></textarea>                    
                         </div>
                         <div class="fields">
                             <div class="field m-mobile-wide m-margin-bottom-small">
@@ -271,6 +271,13 @@
 				rules : [ {
 					type : 'empty',
 					prompt : '请输入留言内容'
+				} ]
+			},
+			content : {
+				identifier : 'content',
+				rules : [ {
+					type : 'maxLength[100]',
+					prompt : '最多只能输入100个字符'
 				} ]
 			},
 			email : {

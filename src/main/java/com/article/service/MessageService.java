@@ -13,10 +13,19 @@ import com.article.entity.Message;
  */
 public interface MessageService {
 
-	//获取留言
+	//获取留言相关信息
 	List<MessageExtDTO> listMessage();
 
 	//保存留言
 	void save(Message message);
+
+	//获取留言
+	List<Message> list();
+
+	//通过内容搜索留言
+	List<Message> listBySearch(String content);
+
+	//通过留言id删除留言
+	void deleteById(Long id);
 
 }

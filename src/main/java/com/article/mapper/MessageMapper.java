@@ -26,4 +26,10 @@ public interface MessageMapper {
 
 	Integer count();
 
+	List<Message> list();
+
+	List<Message> listBySearch(String content);
+
+	void deleteById(Long id);
+
 }

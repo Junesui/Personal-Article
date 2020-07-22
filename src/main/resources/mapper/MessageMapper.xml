@@ -8,7 +8,12 @@
 		select count(*) from message where parent_id is null and is_deleted is not true
 	</select>
 
-	<!-- 列出留言 -->
+	<!-- 获取留言 -->
+	<select id="list" resultType="message">
+		select m.id,m.content from message m where parent_id is null and is_deleted is not true order by create_time desc
+	</select>
+
+	<!-- 获取留言相关信息 -->
 	<select id="listMessage" resultType="com.article.dto.MessageExtDTO">
 		select * from message where is_deleted is not true and parent_id is null order by create_time desc
 	</select>
@@ -16,6 +21,17 @@
 	<!-- 找到留言的回复 -->
 	<select id="listReplyMessagesByParentId" parameterType="long" resultType="com.article.dto.MessageExtDTO">
 		select * from message where parent_id = #{parentId}
+	</select>
+	
+	<!-- 通过留言内容搜索留言 -->
+	<select id="listBySearch" parameterType="string" resultType="message">
+		select m.id,m.content from message m 
+		<where>
+			<if test="content != '' and content != null">
+				and m.content like concat("%",#{content},"%")
+			</if>
+		</where>
+		and m.parent_id is null and m.is_deleted is not true order by create_time desc
 	</select>
 	
 	<!-- 增加留言的回复数量 -->
@@ -29,5 +45,9 @@
 					values (#{nickname},#{email},#{avatar},#{content},#{createTime},#{parentId},#{isManager},#{replyCount})
 	</insert>
 	
+	<!-- 通过留言id删除留言  -->
+	<delete id="deleteById" parameterType="long">
+		update message set is_deleted = true where id = #{id}
+	</delete>
 	
 </mapper>

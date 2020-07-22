@@ -89,5 +89,19 @@ public class MessageServiceImpl implements MessageService{
 		messageMapper.save(message);
 	}
 
+	@Override
+	public List<Message> list() {
+		return messageMapper.list();
+	}
+
+	@Override
+	public List<Message> listBySearch(String content) {
+		return messageMapper.listBySearch(content);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		messageMapper.deleteById(id);
+	}
 	
 }

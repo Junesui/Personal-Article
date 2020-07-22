@@ -28,7 +28,7 @@ body {
 .m-indexUpBtn {
 	transform: rotate(-90deg) !important;
 	font-size: 40px !important;
-	color: #e9ecf1 !important;
+	color: teal !important;
 	font-weight: 1000 !important;
 }
 
@@ -227,14 +227,6 @@ body {
 	line-height: 1.8 !important;
 }
 
-.m-opacity-mini {
-	opacity: 0.8 !important;
-}
-
-.m-opacity-tiny {
-	opacity: 0.6 !important;
-}
-
 /*---display--- */
 .m-inline-block {
 	display: inline-block !important;
@@ -264,6 +256,10 @@ body {
 /*---opacity--- */
 .m-opacity{
 	opacity: 0.7 !important;
+}
+
+.m-opacity-mini {
+	opacity: 0.4 !important;
 }
 
 /*---shadow--- */

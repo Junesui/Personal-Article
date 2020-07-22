@@ -85,7 +85,7 @@
                                                 <i class="eye icon"></i>
                                                 <span th:text="${article.viewCount}">浏览数</span>
                                             </div>
-                                            <div class="item">
+                                            <div class="item" th:classappend="!${article.isCommented} ? 'm-opacity-mini'">
                                                 <i class="comment outline icon"></i>
                                                 <span th:text="${article.commentCount}">评论数</span>
                                             </div>
