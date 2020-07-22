@@ -43,7 +43,7 @@
             <table th:fragment="onewordList" class="ui striped center aligned table" id="table-container">
                 <thead>
                     <tr>
-                        <th class="one wide"></th>
+                        <th ></th>
                         <th class="three wide">图片地址</th>
                         <th class="seven wide">内容</th>
                         <th class="two wide">状态</th>
@@ -64,7 +64,7 @@
                 </tbody>
                 <tfoot>
                      <tr>
-                        <th colspan="4">
+                        <th colspan="5">
                             <div class="ui mini pagination menu" th:if="${pageInfo.pages} > 1">
                                 <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}-1" class="item" th:if="${pageInfo.hasPreviousPage}">上一页</a>
                                 <a onclick="page(this)" th:attr="data-page=${pageInfo.pageNum}+1" class="item" th:if="${pageInfo.hasNextPage}">下一页</a>
