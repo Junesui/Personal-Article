@@ -55,7 +55,7 @@ public class MessageController {
 		
 		PageInfo<Message> pageInfo = new PageInfo<>(messages);
 		model.addAttribute("pageInfo", pageInfo);
-		return "/admin/message";
+		return "admin/message";
 	}
 	
 	/**

@@ -113,7 +113,6 @@ public class ArticleController {
 	@PostMapping("/articles")
 	public String post(@RequestParam("picFile") MultipartFile file, @Validated ArticleTypeTagDTO articleTypeTagDTO,
 			BindingResult result, HttpSession session, RedirectAttributes attributes) {
-
 		//字段验证
 		if (result.hasErrors()) {
 			return "admin/article-release";
