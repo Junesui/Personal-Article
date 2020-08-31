@@ -1,12 +1,19 @@
 package com.article.controller.admin;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +29,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.article.constant.PictureTypeConst;
 import com.article.dto.ArticleQueryDTO;
 import com.article.dto.ArticleTypeTagDTO;
+import com.article.dto.UserDTO;
 import com.article.entity.Tag;
 import com.article.entity.User;
 import com.article.service.ArticleService;
 import com.article.service.TagService;
 import com.article.service.TypeService;
+import com.article.service.UserService;
 import com.article.util.FileOptUtils;
 import com.article.util.StringAndListConvertUtils;
 import com.github.pagehelper.PageHelper;
@@ -48,6 +57,8 @@ public class ArticleController {
 	private TypeService typeService;
 	@Autowired
 	private TagService tagService;
+	@Autowired
+	private UserService userService;
 
 
 	//文章后台管理每页展示的文章数量
@@ -65,7 +76,31 @@ public class ArticleController {
 	 * @return 后台首页
 	 */
 	@GetMapping("/index")
-	public String toIndex() {
+	public String toIndex(HttpServletRequest request,HttpServletResponse response,Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		//获取登录用户信息
+		UserDTO user = (UserDTO) authentication.getPrincipal();
+
+		//清空密码
+		user.setPassword(null);
+		//存cookie
+		String token = UUID.randomUUID().toString();
+		userService.updateTokenById(token, user.getId());
+		Cookie cookie = new Cookie("token", token);
+		cookie.setMaxAge(24 * 60 * 60);
+		response.addCookie(cookie);
+		//存session
+		request.getSession().setAttribute("user", user);
+		
+		
+		//查询最后一次登录时间
+		Date lastLoginTime = user.getLastLoginTime();
+		model.addAttribute("lastLoginTime", lastLoginTime);
+		//更新最后一次登陆时间为现在的时间
+		userService.updateLastLoginTimeById(user.getId());
+		
 		return "admin/index";
 	}
 

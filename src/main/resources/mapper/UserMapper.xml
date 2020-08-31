@@ -8,9 +8,15 @@
 		select * from user where token = #{token}
 	</select>
 	
-	<!-- 通过用户名和密码查找用户 -->
-	<select id="findByUsernameAndPassword" parameterType="string" resultType="user">
-		select * from user where username = #{username} and password = #{password}
+	<!-- 通过用户名查找用户 -->
+	<select id="findByUsername" parameterType="string" resultType="com.article.dto.UserDTO">
+		select * from user where username = #{username}
+	</select>
+	
+	<!-- 通过用户id查找用户权限 -->
+	<select id="listPermissionByUserId" parameterType="long" resultType="Permission">
+	SELECT * from permission where id in (SELECT permission_id from role_permission where role_id in (
+	SELECT role_id from user_role where user_id = #{id}))
 	</select>
 	
 	<!-- 通过id更新token -->

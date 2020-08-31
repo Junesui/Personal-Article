@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/7/1 21:19:29                            */
+/* Created on:     2020/8/29 17:17:09                           */
 /*==============================================================*/
 
 
@@ -18,6 +18,12 @@ drop table if exists message;
 
 drop table if exists oneword;
 
+drop table if exists permission;
+
+drop table if exists role;
+
+drop table if exists role_permission;
+
 drop table if exists siteinfo;
 
 drop table if exists tag;
@@ -27,6 +33,8 @@ drop table if exists tool;
 drop table if exists type;
 
 drop table if exists user;
+
+drop table if exists user_role;
 
 /*==============================================================*/
 /* Table: article                                               */
@@ -198,6 +206,61 @@ create table oneword
 alter table oneword comment '每日一句话';
 
 /*==============================================================*/
+/* Table: permission                                            */
+/*==============================================================*/
+create table permission
+(
+   id                   int not null auto_increment,
+   name                 varchar(10) not null comment '权限名称',
+   create_time          datetime not null comment '创建时间',
+   update_time          datetime not null comment '更新时间',
+   description          varchar(255) comment '权限描述',
+   reserve1             varchar(255) comment '预留字段1',
+   reserve2             varchar(255) comment '预留字段2',
+   reserve3             int comment '预留字段3',
+   reserve4             int comment '预留字段4',
+   primary key (id)
+);
+
+alter table permission comment '权限表';
+
+/*==============================================================*/
+/* Table: role                                                  */
+/*==============================================================*/
+create table role
+(
+   id                   int not null auto_increment,
+   name                 varchar(10) not null comment '角色名称',
+   create_time          datetime not null comment '创建时间',
+   update_time          datetime not null comment '更新时间',
+   description          varchar(255) comment '角色描述',
+   reserve1             varchar(255) comment '预留字段1',
+   reserve2             varchar(255) comment '预留字段2',
+   reserve3             int comment '预留字段3',
+   reserve4             int comment '预留字段4',
+   primary key (id)
+);
+
+alter table role comment '角色表';
+
+/*==============================================================*/
+/* Table: role_permission                                       */
+/*==============================================================*/
+create table role_permission
+(
+   id                   bigint not null,
+   role_id              int not null comment '角色id',
+   permission_id        int not null comment '权限id',
+   reserve1             varchar(255) comment '预留字段1',
+   reserve2             varchar(255) comment '预留字段2',
+   reserve3             int comment '预留字段3',
+   reserve4             int comment '预留字段4',
+   primary key (id)
+);
+
+alter table role_permission comment '角色权限表';
+
+/*==============================================================*/
 /* Table: siteinfo                                              */
 /*==============================================================*/
 create table siteinfo
@@ -276,7 +339,7 @@ alter table type comment '分类';
 /*==============================================================*/
 create table user
 (
-   id                   bigint not null auto_increment,
+   id                   bigint not null,
    nickname             varchar(30) comment '昵称',
    username             varchar(30) comment '用户名',
    password             varchar(255) comment '密码',
@@ -299,6 +362,23 @@ create table user
 
 alter table user comment '用户';
 
+/*==============================================================*/
+/* Table: user_role                                             */
+/*==============================================================*/
+create table user_role
+(
+   id                   bigint not null,
+   user_id              bigint not null comment '用户id',
+   role_id              int not null comment '角色id',
+   reserve1             varchar(255) comment '预留字段1',
+   reserve2             varchar(255) comment '预留字段2',
+   reserve3             int comment '预留字段3',
+   reserve4             int comment '预留字段4',
+   primary key (id)
+);
+
+alter table user_role comment '用户角色表';
+
 alter table article add constraint FK_article_fk_type_id foreign key (type_id)
       references type (id) on delete restrict on update restrict;
 
@@ -313,4 +393,16 @@ alter table article_tag add constraint FK_article_tag_fk_tag_id foreign key (tag
 
 alter table comment add constraint FK_comment_fk_article_id foreign key (article_id)
       references article (id) on delete restrict on update restrict;
+
+alter table role_permission add constraint FK_role_permission_fk_permission_id foreign key (permission_id)
+      references permission (id) on delete restrict on update restrict;
+
+alter table role_permission add constraint FK_role_permission_fk_role_id foreign key (role_id)
+      references role (id) on delete restrict on update restrict;
+
+alter table user_role add constraint FK_user_role_fk_role_id foreign key (role_id)
+      references role (id) on delete restrict on update restrict;
+
+alter table user_role add constraint FK_user_role_fk_user_id foreign key (user_id)
+      references user (id) on delete restrict on update restrict;
 
