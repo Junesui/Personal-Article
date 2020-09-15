@@ -169,5 +169,18 @@ public class IndexController {
 		feedbackService.save(feedback);
 		return new Feedback();
 	}
+	
+	
+	/**
+	 * 根据文章id增加赞的数量
+	 * @param articleId 文章id
+	 * @return 文章的评论列表片段
+	 */
+	@ResponseBody
+	@GetMapping("/incArticleLikeCnt")
+	public Object incLikeCntByArticleId(Long articleId) {
+		articleService.incLikeCntByArticleId(articleId);
+		return null;
+	}
 
 }

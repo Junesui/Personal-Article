@@ -71,23 +71,34 @@
                                     <!-- 文章作者信息，更新时间，查看数和评论数 -->
                                     <div class="eleven wide column">
                                         <div class="ui mini horizontal link list">
+                                            <!-- 用户名 -->
                                             <div class="item">
                                                 <img class="ui avatar image" th:src="@{|/show/${article.userAvatar}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;">
                                                 <div class="content">
                                                     <a href="javascript:void(0);" class="header" th:text="${article.userNickname}">June</a>
                                                 </div>
                                             </div>
+                                            <!-- 发布时间-->
                                             <div class="item">
                                                 <i class="calendar icon"></i>
                                                 <span th:text="${#dates.format(article.updateTime, 'yyyy-MM-dd')}">2020-02-02</span>
                                             </div>
+                                            <!-- 浏览数 -->
                                             <div class="item">
                                                 <i class="eye icon"></i>
                                                 <span th:text="${article.viewCount}">浏览数</span>
                                             </div>
+                                            <!-- 评论数-->
                                             <div class="item" th:classappend="!${article.isCommented} ? 'm-opacity-mini'">
                                                 <i class="comment outline icon"></i>
                                                 <span th:text="${article.commentCount}">评论数</span>
+                                            </div>
+                                            <!-- 点赞数 -->
+                                            <div class="item">
+                                                <a onclick="incLikeCnt(this)" th:attr="data-articleid=${article.id}">
+                                                    <i class="m-commentIcon large thumbs up outline icon" th:id="${'likeIcon-'+article.id}"></i>
+                                                    <span th:id="${'likeCnt-container-'+article.id}" th:text="${article.likeCount}">文章点赞数量</span>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -176,6 +187,32 @@
     <!--/*/ </th:block> /*/-->
 
 <script>
+    /* 增加点赞的数量 */
+    function incLikeCnt(obj){
+    	// 获取点赞的图标 
+    	var articleId = $(obj).data('articleid');
+    	var likeBtn = $('#likeIcon-' + articleId);
+    	//获取放点赞数量的元素
+    	var likeCntContainerId = $('#likeCnt-container-' + articleId);
+    	
+    	// 如果没有类'm-red',则可以进行点赞
+    	if(!likeBtn.hasClass("m-red")) {
+    		// 发送ajax请求 
+    		$.get({
+        		url : '/incArticleLikeCnt',
+        		data : {
+        			"articleId" : $(obj).data('articleid')
+        		},
+        		success : function(data){
+        			var add =parseInt(likeCntContainerId.html()) + 1;
+        			// 点赞数加1后，重新赋值 
+            	    likeCntContainerId.html(add);
+        			// 点赞后，,添加类'm-red'，修改为点赞图标为红色 
+        			likeBtn.addClass("m-red");
+        		}
+        	})
+    	}
+    }
 
     /* 反馈遮罩层显示 */
     $('#feedback').click(function() {

@@ -17,6 +17,11 @@
 	<select id="findById" parameterType="long" resultType="article">
 		select * from article where id = #{id}
 	</select>
+	
+	<!-- 通过文章id查找文章点赞数 -->
+	<select id="findArticleLikeCntById" parameterType="long" resultType="article">
+		select like_count from article where id = #{articleId}
+	</select>
 
 	<!-- 搜索文章 -->
 	<select id="listBySearch" parameterType="com.article.dto.ArticleQueryDTO" resultType="com.article.dto.ArticleTypeTagDTO">
@@ -137,6 +142,11 @@
 	<!-- 通过文章id增加评论数 -->
 	<update id="incCommentCntById" parameterType="long">
 		update article set comment_count = comment_count + 1 where id = #{articleId}
+	</update>
+	
+	<!-- 更新文章点赞数 -->
+	<update id="updateLikeCnt" parameterType="article">
+		update article set like_count = #{likeCount} where id = #{id}
 	</update>
 	
 </mapper>

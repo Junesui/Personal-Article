@@ -19,6 +19,7 @@ import com.article.mapper.TagMapper;
 import com.article.service.ArticleService;
 import com.article.service.CommentService;
 import com.article.util.MarkdownUtils;
+import com.article.util.RedisUtil;
 import com.article.util.StringAndListConvertUtils;
 
 /**
@@ -36,12 +37,20 @@ public class ArticleServiceImpl implements ArticleService {
 	private TagMapper tagMapper;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private RedisUtil redisUtil;
 
 	//存放文章访问的数次数
 	private Long viewCnt = 0L;
 	//文章访问数量达到viewCntWrite次，再一次性写入数据库
 	@Value("${article.viewCntWrite}")
 	private Long viewCntWrite;
+	//redis中存文章点赞数的key名
+	@Value("${article.likeCount.key}")
+	private String articleLikeCountKey;
+	//redis中存文章点赞数的field名 ["articleId-" + 文章id]
+	@Value("${article.likeCount.field}")
+	private String articleLikeCountField;
 
 	@Override
 	public List<ArticleTypeTagDTO> listArticleAndType() {
@@ -62,6 +71,8 @@ public class ArticleServiceImpl implements ArticleService {
 			dto.setUpdateTime(new Date(System.currentTimeMillis()));
 			dto.setViewCount(0);
 			dto.setCommentCount(0);
+			//初始化redis缓存数据库中的点赞数
+			redisUtil.hPut("article", "likeCount" + articleId, Integer.toString(0));
 			//插入文章
 			articleMapper.save(dto);
 			//插入article_tag中间表
@@ -109,7 +120,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleTypeTagDTO> listShowArticle() {
-		return articleMapper.listShowArticle();
+		List<ArticleTypeTagDTO> articles = articleMapper.listShowArticle();
+		for (ArticleTypeTagDTO article : articles) {
+			Object likeCount = redisUtil.hGet(articleLikeCountKey, articleLikeCountField + article.getId());
+			article.setLikeCount((Integer) likeCount);
+		}
+		return articles;
 	}
 
 	@Override
@@ -156,6 +172,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Article> listTopRecommendArticle() {
 		return articleMapper.listTopRecommendArticle();
+	}
+
+	@Override
+	public void incLikeCntByArticleId(Long articleId) {
+		redisUtil.hIncrBy(articleLikeCountKey, articleLikeCountField + articleId, 1);
 	}
 
 }

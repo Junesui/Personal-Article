@@ -85,5 +85,4 @@ public class CommentController {
 		return "forward:/comments/" + commentId;
 	}
 	
-	
 }

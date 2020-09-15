@@ -83,14 +83,14 @@ public class ArticleController {
 		//获取登录用户信息
 		UserDTO user = (UserDTO) authentication.getPrincipal();
 
-		//清空密码
+		/*//清空密码
 		user.setPassword(null);
 		//存cookie
 		String token = UUID.randomUUID().toString();
 		userService.updateTokenById(token, user.getId());
 		Cookie cookie = new Cookie("token", token);
-		cookie.setMaxAge(24 * 60 * 60);
-		response.addCookie(cookie);
+		cookie.setMaxAge(7 * 24 * 60 * 60);
+		response.addCookie(cookie);*/
 		//存session
 		request.getSession().setAttribute("user", user);
 		

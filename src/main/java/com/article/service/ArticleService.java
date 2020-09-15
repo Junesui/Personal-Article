@@ -53,4 +53,7 @@ public interface ArticleService {
 	//列出首页展示的推荐文章
 	public List<Article> listTopRecommendArticle();
 
+	//根据文章id增加赞的数量
+	public void incLikeCntByArticleId(Long articleId);
+
 }

@@ -52,4 +52,9 @@ public interface ArticleMapper {
 	Integer countShow();
 
 	List<Article> listTopRecommendArticle();
+
+	Article findArticleLikeCntById(Long articleId);
+
+	void updateLikeCnt(Article article);
+
 }
