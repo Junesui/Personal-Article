@@ -19,7 +19,7 @@ public interface ArticleMapper {
 
 	List<ArticleTypeTagDTO> listArticleAndType();
 
-	Long save(ArticleTypeTagDTO dto);
+	void save(ArticleTypeTagDTO dto);
 
 	Article findById(Long id);
 

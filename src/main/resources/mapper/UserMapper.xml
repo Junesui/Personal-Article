@@ -3,6 +3,11 @@
 
 <mapper namespace="com.article.mapper.UserMapper">
 	
+	<!-- 通过id查找用户 -->
+	<select id="findById" parameterType="long" resultType="user">
+		select * from user where id = #{id}
+	</select>
+	
 	<!-- 通过token查找用户 -->
 	<select id="findByToken" parameterType="string" resultType="user">
 		select * from user where token = #{token}

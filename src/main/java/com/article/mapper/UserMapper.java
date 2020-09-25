@@ -17,6 +17,8 @@ import com.article.entity.User;
 @Mapper
 public interface UserMapper {
 
+	User findById(Long id);
+	
 	User findByToken(String token);
 
 	void updateTokenById(String token, Long id);

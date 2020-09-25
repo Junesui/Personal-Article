@@ -135,8 +135,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
-
-
+		<!-- json转换 -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.73</version>
+		</dependency>
+		<!-- ElasticSearch -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -153,6 +163,7 @@
 	<!-- 修改jdk版本 -->
 	<properties>
 		<java.version>1.8</java.version>
+		<elasticsearch.version>7.9.1</elasticsearch.version>
 	</properties>
 
 	<build>

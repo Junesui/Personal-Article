@@ -39,7 +39,7 @@
                 <a class="m-recomment-outer" th:href="@{/article/{id}(id=${article.id})}" target="_blank">
                     <img th:src="@{|/show/${article.firstPicture}|}" onerror="javascript:this.src='https://picsum.photos/id/182/650/400';this.onerror=null;" class="ui rounded image">
                     <span class="m-recomment-inner">
-                        <h4 class="m-margin-tb-tiny m-recommend-font" th:text="${article.title}">文章标题</h4>
+                        <span class="m-margin-tb-tiny m-recommend-font" th:text="${article.title}">文章标题</span>
                     </span>
                 </a>
             </div>

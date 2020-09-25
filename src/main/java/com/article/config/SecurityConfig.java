@@ -70,15 +70,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/1120/login") //自定义登录form的action名字。
 				.defaultSuccessUrl("/1120/index", true) //登陆成功后跳转的url
 				.and()
-				.exceptionHandling().accessDeniedPage("/403")
+				.exceptionHandling().accessDeniedPage("/403") //权限不足跳转的URL
 				.and()
 				.logout()
 				.logoutUrl("/1120/logout") //自定义注销的url
 				.logoutSuccessUrl("/1120/myLogout") //注销成功后跳转的url
 				.and()
+				.sessionManagement().invalidSessionUrl("/") //session失效跳转的url
+				.and()
 				.rememberMe()
 				.tokenRepository(persistentTokenRepository()) // 配置数据库源
-				.tokenValiditySeconds(tokenValiditySeconds)
+				.tokenValiditySeconds(tokenValiditySeconds) //token过期时间
 				.userDetailsService(userDetailsService)
 				.and()
 				.csrf().disable();
