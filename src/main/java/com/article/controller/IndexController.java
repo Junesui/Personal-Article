@@ -155,8 +155,6 @@ public class IndexController {
 
 	/**
 	 * 搜索文章
-	 * @param page 页码
-	 * @param size 每页文章的数量
 	 * @param query 搜索关键字
 	 * @param model
 	 * @return 搜索结果页面

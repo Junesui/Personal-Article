@@ -86,7 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
 			
 			Long id = dto.getId();
 			//初始化redis缓存数据库中的点赞数
-			redisUtil.hPut("article", "likeCount" + id, Integer.toString(0));
+			redisUtil.hPut(articleLikeCountKey, articleLikeCountField + id, Integer.toString(0));
 			
 			//往ElasticSearch中插入查询时候搜索的字段内容【插入标题和描述】
 			esOptUtils.insert(dto);
@@ -137,7 +137,9 @@ public class ArticleServiceImpl implements ArticleService {
 		List<ArticleTypeTagDTO> articles = articleMapper.listShowArticle();
 		for (ArticleTypeTagDTO article : articles) {
 			Object likeCount = redisUtil.hGet(articleLikeCountKey, articleLikeCountField + article.getId());
-			article.setLikeCount((Integer) likeCount);
+			if (likeCount != null) {
+				article.setLikeCount(Integer.parseInt(likeCount.toString()));
+			}
 		}
 		return articles;
 	}

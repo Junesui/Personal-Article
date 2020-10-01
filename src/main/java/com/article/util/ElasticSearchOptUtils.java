@@ -36,7 +36,6 @@ public class ElasticSearchOptUtils {
 	private UserMapper userMapper;
 	@Autowired
 	private ArticleMapper articleMapper;
-	
 
 	//ElasticSearch中文章的索引名
 	@Value("${es.indexName}")
@@ -82,12 +81,6 @@ public class ElasticSearchOptUtils {
 	public void update(ArticleTypeTagDTO dto, Long id) {
 
 		UpdateRequest updateRequest = new UpdateRequest(esIndexName, Long.toString(id));
-
-		//构建对象
-		/*Article esArticle = new Article();
-		esArticle.setFirstPicture(dto.getFirstPicture());
-		esArticle.setTitle(dto.getTitle());
-		esArticle.setDescription(dto.getDescription());*/
 
 		updateRequest.doc(JSON.toJSONString(dto), XContentType.JSON);
 
